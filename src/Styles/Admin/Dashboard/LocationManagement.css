@@ -1,0 +1,330 @@
+/* Container */
+.location_container {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.location_header_row {
+  display: flex;
+  align-items: center;
+  gap: 350px;
+  margin-bottom: 16px;
+}
+
+.location_back_button {
+  background-color: #eee;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.location_back_button:hover {
+  background-color: #ddd;
+}
+
+.location_title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Row for all cards */
+.location_sections_row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+  justify-content: center;
+}
+
+/* Individual card */
+.location_card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  flex: 1 1 320px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Card title */
+.location_subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Input/select/button row */
+.location_form_row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* Input/select fields */
+.location_form_row input,
+.location_form_row select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button */
+.location_form_row .location_button {
+  padding: 8px 16px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.location_form_row .location_button:hover {
+  background-color: #115293;
+}
+
+/* Input + error container */
+.location_form_row > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Error text */
+.location_error {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Status text */
+.location_status {
+  margin-top: 10px;
+  color: #555;
+}
+
+/* Table wrapper */
+.location_table_wrapper {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.location_table_scroll {
+  overflow-x: auto;
+}
+
+.location_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.location_table th,
+.location_table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.location_table th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+}
+
+/* Tabs */
+.location_tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.location_tabs button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.location_tabs button:hover {
+  background: #e0e0e0;
+}
+
+.location_tabs button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Action buttons */
+.location_action_btn {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: color 0.2s;
+}
+
+.location_action_btn:hover {
+  color: #007bff;
+}
+
+.location_action_btn.delete:hover {
+  color: #dc3545;
+}
+
+/* Responsive layout adjustments */
+
+/* Fix overflow below 1000px */
+@media (max-width: 1000px) {
+  .location_sections_row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .location_card {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Tablets and smaller */
+@media (max-width: 768px) {
+  .location_form_row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .location_form_row input,
+  .location_form_row select,
+  .location_form_row .location_button {
+    width: 100%;
+  }
+}
+
+/* Large screens - desktops (1200px and above) */
+@media (min-width: 1200px) {
+  .location_sections_row {
+    gap: 24px;
+  }
+
+  .location_card {
+    min-width: 360px;
+  }
+
+  .location_form_row input,
+  .location_form_row select {
+    font-size: 15px;
+  }
+}
+
+/* Medium screens - tablets and small laptops (992px - 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+  .location_sections_row {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .location_card {
+    min-width: 300px;
+  }
+}
+
+/* Small screens - tablets and large phones (768px - 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+   .location_header_row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .location_sections_row {
+    flex-direction: column;
+  }
+
+  .location_card {
+    width: 100%;
+  }
+
+  .location_form_row input,
+  .location_form_row select {
+    font-size: 14px;
+  }
+}
+@media(width:540px) {
+   .location_header_row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+}
+/* Extra small screens - phones (< 480px) */
+@media (max-width: 480px) {
+  .location_container {
+    padding: 12px;
+  }
+
+  .location_header_row {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .location_title {
+    font-size: 1.2rem;
+  }
+
+  .location_card {
+    padding: 12px;
+    min-width: 100%;
+  }
+
+  .location_form_row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .location_form_row input,
+  .location_form_row select {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .location_form_row .location_button {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .location_tabs {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .location_tabs button {
+    width: 100%;
+  }
+
+  .location_table th,
+  .location_table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+}

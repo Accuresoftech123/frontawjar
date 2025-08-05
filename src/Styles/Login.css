@@ -1,0 +1,222 @@
+/* === Login Styles === */
+
+/* Page Container */
+.Login__container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f6f9;
+}
+
+/* ================= HEADER ================= */
+.Login__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+  flex-wrap: wrap;
+}
+
+.Login__logoContainer {
+  flex-shrink: 0;
+}
+
+.Login__logoContainer img {
+  width: 180px;
+  max-width: 100%;
+  min-width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* === Responsive Logo Size === */
+@media (max-width: 768px) {
+  .Login__logoContainer img {
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .Login__logoContainer img {
+    width: 120px;
+  }
+}
+
+/* Navigation */
+.Login__navLinks {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.Login__navLink {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  color: #555;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.Login__navLink:hover {
+  color: #0b4cad;
+  border-bottom: 4px solid #0b4cad;
+}
+
+.Login__navLink.active {
+  color: #0b4cad;
+  border-bottom: 4px solid #0b4cad;
+}
+
+/* ================= MAIN SECTION ================= */
+.Login__main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ================= LOGIN CARD ================= */
+.Login__card {
+  background-color: #fff;
+  padding: 35px 40px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+  text-align: center;
+}
+
+.Login__card h3 {
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #0d47a1;
+}
+
+/* ================= FORM ================= */
+.Login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: left;
+}
+
+/* Form Group */
+.Login__formGroup label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 100;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Input Field with Icon */
+.Login__inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.Login__inputIcon {
+  position: absolute;
+  left: 12px;
+  color: #5a5959;
+  font-size: 1.2rem;
+}
+
+.Login__input {
+  width: 100%;
+  padding: 10px 10px 10px 38px;
+  font-size: 14px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.Login__input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 5px #1976d2;
+}
+.Login__inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.Login__togglePassword {
+  position: absolute;
+  right: 10px;
+  color: #555;
+}
+.Login__forgotWrapper {
+  text-align: right;
+}
+
+.Login__forgotLink {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.Login__forgotLink:hover {
+  text-decoration: underline;
+}
+.Login__error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+/* ================= BUTTON ================= */
+.Login__btnPrimary {
+  background-color: #1976d2;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Login__btnPrimary:hover {
+  background-color: #0b4cad;
+}
+.Login-register {
+    text-align: center;
+}
+.Login-active {
+    color: #0b4cad;
+    text-decoration: none;
+}
+/* ================= RESPONSIVENESS ================= */
+@media (max-width: 600px) {
+  .Login__header {
+    padding: 10px 15px;
+  }
+
+  .Login__navLinks {
+    gap: 15px;
+  }
+
+  .Login__card {
+    padding: 25px 20px;
+  }
+
+  .Login__card h3 {
+    font-size: 1.5rem;
+  }
+
+  .Login__btnPrimary {
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}

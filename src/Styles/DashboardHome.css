@@ -1,0 +1,171 @@
+/* Container */
+.DashboardHome_layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.DashboardHome_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1000;
+}
+
+.DashboardHome_sidebar-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.DashboardHome_logo-container img {
+  height: 50px;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.DashboardHome_right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Body Layout */
+.DashboardHome_layout-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Sidebar */
+.DashboardHome_sidebar {
+  width: 240px;
+  background: #fff; /* teal-green gradient */
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+
+
+.DashboardHome_sidebar a.link,
+.DashboardHome_sidebar a.active-link,
+.DashboardHome_logout-button {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.DashboardHome_sidebar a.link:hover,
+.DashboardHome_sidebar a.active-link,
+.DashboardHome_logout-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.DashboardHome_sidebar a.active-link {
+  background-color: #e0f2f1;        /* Light teal/green background */
+  color: #00796b;                   /* Teal text */
+  border-right: 4px solid #00796b;  /* Teal border */
+  font-weight: 600;
+}
+.DashboardHome_sidebar a.link:hover {
+  background-color: #f0f0f0;
+}
+
+.DashboardHome_logout-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Main Content */
+.DashboardHome_main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f4f6f9;
+}
+
+/* Sidebar overlay for mobile */
+.DashboardHome_sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+  transition: width 0.3s ease;
+}
+
+.DashboardHome_sidebar-overlay.active {
+  width: 100%;
+}
+
+/* Hide sidebar on mobile initially */
+@media (max-width: 768px) {
+  .DashboardHome_sidebar {
+    position: fixed;
+    /* top: 0; */
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+
+  .DashboardHome_sidebar.active {
+    transform: translateX(0);
+  }
+
+  .DashboardHome_layout-body {
+    flex-direction: column;
+  }
+
+  .DashboardHome_main-content {
+    padding: 15px;
+  }
+
+  .DashboardHome_header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .DashboardHome_logo-container img {
+    height: 40px;
+  }
+
+  .DashboardHome_right-section {
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .DashboardHome_logout-button {
+    font-size: 14px;
+  }
+}
+/* Hide sidebar toggle button on large screens */
+@media (min-width: 769px) {
+  .DashboardHome_sidebar-toggle-btn {
+    display: none;
+  }
+}

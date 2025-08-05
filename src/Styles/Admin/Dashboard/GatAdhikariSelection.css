@@ -1,0 +1,59 @@
+.gatadhikari-selection-container {
+  padding: 20px;
+}
+
+.gatadhikari-selection-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.village-section {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.village-name {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.insufficient-message {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.gatadhikari-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gatadhikari-table th,
+.gatadhikari-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.submit-wrapper {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.submit-button {
+  padding: 10px 25px;
+  background-color: #2980b9;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #1c5980;
+}

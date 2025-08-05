@@ -1,0 +1,39 @@
+.gatadhikari-approvals-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.gatadhikari-approvals-title {
+  margin-bottom: 16px;
+  font-size: 24px;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.gatadhikari-approvals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gatadhikari-approvals-table th,
+.gatadhikari-approvals-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.gatadhikari-approvals-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.status-approved {
+  color: green;
+  font-weight: bold;
+}
+
+.status-rejected {
+  color: red;
+  font-weight: bold;
+}

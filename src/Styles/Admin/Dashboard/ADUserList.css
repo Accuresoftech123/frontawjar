@@ -1,0 +1,124 @@
+.aduserlist_container {
+  padding: 24px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.aduserlist_title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.aduserlist_controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.aduserlist_controls input {
+  padding: 10px 12px;
+  width: 280px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.aduserlist_controls input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.aduserlist_table_wrapper {
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+.aduserlist_table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.aduserlist_table th,
+.aduserlist_table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.aduserlist_table th {
+  background-color: #f0f4f8;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.aduserlist_table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Status badge */
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+}
+
+.badge.green {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge.yellow {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge.red {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.aduserlist_pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.aduserlist_pagination button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.aduserlist_pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.aduserlist_pagination span {
+  font-weight: 500;
+  color: #333;
+}

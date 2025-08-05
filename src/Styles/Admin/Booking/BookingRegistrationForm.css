@@ -1,0 +1,113 @@
+/* Container */
+.booking-form-container {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.location_header_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.location_back_button {
+  background-color: transparent;
+  border: none;
+  color: #3498db;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Grid Layout */
+.booking-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group.center {
+  align-items: center;
+}
+
+/* Label */
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #34495e;
+}
+
+/* Input, Select, Textarea */
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  background-color: #fff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Error Messages */
+.error {
+  font-size: 13px;
+  color: #e74c3c;
+  margin-top: 4px;
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #27ae60;
+}
+
+/* Radio group for user type */
+.user-type-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  grid-column: span 2;
+}
+
+.user-type-toggle label {
+  font-weight: 600;
+  color: #2c3e50;
+}
