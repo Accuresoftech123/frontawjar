@@ -24,6 +24,12 @@ const AdminDashboard = () => {
       path: "/Admin/Dashboard/Location",
     },
     {
+      title: "वाहन व्यवस्थापन",
+      description: "वाहन प्रकार जोडा,वाहन जोडा, संपादित करा किंवा हटवा",
+      icon: <FaTractor size={30} color="#f39c12" />,
+      path: "/Admin/Dashboard/Vehicle",
+    },
+    {
       title: "सभासद व्यवस्थापन",
       description: "सभासद नोंदणी, मंजूरी आणि यादी पहा",
       icon: <FaUsers size={30} color="#3498db" />,
@@ -46,12 +52,6 @@ const AdminDashboard = () => {
       description: "गट अधिकारी नेमणूक, सदस्य व्यवस्थापन आणि बुकिंग मंजूरी",
       icon: <FaUserTie size={30} color="#1abc9c" />,
       path: "/Admin/Dashboard/GatAdhikari",
-    },
-    {
-      title: "वाहन प्रकार व्यवस्थापन",
-      description: "वाहन प्रकार जोडा, संपादित करा किंवा हटवा",
-      icon: <FaTractor size={30} color="#f39c12" />,
-      path: "/Admin/Dashboard/vehicle-types",
     },
     {
     title: "बुकिंग व्यवस्थापन",

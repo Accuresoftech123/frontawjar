@@ -1,0 +1,140 @@
+.admin-registration-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+.admin-reg_header_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.admin-reg_header_row h2 {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+}
+
+.admin-reg_header_row button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.admin-reg_header_row button:hover {
+  background-color: #e0e0e0;
+}
+
+.admin-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-group small.error {
+  color: red;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.form-group button {
+  margin-top: 8px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-group button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.form-group button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.otp-section {
+  margin-top: 12px;
+}
+
+.otp-section label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.otp-section div {
+  display: flex;
+  gap: 10px;
+}
+
+.otp-section input {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.admin-registration-form > button {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #2ecc71;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.admin-registration-form > button:hover {
+  background-color: #27ae60;
+}
+
+@media screen and (max-width: 600px) {
+  .admin-registration-container {
+    padding: 20px 16px;
+  }
+
+  .otp-section input {
+    width: 36px;
+    height: 36px;
+  }
+}

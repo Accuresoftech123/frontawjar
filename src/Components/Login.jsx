@@ -6,15 +6,17 @@ import LockIcon from "@mui/icons-material/Lock";
 import logo from "../Assets/logo.png";
 import VisibilityOutlined from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlined from "@mui/icons-material/VisibilityOffOutlined";
+import { ALLLogin } from "../Helper/Actions";
+import { useDispatch } from "react-redux";
 
 const validateCredentials = (credentials) => {
   const errors = {
-    username: "",
+    email: "",
     password: "",
   };
 
-  const { username, password } = credentials;
-  const trimmedUsername = username.trim();
+  const { email, password } = credentials;
+  const trimmedemail = email.trim();
   const trimmedPassword = password.trim();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,13 +24,13 @@ const validateCredentials = (credentials) => {
   const strongPasswordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
 
-  if (!trimmedUsername) {
-    errors.username = "युजर नेम आवश्यक आहे";
+  if (!trimmedemail) {
+    errors.email = "युजर नेम आवश्यक आहे";
   } else if (
-    !emailRegex.test(trimmedUsername) &&
-    !phoneRegex.test(trimmedUsername)
+    !emailRegex.test(trimmedemail) &&
+    !phoneRegex.test(trimmedemail)
   ) {
-    errors.username = "कृपया बरोबर ईमेल किंवा मोबाईल क्रमांक प्रविष्ट करा";
+    errors.email = "कृपया बरोबर ईमेल किंवा मोबाईल क्रमांक प्रविष्ट करा";
   }
 
   if (!trimmedPassword) {
@@ -43,17 +45,18 @@ const validateCredentials = (credentials) => {
 
 const Login = () => {
   const { role } = useParams(); // Get role from URL
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isAdminLoginPage = location.pathname === "/Login/Admin";
   const [showPassword, setShowPassword] = useState(false);
   const [credentials, setCredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -73,23 +76,31 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validateCredentials(credentials);
-    setErrors(validationErrors);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  const validationErrors = validateCredentials(credentials);
+  setErrors(validationErrors);
 
-    const hasErrors = Object.values(validationErrors).some((msg) => msg !== "");
-    if (!hasErrors) {
-      const loginPayload = {
-        username: credentials.username,
-        password: credentials.password,
-        role: role.toLowerCase(),
-      };
-      console.log("Login Submitted:", loginPayload);
-      // dispatch(Login(loginPayload));
-      navigate(`/${role}/Dashboard`);
-    }
+  const hasErrors = Object.values(validationErrors).some((msg) => msg !== "");
+  if (hasErrors) return;
+
+  const loginPayload = {
+    email: credentials.email,
+    password: credentials.password,
+    role: role.toLowerCase(),
   };
+console.log(loginPayload);
+
+  const result = await dispatch(ALLLogin(loginPayload)); // ✅ use result
+
+  if (result.success) {
+    alert("Login Successfully!"); // ✅ show success
+    navigate(`/${role}/Dashboard`);
+  } else {
+    alert(result.error); // ✅ show actual backend error
+  }
+};
+
 
   const roleTitle = {
     Admin: "ऍडमिन",
@@ -133,25 +144,25 @@ const Login = () => {
           <h3>{roleTitle[role] || "लॉगिन"} लॉगिन</h3>
 
           <form className="Login__form" onSubmit={handleSubmit} noValidate>
-            {/* Username */}
+            {/* email */}
             <div className="Login__formGroup">
-              <label htmlFor="username">युजर नेम</label>
+              <label htmlFor="email">युजर नेम</label>
               <div className="Login__inputWrapper">
                 <LocalPostOfficeIcon className="Login__inputIcon" />
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  value={credentials.username}
+                  id="email"
+                  name="email"
+                  value={credentials.email}
                   onChange={handleChange}
                   className="Login__input"
-                  placeholder="ई-मेल/मोबाईल क्र. प्रविष्ट करा"
+                  placeholder="ई-मेल प्रविष्ट करा"
                   required
-                  autoComplete="username"
+                  autoComplete="email"
                 />
               </div>
-              {errors.username && (
-                <p className="Login__error">{errors.username}</p>
+              {errors.email && (
+                <p className="Login__error">{errors.email}</p>
               )}
             </div>
 

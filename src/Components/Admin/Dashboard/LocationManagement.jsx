@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import your API actions here
 import "../../../Styles/Admin/Dashboard/LocationManagement.css";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import {
+  createDistrict,
+  createTaluka,
+  createVillage,
+  getDistricts,
+  getTalukas,
+  getVillages,
+  updateDistrict,
+  updateTaluka,
+  updateVillage,
+  deleteDistrict,
+  deleteTaluka,
+  deleteVillage,
+} from "../../../Helper/AdminPanel/AdminActions";
+
 
 const LocationManagement = () => {
   const dispatch = useDispatch();
@@ -11,50 +25,58 @@ const LocationManagement = () => {
 
   // --- Redux state ---
   const {
-    districts = [],
-    talukas = [],
-    villages = [],
-    loading = false,
-    error = null,
-  } = useSelector((state) => state.location || {});
+    districts,
+    loading: districtLoading,
+    error: districtError,
+  } = useSelector((state) => state.district || {});
+  const { talukas, loading: talukaLoading, error: talukaError } =
+    useSelector((state) => state.taluka || {});
+  const { villages, loading: villageLoading, error: villageError } =
+    useSelector((state) => state.village || {});
+
+  // Combine loading and error flags
+  const loading = districtLoading || talukaLoading || villageLoading;
+  const error = districtError || talukaError || villageError;
 
   // --- Tabs ---
   const [activeTab, setActiveTab] = useState("village");
 
-  // ================= DISTRICT =================
-  const [districtFormData, setDistrictFormData] = useState({
-    district_name: "",
-  });
+  useEffect(() => {
+    // fetch initial data
+    dispatch(getDistricts());
+    dispatch(getTalukas());
+    dispatch(getVillages());
+  }, [dispatch]);
+
+  // ========== ADD FORMS ==========
+
+  // District add form
+  const [districtFormData, setDistrictFormData] = useState({ name: "" });
   const [districtErrors, setDistrictErrors] = useState({});
 
   const handleDistrictChange = (e) => {
-    setDistrictFormData({
-      ...districtFormData,
-      [e.target.name]: e.target.value,
-    });
+    setDistrictFormData({ ...districtFormData, [e.target.name]: e.target.value });
   };
 
   const handleAddDistrict = () => {
     const errors = {};
-    if (!districtFormData.district_name.trim()) {
-      errors.district_name = "District name is required";
+    if (!districtFormData.name.trim()) {
+      errors.name = "District name is required";
     }
-
     if (Object.keys(errors).length > 0) {
       setDistrictErrors(errors);
       return;
     }
-
-    // dispatch(addDistrict(districtFormData));
-    setDistrictFormData({ district_name: "" });
+    const payload = {
+      name: districtFormData.name.trim(),
+    };
+    dispatch(createDistrict(payload));
+    setDistrictFormData({ name: "" });
     setDistrictErrors({});
   };
 
-  // ================= TALUKA =================
-  const [talukaFormData, setTalukaFormData] = useState({
-    district_id: "",
-    taluka_name: "",
-  });
+  // Taluka add form
+  const [talukaFormData, setTalukaFormData] = useState({ district: "", name: "" });
   const [talukaErrors, setTalukaErrors] = useState({});
 
   const handleTalukaChange = (e) => {
@@ -63,26 +85,20 @@ const LocationManagement = () => {
 
   const handleAddTaluka = () => {
     const errors = {};
-    if (!talukaFormData.district_id) errors.district_id = "Select a district";
-    if (!talukaFormData.taluka_name.trim())
-      errors.taluka_name = "Taluka name is required";
-
+    if (!talukaFormData.district) errors.district = "Select a district";
+    if (!talukaFormData.name.trim()) errors.name = "Taluka name is required";
     if (Object.keys(errors).length > 0) {
       setTalukaErrors(errors);
       return;
     }
-
-    // dispatch(addTaluka(talukaFormData));
-    setTalukaFormData({ district_id: "", taluka_name: "" });
+    const payload = { ...talukaFormData, name: talukaFormData.name.trim() };
+    dispatch(createTaluka(payload));
+    setTalukaFormData({ district: "", name: "" });
     setTalukaErrors({});
   };
 
-  // ================= VILLAGE =================
-  const [villageFormData, setVillageFormData] = useState({
-    district_id: "",
-    taluka_id: "",
-    village_name: "",
-  });
+  // Village add form
+  const [villageFormData, setVillageFormData] = useState({ district: "", taluka_name: "", name: "" });
   const [villageErrors, setVillageErrors] = useState({});
 
   const handleVillageChange = (e) => {
@@ -91,37 +107,141 @@ const LocationManagement = () => {
 
   const handleAddVillage = () => {
     const errors = {};
-    if (!villageFormData.district_id) errors.district_id = "Select a district";
-    if (!villageFormData.taluka_id) errors.taluka_id = "Select a taluka";
-    if (!villageFormData.village_name.trim())
-      errors.village_name = "Village name is required";
-
+    if (!villageFormData.district) errors.district = "Select a district";
+    if (!villageFormData.taluka_name) errors.taluka_name = "Select a taluka";
+    if (!villageFormData.name.trim()) errors.name = "Village name is required";
     if (Object.keys(errors).length > 0) {
       setVillageErrors(errors);
       return;
     }
-
-    // dispatch(addVillage(villageFormData));
-    setVillageFormData({ district_id: "", taluka_id: "", village_name: "" });
+    const payload = { ...villageFormData, name: villageFormData.name.trim() };
+    dispatch(createVillage(payload));
+    setVillageFormData({ district: "", taluka_name: "", name: "" });
     setVillageErrors({});
   };
 
-  // ================= UTILS =================
-  const getDistrictName = (id) =>
-    districts.find((d) => d._id === id)?.district_name || "";
-  const getTalukaName = (id) =>
-    talukas.find((t) => t._id === id)?.taluka_name || "";
+  // ======= UTILS =======
+  // Some backends return id, some return _id, some store names in relation fields.
+  // These helpers try to display the human-friendly name regardless of what you pass.
+  const getDistrictName = (districtIdentifier) => {
+    if (!districtIdentifier && districtIdentifier !== 0) return "";
+    // If identifier is actually a name, try to find exact match
+    const byName = districts.find((d) => d.name === districtIdentifier);
+    if (byName) return byName.name;
+    // Try match by id/_id
+    const byId = districts.find((d) => d.id === districtIdentifier || d._id === districtIdentifier);
+    if (byId) return byId.name;
+    // fallback to showing the raw identifier
+    return districtIdentifier;
+  };
 
-  // ================= ACTIONS =================
-  const handleEditDistrict = (district) =>
-    console.log("Edit district", district);
-  const handleDeleteDistrict = (id) => console.log("Delete district", id);
+  const getTalukaName = (talukaIdentifier) => {
+    if (!talukaIdentifier && talukaIdentifier !== 0) return "";
+    const byName = talukas.find((t) => t.name === talukaIdentifier || t.name === talukaIdentifier);
+    if (byName) return byName.name || byName.taluka_name;
+    const byId = talukas.find((t) => t.id === talukaIdentifier || t._id === talukaIdentifier);
+    if (byId) return byId.name || byId.taluka_name;
+    return talukaIdentifier;
+  };
 
-  const handleEditTaluka = (taluka) => console.log("Edit taluka", taluka);
-  const handleDeleteTaluka = (id) => console.log("Delete taluka", id);
+  const extractKey = (item, fallback) => item?.id ?? item?._id ?? fallback;
 
-  const handleEditVillage = (village) => console.log("Edit village", village);
-  const handleDeleteVillage = (id) => console.log("Delete village", id);
+  // ======= INLINE EDITING STATES =======
+  // District inline edit
+  const [editingDistrictId, setEditingDistrictId] = useState(null);
+  const [editingDistrictData, setEditingDistrictData] = useState({ name: "" });
+
+  // Taluka inline edit
+  const [editingTalukaId, setEditingTalukaId] = useState(null);
+  const [editingTalukaData, setEditingTalukaData] = useState({ district: "", name: "" });
+
+  // Village inline edit
+  const [editingVillageId, setEditingVillageId] = useState(null);
+  const [editingVillageData, setEditingVillageData] = useState({ district: "", taluka_name: "", name: "" });
+
+  // ======= EDIT HANDLERS =======
+
+  // Start editing District
+  const startEditDistrict = (district) => {
+    setEditingDistrictId(district.id ?? district._id);
+    setEditingDistrictData({ name: district.name });
+  };
+  // Save District edit
+  const saveEditDistrict = (id) => {
+    if (!editingDistrictData.name.trim()) return; // Optional: add error handling
+    const updatedDistrict = { id: id, name: editingDistrictData.name.trim() };
+    dispatch(updateDistrict(id, updatedDistrict));
+    setEditingDistrictId(null);
+    dispatch(getDistricts());
+  };
+  // Cancel District edit
+  const cancelEditDistrict = () => {
+    setEditingDistrictId(null);
+  };
+
+  // Start editing Taluka
+  const startEditTaluka = (taluka) => {
+    setEditingTalukaId(taluka.id ?? taluka._id);
+    setEditingTalukaData({ district: taluka.district, name: taluka.name || taluka.taluka_name });
+  };
+  // Save Taluka edit
+  const saveEditTaluka = (id) => {
+    if (!editingTalukaData.name.trim() || !editingTalukaData.district) return; // Optional: add error handling
+    const updatedTaluka = { id: id, ...editingTalukaData, name: editingTalukaData.name.trim() };
+    dispatch(updateTaluka(id, updatedTaluka));
+    setEditingTalukaId(null);
+    dispatch(getTalukas());
+  };
+  // Cancel Taluka edit
+  const cancelEditTaluka = () => {
+    setEditingTalukaId(null);
+  };
+
+  // Start editing Village
+  const startEditVillage = (village) => {
+    setEditingVillageId(village.id ?? village._id);
+    setEditingVillageData({ district: village.district, taluka_name: village.taluka, name: village.name });
+  };
+  // Save Village edit
+  const saveEditVillage = (id) => {
+    if (!editingVillageData.name.trim() || !editingVillageData.district || !editingVillageData.taluka_name) return; // Optional: add error handling
+    const updatedVillage = { id: id, ...editingVillageData, name: editingVillageData.name.trim() };
+    dispatch(updateVillage(id, updatedVillage));
+    setEditingVillageId(null);
+    dispatch(getVillages());
+  };
+  // Cancel Village edit
+  const cancelEditVillage = () => {
+    setEditingVillageId(null);
+  };
+
+  // ======= DELETE HANDLERS =======
+  const handleDeleteDistrict = (idOrObj) => {
+    const id = idOrObj?.id ?? idOrObj ?? null;
+    if (!id) return;
+    if (window.confirm("Are you sure you want to delete this district?")) {
+      dispatch(deleteDistrict(id));
+      dispatch(getDistricts());
+    }
+  };
+
+  const handleDeleteTaluka = (idOrObj) => {
+    const id = idOrObj?.id ?? idOrObj ?? null;
+    if (!id) return;
+    if (window.confirm("Are you sure you want to delete this taluka?")) {
+      dispatch(deleteTaluka(id));
+      dispatch(getTalukas());
+    }
+  };
+
+  const handleDeleteVillage = (idOrObj) => {
+    const id = idOrObj?.id ?? idOrObj ?? null;
+    if (!id) return;
+    if (window.confirm("Are you sure you want to delete this village?")) {
+      dispatch(deleteVillage(id));
+      dispatch(getVillages());
+    }
+  };
 
   return (
     <div className="location_container">
@@ -139,15 +259,13 @@ const LocationManagement = () => {
           <div className="location_form_row">
             <div className="location_form_group">
               <input
-                name="district_name"
+                name="name"
                 type="text"
                 placeholder="जिल्ह्याचे नाव प्रविष्ट करा"
-                value={districtFormData.district_name}
+                value={districtFormData.name}
                 onChange={handleDistrictChange}
               />
-              {districtErrors.district_name && (
-                <p className="location_error">{districtErrors.district_name}</p>
-              )}
+              {districtErrors.name && <p className="location_error">{districtErrors.name}</p>}
             </div>
             <button onClick={handleAddDistrict} className="location_button">
               जोडा
@@ -160,33 +278,25 @@ const LocationManagement = () => {
           <h3 className="location_subtitle">तालुका जोडा</h3>
           <div className="location_form_row">
             <div className="location_form_group">
-              <select
-                name="district_id"
-                value={talukaFormData.district_id}
-                onChange={handleTalukaChange}
-              >
+              <select name="district" value={talukaFormData.district} onChange={handleTalukaChange}>
                 <option value="">जिल्हा निवडा</option>
                 {districts.map((d) => (
-                  <option key={d._id} value={d._id}>
-                    {d.district_name}
+                  <option key={extractKey(d, d.name)} value={d.name}>
+                    {d.name}
                   </option>
                 ))}
               </select>
-              {talukaErrors.district_id && (
-                <p className="location_error">{talukaErrors.district_id}</p>
-              )}
+              {talukaErrors.district && <p className="location_error">{talukaErrors.district}</p>}
             </div>
             <div className="location_form_group">
               <input
-                name="taluka_name"
+                name="name"
                 type="text"
                 placeholder="तालुक्याचे नाव प्रविष्ट करा"
-                value={talukaFormData.taluka_name}
+                value={talukaFormData.name}
                 onChange={handleTalukaChange}
               />
-              {talukaErrors.taluka_name && (
-                <p className="location_error">{talukaErrors.taluka_name}</p>
-              )}
+              {talukaErrors.name && <p className="location_error">{talukaErrors.name}</p>}
             </div>
             <button onClick={handleAddTaluka} className="location_button">
               जोडा
@@ -199,52 +309,38 @@ const LocationManagement = () => {
           <h3 className="location_subtitle">गाव जोडा</h3>
           <div className="location_form_row">
             <div className="location_form_group">
-              <select
-                name="district_id"
-                value={villageFormData.district_id}
-                onChange={handleVillageChange}
-              >
+              <select name="district" value={villageFormData.district} onChange={handleVillageChange}>
                 <option value="">जिल्हा निवडा</option>
                 {districts.map((d) => (
-                  <option key={d._id} value={d._id}>
-                    {d.district_name}
+                  <option key={extractKey(d, d.name)} value={d.name}>
+                    {d.name}
                   </option>
                 ))}
               </select>
-              {villageErrors.district_id && (
-                <p className="location_error">{villageErrors.district_id}</p>
-              )}
+              {villageErrors.district && <p className="location_error">{villageErrors.district}</p>}
             </div>
             <div className="location_form_group">
-              <select
-                name="taluka_id"
-                value={villageFormData.taluka_id}
-                onChange={handleVillageChange}
-              >
+              <select name="taluka_name" value={villageFormData.taluka_name} onChange={handleVillageChange}>
                 <option value="">तालुका निवडा</option>
                 {talukas
-                  .filter((t) => t.district_id === villageFormData.district_id)
+                  .filter((t) => t.district === villageFormData.district)
                   .map((t) => (
-                    <option key={t._id} value={t._id}>
-                      {t.taluka_name}
+                    <option key={extractKey(t, t.name)} value={t.name}>
+                      {t.name || t.taluka_name}
                     </option>
                   ))}
               </select>
-              {villageErrors.taluka_id && (
-                <p className="location_error">{villageErrors.taluka_id}</p>
-              )}
+              {villageErrors.taluka_name && <p className="location_error">{villageErrors.taluka_name}</p>}
             </div>
             <div className="location_form_group">
               <input
-                name="village_name"
+                name="name"
                 type="text"
                 placeholder="गावाचे नाव प्रविष्ट करा"
-                value={villageFormData.village_name}
+                value={villageFormData.name}
                 onChange={handleVillageChange}
               />
-              {villageErrors.village_name && (
-                <p className="location_error">{villageErrors.village_name}</p>
-              )}
+              {villageErrors.name && <p className="location_error">{villageErrors.name}</p>}
             </div>
             <button onClick={handleAddVillage} className="location_button">
               जोडा
@@ -280,22 +376,39 @@ const LocationManagement = () => {
               </thead>
               <tbody>
                 {districts.map((d, i) => (
-                  <tr key={d._id}>
+                  <tr key={extractKey(d, i)}>
                     <td>{i + 1}</td>
-                    <td>{d.district_name}</td>
                     <td>
-                      <button
-                        onClick={() => handleEditDistrict(d)}
-                        className="location_action_btn"
-                      >
-                        <FiEdit />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteDistrict(d._id)}
-                        className="location_action_btn delete"
-                      >
-                        <FiTrash />
-                      </button>
+                      {editingDistrictId === (d.id ?? d._id) ? (
+                        <input
+                          type="text"
+                          value={editingDistrictData.name}
+                          onChange={(e) => setEditingDistrictData({ ...editingDistrictData, name: e.target.value })}
+                        />
+                      ) : (
+                        d.name
+                      )}
+                    </td>
+                    <td>
+                      {editingDistrictId === (d.id ?? d._id) ? (
+                        <>
+                          <button onClick={() => saveEditDistrict(d.id ?? d._id)} className="location_action_btn">
+                            Save
+                          </button>
+                          <button onClick={cancelEditDistrict} className="location_action_btn delete">
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button onClick={() => startEditDistrict(d)} className="location_action_btn">
+                            <FiEdit />
+                          </button>
+                          <button onClick={() => handleDeleteDistrict(d.id ?? d._id)} className="location_action_btn delete">
+                            <FiTrash />
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -315,23 +428,56 @@ const LocationManagement = () => {
               </thead>
               <tbody>
                 {talukas.map((t, i) => (
-                  <tr key={t._id}>
+                  <tr key={extractKey(t, i)}>
                     <td>{i + 1}</td>
-                    <td>{getDistrictName(t.district_id)}</td>
-                    <td>{t.taluka_name}</td>
                     <td>
-                      <button
-                        onClick={() => handleEditTaluka(t)}
-                        className="location_action_btn"
-                      >
-                        <FiEdit />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteTaluka(t._id)}
-                        className="location_action_btn delete"
-                      >
-                        <FiTrash />
-                      </button>
+                      {editingTalukaId === (t.id ?? t._id) ? (
+                        <select
+                          value={editingTalukaData.district}
+                          onChange={(e) => setEditingTalukaData({ ...editingTalukaData, district: e.target.value })}
+                        >
+                          <option value="">जिल्हा निवडा</option>
+                          {districts.map((d) => (
+                            <option key={extractKey(d, d.name)} value={d.name}>
+                              {d.name}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        getDistrictName(t.district)
+                      )}
+                    </td>
+                    <td>
+                      {editingTalukaId === (t.id ?? t._id) ? (
+                        <input
+                          type="text"
+                          value={editingTalukaData.name}
+                          onChange={(e) => setEditingTalukaData({ ...editingTalukaData, name: e.target.value })}
+                        />
+                      ) : (
+                        t.name || t.taluka_name
+                      )}
+                    </td>
+                    <td>
+                      {editingTalukaId === (t.id ?? t._id) ? (
+                        <>
+                          <button onClick={() => saveEditTaluka(t.id ?? t._id)} className="location_action_btn">
+                            Save
+                          </button>
+                          <button onClick={cancelEditTaluka} className="location_action_btn delete">
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button onClick={() => startEditTaluka(t)} className="location_action_btn">
+                            <FiEdit />
+                          </button>
+                          <button onClick={() => handleDeleteTaluka(t.id ?? t._id)} className="location_action_btn delete">
+                            <FiTrash />
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -347,33 +493,82 @@ const LocationManagement = () => {
                   <th>जिल्ह्याचे नाव</th>
                   <th>तालुक्याचे नाव</th>
                   <th>गाव</th>
-                  <th>अक्षांश</th>
-                  <th>रेखांश</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {villages.map((v, i) => (
-                  <tr key={v._id}>
+                  <tr key={extractKey(v, i)}>
                     <td>{i + 1}</td>
-                    <td>{getDistrictName(v.district_id)}</td>
-                    <td>{getTalukaName(v.taluka_id)}</td>
-                    <td>{v.village_name}</td>
-                    <td>{v.latitude}</td>
-                    <td>{v.longitude}</td>
                     <td>
-                      <button
-                        onClick={() => handleEditVillage(v)}
-                        className="location_action_btn"
-                      >
-                        <FiEdit />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteVillage(v._id)}
-                        className="location_action_btn delete"
-                      >
-                        <FiTrash />
-                      </button>
+                      {editingVillageId === (v.id ?? v._id) ? (
+                        <select
+                          value={editingVillageData.district}
+                          onChange={(e) =>
+                            setEditingVillageData({ ...editingVillageData, district: e.target.value, taluka_name: "" })
+                          }
+                        >
+                          <option value="">जिल्हा निवडा</option>
+                          {districts.map((d) => (
+                            <option key={extractKey(d, d.name)} value={d.name}>
+                              {d.name}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        getDistrictName(v.district)
+                      )}
+                    </td>
+                    <td>
+                      {editingVillageId === (v.id ?? v._id) ? (
+                        <select
+                          value={editingVillageData.taluka_name}
+                          onChange={(e) => setEditingVillageData({ ...editingVillageData, taluka_name: e.target.value })}
+                        >
+                          <option value="">तालुका निवडा</option>
+                          {talukas
+                            .filter((t) => t.district === editingVillageData.district)
+                            .map((t) => (
+                              <option key={extractKey(t, t.name)} value={t.name}>
+                                {t.name}
+                              </option>
+                            ))}
+                        </select>
+                      ) : (
+                        getTalukaName(v.taluka)
+                      )}
+                    </td>
+                    <td>
+                      {editingVillageId === (v.id ?? v._id) ? (
+                        <input
+                          type="text"
+                          value={editingVillageData.name}
+                          onChange={(e) => setEditingVillageData({ ...editingVillageData, name: e.target.value })}
+                        />
+                      ) : (
+                        v.name
+                      )}
+                    </td>
+                    <td>
+                      {editingVillageId === (v.id ?? v._id) ? (
+                        <>
+                          <button onClick={() => saveEditVillage(v.id ?? v._id)} className="location_action_btn">
+                            Save
+                          </button>
+                          <button onClick={cancelEditVillage} className="location_action_btn delete">
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button onClick={() => startEditVillage(v)} className="location_action_btn">
+                            <FiEdit />
+                          </button>
+                          <button onClick={() => handleDeleteVillage(v.id ?? v._id)} className="location_action_btn delete">
+                            <FiTrash />
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}

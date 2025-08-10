@@ -1,0 +1,143 @@
+.vehicleTypeReg_container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.vehicleTypeReg_headerRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1.25rem;
+}
+
+.vehicleTypeReg_backButton {
+  background-color: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #3498db;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.vehicleTypeReg_backButton:hover,
+.vehicleTypeReg_backButton:focus {
+  color: #1d6fa5;
+  outline: none;
+}
+
+.vehicleTypeReg_header {
+  flex-grow: 1;
+}
+
+.vehicleTypeReg_title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.vehicleTypeReg_subtitle {
+  margin: 0.3rem 0 0 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+.vehicleTypeReg_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.vehicleTypeReg_formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicleTypeReg_label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+  user-select: none;
+}
+
+.vehicleTypeReg_required {
+  color: #e74c3c;
+  margin-left: 0.2rem;
+}
+
+.vehicleTypeReg_input,
+.vehicleTypeReg_textarea {
+  padding: 0.6rem 0.75rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-width: 0;
+}
+
+.vehicleTypeReg_input:focus,
+.vehicleTypeReg_textarea:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4);
+  outline: none;
+}
+
+.vehicleTypeReg_textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.4;
+}
+
+.vehicleTypeReg_error {
+  color: #e74c3c;
+  font-weight: 700;
+  margin-top: -1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.vehicleTypeReg_submitButton {
+  background-color: #3498db;
+  color: white;
+  padding: 0.85rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.25s ease;
+  align-self: flex-start;
+  min-width: 150px;
+  user-select: none;
+}
+
+.vehicleTypeReg_submitButton:hover,
+.vehicleTypeReg_submitButton:focus {
+  background-color: #2980b9;
+  box-shadow: 0 3px 8px rgba(41, 128, 185, 0.6);
+  outline: none;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 640px) {
+  .vehicleTypeReg_container {
+    padding: 1rem 1.25rem;
+    margin: 1rem;
+  }
+
+  .vehicleTypeReg_title {
+    font-size: 1.6rem;
+  }
+
+  .vehicleTypeReg_submitButton {
+    width: 100%;
+    min-width: unset;
+  }
+}

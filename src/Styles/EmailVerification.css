@@ -1,0 +1,126 @@
+.email-verification-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Black with transparency */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Ensure it’s above all other content */
+}
+.email-verification-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 450px;
+  z-index: 1000;
+}
+
+.email-verification-container {
+  text-align: center;
+}
+
+.email-verification-container h3 {
+  color: #5a2d92;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.email-verification-container p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.email-verification-otp-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.email-verification-otp-input {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.email-verification-otp-input:focus {
+  border-color: #5a2d92;
+}
+
+.email-verification-verify-button {
+  background-color: #5a2d92;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.email-verification-verify-button:hover {
+  background-color: #4b1f75;
+}
+
+.email-verification-verify-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.email-verification-resend-otp {
+  font-size: 14px;
+  margin-top: 15px;
+  color: #333;
+}
+
+.email-verification-resend-otp button {
+  background: none;
+  border: none;
+  color: #5a2d92;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.email-verification-resend-otp button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .email-verification-otp-input {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .email-verification-verify-button {
+    font-size: 13px;
+  }
+
+  .email-verification-container h3 {
+    font-size: 18px;
+  }
+
+  .email-verification-container p {
+    font-size: 13px;
+  }
+}

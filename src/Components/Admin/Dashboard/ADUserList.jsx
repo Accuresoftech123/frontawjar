@@ -1,100 +1,39 @@
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { getRoleList } from "../../../Helper/AdminPanel/AdminActions";
 import "../../../Styles/Admin/Dashboard/ADUserList.css";
 
 const roleInMarathi = {
-  Member: "सभासद",
-  Vendor: "विक्रेता",
-  Operator: "ऑपरेटर",
-};
-
-// Dummy data (replace with API later)
-const dummyUsers = {
-  Member: [
-    {
-      id: 1,
-      reg_by: "Admin",
-      role: "Member",
-      first_name: "Ravi",
-      last_name: "Patil",
-      email: "ravi@gmail.com",
-      mobile: "9876543210",
-      adhar_no: "123456789012",
-      dob: "1995-04-12",
-      zipcode: "416001",
-      district: "Kolhapur",
-      taluka: "Karvir",
-      Village: "Malkapur",
-      address: "123 MG Road",
-      landmark: "Near Temple",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      reg_by: "Self",
-      role: "Member",
-      first_name: "Sneha",
-      last_name: "Desai",
-      email: "sneha@gmail.com",
-      mobile: "9876543213",
-      adhar_no: "123456789015",
-      zipcode: "416004",
-      district: "Pune",
-      taluka: "Haveli",
-      Village: "Wagholi",
-      status: "Approved",
-    },
-  ],
-  Vendor: [
-    {
-      id: 6,
-      reg_by: "Admin",
-      role: "Vendor",
-      first_name: "Anjali",
-      last_name: "Kulkarni",
-      email: "anjali@gmail.com",
-      mobile: "9876543211",
-      pan_no: "ABCDE1234G",
-      zipcode: "416002",
-      district: "Sangli",
-      taluka: "Miraj",
-      Village: "Wadi",
-      address: "456 Shahu Chowk",
-      status: "Pending",
-    },
-  ],
-  Operator: [
-    {
-      id: 11,
-      reg_by: "Self",
-      role: "Operator",
-      first_name: "Suraj",
-      last_name: "Jadhav",
-      email: "suraj@gmail.com",
-      mobile: "9876543212",
-      adhar_no: "123456789014",
-      license_number: "MH12345678",
-      license_attachment: "license1.jpg",
-      status: "Rejected",
-    },
-  ],
+  member: "सभासद",
+  vendor: "विक्रेता",
+  operator: "ऑपरेटर",
 };
 
 const statusClass = {
-  Approved: "badge green",
-  Pending: "badge yellow",
-  Rejected: "badge red",
+  approved: "badge green",
+  pending: "badge yellow",
+  rejected: "badge red",
 };
 
 const ADUserList = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { role } = useParams();
-  const users = dummyUsers[role] || [];
+  const dispatch = useDispatch();
+
+  const { loading, error, users } = useSelector((state) => state.useradminlist);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  useEffect(() => {
+     let backendRole = role.toLowerCase();
+  if (backendRole === "operator") backendRole = "driver";
+    dispatch(getRoleList(backendRole));
+  }, [dispatch, role]);
 
   const allFields = useMemo(() => {
     return Array.from(new Set(users.flatMap((user) => Object.keys(user))));
@@ -137,12 +76,15 @@ const ADUserList = () => {
 
   return (
     <div className="aduserlist_container">
-         <div className="location_header_row">
+      <div className="location_header_row">
         <button className="location_back_button" onClick={() => navigate(-1)}>
           ⬅ Back
         </button>
-      <h2 className="aduserlist_title">{roleInMarathi[role] || role} यादी</h2>
-</div>
+        <h2 className="aduserlist_title">
+          {roleInMarathi[role] || role} यादी
+        </h2>
+      </div>
+
       <div className="aduserlist_controls">
         <input
           type="text"
@@ -152,55 +94,73 @@ const ADUserList = () => {
         />
       </div>
 
-      <div className="aduserlist_table_wrapper">
-        <table className="aduserlist_table">
-          <thead>
-            <tr>
-              {allFields.map((field) => (
-                <th key={field} onClick={() => handleSort(field)}>
-                  {field.replace(/_/g, " ").toUpperCase()}
-                  {sortField === field ? (sortOrder === "asc" ? " 🔼" : " 🔽") : ""}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginated.map((user) => (
-              <tr key={user.id}>
-                {allFields.map((field) => (
-                  <td key={field}>
-                    {field === "license_attachment" && user[field] ? (
-                      <a href="#" target="_blank" rel="noreferrer">
-                        View
-                      </a>
-                    ) : field === "status" ? (
-                      <span className={statusClass[user[field]] || "badge"}>{user[field]}</span>
-                    ) : (
-                      user[field] || "-"
-                    )}
-                  </td>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p className="error">{error}</p>
+      ) : (
+        <>
+          <div className="aduserlist_table_wrapper">
+            <table className="aduserlist_table">
+              <thead>
+                <tr>
+                  {allFields.map((field) => (
+                    <th key={field} onClick={() => handleSort(field)}>
+                      {field.replace(/_/g, " ").toUpperCase()}
+                      {sortField === field
+                        ? sortOrder === "asc"
+                          ? " 🔼"
+                          : " 🔽"
+                        : ""}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {paginated.map((user) => (
+                  <tr key={user.id}>
+                    {allFields.map((field) => (
+                      <td key={field}>
+                        {field === "license_attachment" && user[field] ? (
+                          <a href={user[field]} target="_blank" rel="noreferrer">
+                            View
+                          </a>
+                        ) : field === "status" ? (
+                          <span
+                            className={statusClass[user[field]] || "badge"}
+                          >
+                            {user[field]}
+                          </span>
+                        ) : (
+                          user[field] || "-"
+                        )}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+              </tbody>
+            </table>
+          </div>
 
-      {/* Pagination */}
-      <div className="aduserlist_pagination">
-        <button disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)}>
-          ⬅️ मागे
-        </button>
-        <span>
-          {currentPage} / {totalPages}
-        </span>
-        <button
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((p) => p + 1)}
-        >
-          पुढे ➡️
-        </button>
-      </div>
+          <div className="aduserlist_pagination">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((p) => p - 1)}
+            >
+              ⬅️ मागे
+            </button>
+            <span>
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((p) => p + 1)}
+            >
+              पुढे ➡️
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

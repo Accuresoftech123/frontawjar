@@ -3,16 +3,17 @@ import "../Styles/Registration.css";
 import { Link, useParams } from "react-router-dom";
 import logo from "../Assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   getDistricts,
-//   getTalukas,
-//   getVillages,
-// } from "../Helper/Admin/AdminActions";
-// import { registerMemberUser } from "../Helper/Member/MemberActions";
-// import { registerVendorUser } from "../Helper/Vendor/VendorActions";
-// import { registerDriverUser } from "../Helper/Driver/DriverActions";
+import { toast } from "react-toastify";
+import {
+  getDistricts,
+  getTalukas,
+  getVillages,
+} from "../Helper/AdminPanel/AdminActions";
+import { registerUser } from "../Helper/Actions";
 import VisibilityOutlined from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlined from "@mui/icons-material/VisibilityOffOutlined";
+import EmailVerificationPopup from "./EmailVerification";
+import { userCheckEmail } from "../Helper/Actions";
 
 const validateInputs = (formData) => {
   const errors = {};
@@ -22,24 +23,24 @@ const validateInputs = (formData) => {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
   const mobileRegex = /^[6-9]\d{9}$/;
   const adharRegex = /^\d{12}$/;
-  const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+  const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]$/i;
   const zipcodeRegex = /^\d{6}$/;
   const licenseNumberRegex = /^[A-Z]{2}\d{2}\s\d{11}$/;
 
   //   if (!formData.role) errors.role = "वापरकर्ता प्रकार निवडा";
-   // जिल्हा
-  if (!FormData.district || FormData.district.trim() === "") {
+  // जिल्हा
+  if (!formData.district || formData.district.trim() === "") {
     errors.district = "कृपया जिल्हा निवडा किंवा लिहा";
   }
 
   // तालुका
-  if (!FormData.taluka || FormData.taluka.trim() === "") {
+  if (!formData.taluka || formData.taluka.trim() === "") {
     errors.taluka = "कृपया तालुका निवडा किंवा लिहा";
   }
 
   // गाव
-  if (!FormData.Village || FormData.Village.trim() === "") {
-    errors.Village = "कृपया गाव निवडा किंवा लिहा";
+  if (!formData.village || formData.village.trim() === "") {
+    errors.village = "कृपया गाव निवडा किंवा लिहा";
   }
   // First Name
   if (!formData.first_name.trim()) {
@@ -138,9 +139,17 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isOtherDistrict, setIsOtherDistrict] = useState(false);
+  const [isOtherTaluka, setIsOtherTaluka] = useState(false);
+  const [isOtherVillage, setIsOtherVillage] = useState(false);
+
+  // New states for email verification
+  const [isVerifyEmailPopupOpen, setIsVerifyEmailPopupOpen] = useState(false);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
+
   const [FormData, setFormData] = useState({
     reg_by: "by self",
-    role: role,
+    role: role.toLocaleLowerCase(),
     first_name: "",
     last_name: "",
     email: "",
@@ -153,57 +162,153 @@ const Registration = () => {
     zipcode: "",
     district: "",
     taluka: "",
-    Village: "",
+    village: "",
     address: "",
     landmark: "",
     license_number: "",
     license_attachment: null,
+    registration_fee: 0,
   });
   const dispatch = useDispatch();
-  //   const { districts = [] } = useSelector((state) => state.district);
-  //   const { talukas = [] } = useSelector((state) => state.taluka);
-  //   const {
-  //     villages = [],
-  //     loading,
-  //     error,
-  //   } = useSelector((state) => state.village);
+  
+  const [filteredTalukas, setFilteredTalukas] = useState([]);
+  const [filteredVillages, setFilteredVillages] = useState([]);
+
+  // Get districts, talukas, villages from Redux store
+  const districts = useSelector((state) => state.district?.districts || []);
+  const talukas = useSelector((state) => state.taluka?.talukas || []);
+  const villages = useSelector((state) => state.village?.villages || []);
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "file" ? files[0] : value,
-    }));
-    // Clear error on change
+
+    setFormData((prev) => {
+      let newData = { ...prev, [name]: type === "file" ? files[0] : value };
+
+      // If district changes, clear taluka & village
+      if (name === "district") {
+        newData.taluka = "";
+        newData.village = "";
+      }
+
+      // If taluka changes, clear village
+      if (name === "taluka") {
+        newData.village = "";
+      }
+
+      return newData;
+    });
+
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
+  const handleDistrictChange = (e) => {
+    const val = e.target.value;
+    setIsOtherDistrict(val === "इतर");
+    setFormData((prev) => ({
+      ...prev,
+      district: val === "इतर" ? "" : val,
+      taluka: "",
+      village: "",
+    }));
+  };
+
+  const handleTalukaChange = (e) => {
+    const val = e.target.value;
+    setIsOtherTaluka(val === "इतर");
+    setFormData((prev) => ({
+      ...prev,
+      taluka: val === "इतर" ? "" : val,
+      village: "",
+    }));
+  };
+
+  const handleVillageChange = (e) => {
+    const val = e.target.value;
+    setIsOtherVillage(val === "इतर");
+    setFormData((prev) => ({
+      ...prev,
+      village: val === "इतर" ? "" : val,
+    }));
+  };
+
   useEffect(() => {
-    // dispatch(getDistricts());
-    // dispatch(getTalukas());
-    // dispatch(getVillages());
+    // fetch initial data
+    dispatch(getDistricts());
+    dispatch(getTalukas());
+    dispatch(getVillages());
   }, [dispatch]);
-  // Filter talukas based on selected district
-  //   const filteredTalukas = talukas.filter(
-  //     (t) => t.district === Number(FormData.district)
-  //   );
-  //   // Filter talukas based on selected district
-  //   const filteredVillages = villages.filter(
-  //     (v) => v.taluka === Number(FormData.taluka)
-  //   );
+
+  // Filter talukas when district changes
+  useEffect(() => {
+    if (FormData.district && FormData.district !== "इतर") {
+      const filtered = talukas.filter((t) => t.district === FormData.district);
+      setFilteredTalukas(filtered);
+    } else {
+      setFilteredTalukas([]);
+    }
+
+    // Reset taluka and village when district changes
+    setFormData((prev) => ({
+      ...prev,
+      taluka: "",
+      village: "", // Note: You use capital 'Village' in FormData
+    }));
+
+    setFilteredVillages([]);
+  }, [FormData.district, talukas]);
+
+  // Filter villages when taluka changes
+  useEffect(() => {
+    if (FormData.taluka && FormData.taluka !== "इतर") {
+      const filtered = villages.filter((v) => v.taluka === FormData.taluka);
+      setFilteredVillages(filtered);
+    } else {
+      setFilteredVillages([]);
+    }
+
+    // Reset village when taluka changes
+    setFormData((prev) => ({
+      ...prev,
+      village: "",
+    }));
+  }, [FormData.taluka, villages]);
+
+  //verify email function
+  const verifyEmail = () => {
+     let backendRole = FormData.role.toLowerCase();
+  if (backendRole === "operator") backendRole = "driver";
+    const payload = {
+      email: FormData.email,
+      role: backendRole,
+    };
+    setIsVerifyEmailPopupOpen(true);
+    dispatch(userCheckEmail(payload));
+  };
+  //handle otp verificatiion function
+  const handleOtpVerified = () => {
+    setIsEmailVerified(true);
+    setIsVerifyEmailPopupOpen(false);
+    toast.success("✅ Email Verified Successfully!");
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     // Run validation
-    const validationErrors = validateInputs(FormData);
-    setErrors(validationErrors);
+    // const validationErrors = validateInputs(FormData);
+    // setErrors(validationErrors);
 
-    // Stop if errors exist
-    if (Object.keys(validationErrors).length > 0) return;
+    // // Stop if errors exist
+    // if (Object.keys(validationErrors).length > 0) return;
 
+      // Prepare role for backend
+  let backendRole = FormData.role.toLowerCase();
+  if (backendRole === "operator") backendRole = "driver";
     //build payload based on user type
     const payload = {
       reg_by: FormData.reg_by,
-      role: FormData.role,
+      state: "Maharashtra",
+      role: backendRole,
       first_name: FormData.first_name,
       last_name: FormData.last_name,
       email: FormData.email,
@@ -216,27 +321,20 @@ const Registration = () => {
       zipcode: FormData.zipcode,
       district: FormData.district,
       taluka: FormData.taluka,
-      Village: FormData.Village,
+      village: FormData.village,
       address: FormData.address,
       landmark: FormData.landmark,
+      registration_fee: FormData.registration_fee,
     };
-    if (FormData.role === "Operator") {
+    if (FormData.role === "operator") {
       payload.license_number = FormData.license_number;
       payload.license_attachment = FormData.license_attachment;
     }
-
-    if (FormData.role === "Member") {
-      //   dispatch(registerMemberUser(payload));
-    } else if (FormData.role === "Vendor") {
-      //   dispatch(registerVendorUser(payload));
-    } else if (FormData.role === "Operator") {
-      //   dispatch(registerDriverUser(payload));
-    } else {
-      window.alert("user not been registered");
-    }
+    console.log(payload);
+    dispatch(registerUser(payload));
   };
 
-  const isOperator = FormData.role === "Operator";
+  const isOperator = FormData.role === "operator";
   return (
     <div className="registration_container">
       {/* ========== Header ========== */}
@@ -269,27 +367,33 @@ const Registration = () => {
 
               <div className="registration_location-row">
                 {/* जिल्हा */}
+                {/* District */}
                 <div className="registration_form-group">
                   <label>जिल्हा</label>
                   <select
                     name="district"
-                    value={FormData.district}
-                    onChange={handleChange}
+                    value={isOtherDistrict ? "इतर" : FormData.district}
+                    onChange={handleDistrictChange}
                   >
                     <option value="">जिल्हा निवडा</option>
                     <option value="इतर">इतर</option>
-                    {/* {districts.map((d) => (
-          <option key={d.id} value={d.name}>{d.name}</option>
-        ))} */}
+                    {districts.map((d) => (
+                      <option key={d.id ?? d._id ?? d.name} value={d.name}>
+                        {d.name}
+                      </option>
+                    ))}
                   </select>
-                  {FormData.district === "इतर" && (
+                  {isOtherDistrict && (
                     <input
                       style={{ marginTop: "10px" }}
                       type="text"
                       placeholder="जिल्हा लिहा"
-                      value=""
+                      value={FormData.district}
                       onChange={(e) =>
-                        setFormData({ ...FormData, district: e.target.value })
+                        setFormData((prev) => ({
+                          ...prev,
+                          district: e.target.value,
+                        }))
                       }
                     />
                   )}
@@ -298,60 +402,75 @@ const Registration = () => {
                   )}
                 </div>
 
-                {/* तालुका */}
+                {/* Taluka */}
                 <div className="registration_form-group">
                   <label>तालुका</label>
                   <select
                     name="taluka"
-                    value={FormData.taluka}
-                    onChange={handleChange}
+                    value={isOtherTaluka ? "इतर" : FormData.taluka}
+                    onChange={handleTalukaChange}
+                    // disabled={!FormData.district || isOtherDistrict}
                   >
                     <option value="">तालुका निवडा</option>
                     <option value="इतर">इतर</option>
-                    {/* {filteredTalukas.map((t) => (
-          <option key={t.id} value={t.name}>{t.name}</option>
-        ))} */}
+                    {filteredTalukas.map((t) => (
+                      <option
+                        key={t.id ?? t._id ?? t.name}
+                        value={t.name || t.taluka_name}
+                      >
+                        {t.name || t.taluka_name}
+                      </option>
+                    ))}
                   </select>
-                  {FormData.taluka === "इतर" && (
+                  {isOtherTaluka && (
                     <input
                       style={{ marginTop: "10px" }}
                       type="text"
                       placeholder="तालुका लिहा"
-                      value=""
+                      value={FormData.taluka}
                       onChange={(e) =>
-                        setFormData({ ...FormData, taluka: e.target.value })
+                        setFormData((prev) => ({
+                          ...prev,
+                          taluka: e.target.value,
+                        }))
                       }
                     />
                   )}
                   {errors.taluka && <p className="error">{errors.taluka}</p>}
                 </div>
 
-                {/* गाव */}
+                {/* Village */}
                 <div className="registration_form-group">
                   <label>गाव</label>
                   <select
-                    name="Village"
-                    value={FormData.Village}
-                    onChange={handleChange}
+                    name="village"
+                    value={isOtherVillage ? "इतर" : FormData.village}
+                    onChange={handleVillageChange}
+                    // disabled={!FormData.taluka || isOtherTaluka}
                   >
                     <option value="">गाव निवडा</option>
                     <option value="इतर">इतर</option>
-                    {/* {filteredVillages.map((v) => (
-          <option key={v.id} value={v.name}>{v.name}</option>
-        ))} */}
+                    {filteredVillages.map((v) => (
+                      <option key={v.id ?? v._id ?? v.name} value={v.name}>
+                        {v.name}
+                      </option>
+                    ))}
                   </select>
-                  {FormData.Village === "इतर" && (
+                  {isOtherVillage && (
                     <input
                       style={{ marginTop: "10px" }}
                       type="text"
                       placeholder="गाव लिहा"
-                      value=""
+                      value={FormData.village}
                       onChange={(e) =>
-                        setFormData({ ...FormData, Village: e.target.value })
+                        setFormData((prev) => ({
+                          ...prev,
+                          village: e.target.value,
+                        }))
                       }
                     />
                   )}
-                  {errors.Village && <p className="error">{errors.Village}</p>}
+                  {errors.village && <p className="error">{errors.village}</p>}
                 </div>
               </div>
             </fieldset>
@@ -449,6 +568,24 @@ const Registration = () => {
                       value={FormData.email}
                       onChange={handleChange}
                     />
+
+                    {isEmailVerified ? (
+                      <span style={{ color: "green", fontWeight: "bold" }}>
+                        Email Verified
+                      </span>
+                    ) : (
+                      <span
+                        style={{
+                          color: "#007bff",
+                          cursor: "pointer",
+                          textDecoration: "none",
+                          fontSize: "0.9rem",
+                        }}
+                        onClick={(e) => verifyEmail(e)}
+                      >
+                        Verify Email
+                      </span>
+                    )}
                     {errors.email && <p className="error">{errors.email}</p>}
                   </div>
 
@@ -587,6 +724,16 @@ const Registration = () => {
                 </div>
               </fieldset>
             )}
+            <div className="registration_form-group">
+              <label>नोंदणी शुल्क</label>
+              <input
+                type="number"
+                name="registration_fee"
+                value={FormData.registration_fee}
+                onChange={handleChange}
+                min="0"
+              />
+            </div>
 
             {/* Submit */}
             <div className="registration_form-group full-width">
@@ -599,6 +746,14 @@ const Registration = () => {
               </p>
             </div>
           </form>
+          {isVerifyEmailPopupOpen && (
+            <EmailVerificationPopup
+              email={FormData.email}
+              role={FormData.role}
+              onClose={() => setIsVerifyEmailPopupOpen(false)}
+              onVerify={handleOtpVerified}
+            />
+          )}
         </div>
       </main>
     </div>

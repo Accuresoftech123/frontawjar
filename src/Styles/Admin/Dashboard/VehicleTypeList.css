@@ -1,0 +1,154 @@
+.vehicleTypeList_container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.vehicleTypeList_headerRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.vehicleTypeList_backButton {
+  background: transparent;
+  border: none;
+  color: #3498db;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.vehicleTypeList_backButton:hover,
+.vehicleTypeList_backButton:focus {
+  color: #1d6fa5;
+  outline: none;
+}
+
+.vehicleTypeList_title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.vehicleTypeList_searchWrapper {
+  margin-bottom: 1rem;
+}
+
+.vehicleTypeList_searchInput {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.vehicleTypeList_searchInput:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 6px rgba(52, 152, 219, 0.4);
+  outline: none;
+}
+
+.vehicleTypeList_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #333;
+}
+
+.vehicleTypeList_table th,
+.vehicleTypeList_table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.vehicleTypeList_table th {
+  background-color: #f5f7fa;
+  font-weight: 600;
+}
+
+.vehicleTypeList_noData {
+  text-align: center;
+  padding: 2rem;
+  color: #777;
+}
+
+.vehicleTypeList_actionBtn {
+  border: none;
+  padding: 0.35rem 0.6rem;
+  margin-right: 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.25s ease;
+}
+
+.vehicleTypeList_editBtn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.vehicleTypeList_editBtn:hover,
+.vehicleTypeList_editBtn:focus {
+  background-color: #27ae60;
+  outline: none;
+}
+
+.vehicleTypeList_deleteBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.vehicleTypeList_deleteBtn:hover,
+.vehicleTypeList_deleteBtn:focus {
+  background-color: #c0392b;
+  outline: none;
+}
+
+.vehicleTypeList_pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.vehicleTypeList_pageBtn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.25s ease;
+}
+
+.vehicleTypeList_pageBtn:hover,
+.vehicleTypeList_pageBtn:focus {
+  background-color: #2980b9;
+  outline: none;
+}
+
+.vehicleTypeList_pageBtn:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+.vehicleTypeList_pageBtnActive {
+  background-color: #1d6fa5;
+  cursor: default;
+  pointer-events: none;
+}
