@@ -39,6 +39,11 @@ import VehicleTypeList from "./Components/Admin/Dashboard/VehicleTypeList";
 import VehicleRegistration from "./Components/Admin/Dashboard/VehicleRegistration";
 import VehicleList from "./Components/Admin/Dashboard/VehicleList";
 import BookingList from "./Components/Admin/Booking/BookingList";
+import MemberDashboard from "./Components/Member/MemberDashboard";
+import DriverDashboard from "./Components/Driver/DriverDashboard";
+import VendorDashboard from "./Components/Vendor/VendorDashboard";
+import GatAdhikariDashboard from "./Components/GatAdhikari/GatAdhikariDashboard";
+import ComplaintForm from "./Components/ComplainForm";
 function App() {
   return (
     <BrowserRouter>
@@ -114,13 +119,19 @@ function App() {
           element={
             <DashboardHome role="Member" navItems={navItemsByRole["Member"]} />
           }
-        />
+        >
+           <Route path="Dashboard" element={<MemberDashboard />} />
+           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+        </Route>
         <Route
           path="/Vendor/*"
           element={
             <DashboardHome role="Vendor" navItems={navItemsByRole["Vendor"]} />
           }
-        />
+        >
+          <Route path="Dashboard" element={<VendorDashboard />} />
+          <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+        </Route>
         <Route
           path="/Operator/*"
           element={
@@ -129,7 +140,10 @@ function App() {
               navItems={navItemsByRole["Operator"]}
             />
           }
-        />
+        >
+          <Route path="Dashboard" element={<DriverDashboard />} />
+          <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+        </Route>
         <Route
           path="/GatAdhikari/*"
           element={
@@ -138,7 +152,10 @@ function App() {
               navItems={navItemsByRole["GatAdhikari"]}
             />
           }
-        />
+        >
+          <Route path="Dashboard" element={<GatAdhikariDashboard />} />
+          <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

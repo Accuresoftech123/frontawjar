@@ -10,19 +10,19 @@ export const navItemsByRole = {
     { path: "/Admin/Report", icon: <FaChartBar color="#9b59b6"/>, label: "अहवाल व्यवस्थापन" },
   ],
   Member: [
-    { path: "/Member/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "मेम्बर डॅशबोर्ड" },
+    { path: "/Member/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "डॅशबोर्ड" },
     // Add more
   ],
   Vendor: [
-    { path: "/Vendor/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "वेंडर डॅशबोर्ड" },
+    { path: "/Vendor/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "डॅशबोर्ड" },
     // Add more
   ],
   Driver: [
-    { path: "/Operator/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "ड्रायव्हर डॅशबोर्ड" },
+    { path: "/Operator/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "ड्डॅशबोर्ड" },
     // Add more
   ],
   GatAdhikari: [
-    { path: "/GatAdhikari/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "गट अधिकारी डॅशबोर्ड" },
+    { path: "/GatAdhikari/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "डॅशबोर्ड" },
     // Add more
   ],
 };
