@@ -1,59 +1,186 @@
 .gatadhikari-selection-container {
+  max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafe;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
 }
 
-.gatadhikari-selection-title {
-  text-align: center;
-  font-size: 24px;
+.gatadhikari-selection-container .location_header_row {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.village-section {
-  margin-bottom: 30px;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 10px;
-  background: #f9f9f9;
+.gatadhikari-selection-container .location_back_button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 15px;
+  color: #2c3e50;
+  transition: color 0.2s ease-in-out;
+}
+.gatadhikari-selection-container .location_back_button:hover {
+  color: #3498db;
 }
 
-.village-name {
-  font-size: 20px;
+.gatadhikari-selection-container .gatadhikari-selection-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #34495e;
+  margin: 0;
+}
+
+/* Section label */
+.gatadhikari-selection-container .gs_section > label {
+  font-weight: 600;
   margin-bottom: 10px;
+  display: block;
   color: #2c3e50;
 }
 
-.insufficient-message {
-  color: #c0392b;
-  font-weight: bold;
+/* Row for dropdowns */
+.gatadhikari-selection-container .gs_row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.gatadhikari-table {
-  width: 100%;
-  border-collapse: collapse;
+/* Each form group (dropdown + label) */
+.gatadhikari-selection-container .gs_formGroup {
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
 }
 
-.gatadhikari-table th,
-.gatadhikari-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+/* Label */
+.gatadhikari-selection-container .gs_label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #2c3e50;
 }
 
-.submit-wrapper {
-  text-align: center;
-  margin-top: 30px;
+/* Required star */
+.gatadhikari-selection-container .gs_required {
+  color: #e74c3c;
+  margin-left: 2px;
 }
 
-.submit-button {
-  padding: 10px 25px;
-  background-color: #2980b9;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
+/* Select dropdown */
+.gatadhikari-selection-container .gs_select {
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  transition: border-color 0.3s ease;
   cursor: pointer;
 }
 
-.submit-button:hover {
-  background-color: #1c5980;
+.gatadhikari-selection-container .gs_select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Text inputs for 'Other' */
+.gatadhikari-selection-container .gs_formGroup input[type="text"] {
+  margin-top: 8px;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1.8px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.gatadhikari-selection-container .gs_formGroup input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Error messages */
+.gatadhikari-selection-container .gs_error {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #e74c3c;
+}
+
+/* Table Styling */
+.gatadhikari-selection-container .gatadhikari-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  font-size: 15px;
+  color: #2c3e50;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.07);
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.gatadhikari-selection-container .gatadhikari-table thead tr {
+  background-color: #3498db;
+  color: white;
+  font-weight: 700;
+}
+
+.gatadhikari-selection-container .gatadhikari-table th,
+.gatadhikari-selection-container .gatadhikari-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.gatadhikari-selection-container .gatadhikari-table tbody tr:hover {
+  background-color: #ecf6fc;
+}
+
+.gatadhikari-selection-container .gatadhikari-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Checkbox center alignment */
+.gatadhikari-selection-container .gatadhikari-table td:first-child {
+  text-align: center;
+  width: 60px;
+}
+
+/* Submit button styling */
+.gatadhikari-selection-container .submit-wrapper {
+  text-align: right;
+}
+
+.gatadhikari-selection-container .submit-button {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.gatadhikari-selection-container .submit-button:disabled {
+  background-color: #a3c2e6;
+  cursor: not-allowed;
+}
+
+.gatadhikari-selection-container .submit-button:not(:disabled):hover {
+  background-color: #2980b9;
+}
+
+/* Responsive: stack dropdowns vertically on narrow screens */
+@media (max-width: 700px) {
+  .gatadhikari-selection-container .gs_row {
+    flex-direction: column;
+  }
+  .gatadhikari-selection-container .gs_formGroup {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
 }

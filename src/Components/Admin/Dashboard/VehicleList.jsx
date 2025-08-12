@@ -3,26 +3,33 @@ import axios from "axios";
 import "../../../Styles/Admin/Dashboard/VehicleList.css";
 import { listVehicles } from "../../../Helper/VendorPanel/VendorActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const VehicleList = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-   const { vehicles, loading:vehicleloader, error:vehicleerror } = useSelector(
+  const navigate = useNavigate();
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
+   const { vehicles, loading, error } = useSelector(
     (state) => state.vehicle
   );
 // Dispatch list action on mount
   useEffect(() => {
     dispatch(listVehicles());
+    console.log("list",vehicles);
   }, [dispatch]);
 
-  if (loading) return <p style={{ textAlign: "center" }}>लोड करत आहे...</p>;
-  if (error) return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
+  // if (loading) return <p style={{ textAlign: "center" }}>लोड करत आहे...</p>;
+  // if (error) return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
 
   return (
     <div className="vehicleList_container">
+      <div className="location_header_row" style={{ gap: "20%" }}>
+        <button className="location_back_button" onClick={() => navigate(-1)}>
+          ⬅ Back
+        </button>
       <h2 className="vehicleList_title">नोंदणीकृत वाहने</h2>
-
+</div>
       <table className="vehicleList_table">
         <thead>
           <tr>

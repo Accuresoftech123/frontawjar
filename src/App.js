@@ -38,6 +38,7 @@ import VehicleTypeRegistration from "./Components/Admin/Dashboard/VehicleTypeReg
 import VehicleTypeList from "./Components/Admin/Dashboard/VehicleTypeList";
 import VehicleRegistration from "./Components/Admin/Dashboard/VehicleRegistration";
 import VehicleList from "./Components/Admin/Dashboard/VehicleList";
+import BookingList from "./Components/Admin/Booking/BookingList";
 function App() {
   return (
     <BrowserRouter>
@@ -101,7 +102,7 @@ function App() {
             path="Booking/Register"
             element={<BookingRegistrationForm />}
           />
-          <Route path="Booking/Assign-driver" element={<AssignDriverForm />} />
+          <Route path="Booking/list" element={<BookingList />} />
 
           <Route path="Account" element={<AdminAccountManagement />} />
           <Route path="Complaint" element={<AdminComplaintManagement />} />

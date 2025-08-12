@@ -24,6 +24,44 @@ import {
 
    //user list
    ROLE_LIST_REQUEST, ROLE_LIST_SUCCESS, ROLE_LIST_FAIL,
+
+   //driver filter list
+   FILTER_DRIVERS_REQUEST,
+  FILTER_DRIVERS_SUCCESS,
+  FILTER_DRIVERS_FAIL,
+  FILTER_DRIVERS_RESET,
+
+  //driver filter list
+   FILTER_MEMBER_REQUEST,
+  FILTER_MEMBER_SUCCESS,
+  FILTER_MEMBER_FAIL,
+  FILTER_MEMBER_RESET,
+
+    FILTER_VEHICLES_REQUEST,
+  FILTER_VEHICLES_SUCCESS,
+  FILTER_VEHICLES_FAIL,
+  FILTER_VEHICLES_RESET,
+
+  //booking
+   BOOKING_CREATE_REQUEST,
+  BOOKING_CREATE_SUCCESS,
+  BOOKING_CREATE_FAIL,
+   ASSIGN_VEHICLE_REQUEST,
+  ASSIGN_VEHICLE_SUCCESS,
+  ASSIGN_VEHICLE_FAIL,
+  ASSIGN_DRIVER_REQUEST,
+  ASSIGN_DRIVER_SUCCESS,
+  ASSIGN_DRIVER_FAIL,
+    FETCH_BOOKINGS_REQUEST,
+  FETCH_BOOKINGS_SUCCESS,
+  FETCH_BOOKINGS_FAIL,
+
+    FETCH_GAT_ADHIKARI_REQUEST,
+  FETCH_GAT_ADHIKARI_SUCCESS,
+  FETCH_GAT_ADHIKARI_FAILURE,
+  ASSIGN_GAT_ADHIKARI_REQUEST,
+  ASSIGN_GAT_ADHIKARI_SUCCESS,
+  ASSIGN_GAT_ADHIKARI_FAILURE,
 } from './AdminActionType';
 
 const districtInitialState = {
@@ -59,7 +97,31 @@ const userListInitialState = {
   users: [],
   error: null,
 };
+const filterVehiclesInitialState = {
+  loading: false,
+  error: null,
+  vehicles: [],
+};
+const bookingInitialState = {
+  loading: false,
+  booking: null,       // Will hold the created booking data after success
+  error: null,         // Holds error message if request fails
+   bookings: [],
+   vehicleAssignLoading: false,
+  vehicleAssignSuccess: false,
+  vehicleAssignError: null,
+  driverAssignLoading: false,
+  driverAssignSuccess: false,
+  driverAssignError: null,
+};
 
+const gatadhikariInitialState = {
+  loading: false,
+  gatAdhikaris: [],
+  error: null,
+  assignLoading: false,
+  assignError: null,
+};
 // District Reducer
 export const districtReducer = (state = districtInitialState, action) => {
   switch (action.type) {
@@ -258,6 +320,143 @@ export const UserListAdminReducer = (state = userListInitialState, action) => {
       return { loading: false, users: action.payload };
     case ROLE_LIST_FAIL:
       return { loading: false, error: action.payload, users: [] };
+    default:
+      return state;
+  }
+};
+
+
+// --- Initial States ---
+const filterDriversInitialState = {
+  loading: false,
+  error: null,
+  drivers: [],
+};
+
+const filterMembersInitialState = {
+  loading: false,
+  error: null,
+  members: [],
+};
+
+// --- Reducers ---
+
+export const filterDriversReducer = (state = filterDriversInitialState, action) => {
+  switch (action.type) {
+    case FILTER_DRIVERS_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FILTER_DRIVERS_SUCCESS:
+      return { ...state, loading: false, drivers: action.payload };
+    case FILTER_DRIVERS_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case FILTER_DRIVERS_RESET:
+      return { ...filterDriversInitialState };
+    default:
+      return state;
+  }
+};
+
+export const filterMembersReducer = (state = filterMembersInitialState, action) => {
+  switch (action.type) {
+    case FILTER_MEMBER_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FILTER_MEMBER_SUCCESS:
+      return { ...state, loading: false, members: action.payload };
+    case FILTER_MEMBER_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case FILTER_MEMBER_RESET:
+      return { ...filterMembersInitialState };
+    default:
+      return state;
+  }
+};
+export const filterVehiclesReducer = (state = filterVehiclesInitialState, action) => {
+  switch (action.type) {
+    case FILTER_VEHICLES_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FILTER_VEHICLES_SUCCESS:
+      return { ...state, loading: false, vehicles: action.payload };
+    case FILTER_VEHICLES_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case FILTER_VEHICLES_RESET:
+      return { ...filterVehiclesInitialState };
+    default:
+      return state;
+  }
+};
+
+export const bookingCreateReducer = (state = bookingInitialState, action) => {
+  switch (action.type) {
+    case BOOKING_CREATE_REQUEST:
+      return { ...state, loading: true, error: null };
+    case BOOKING_CREATE_SUCCESS:
+      return { loading: false, booking: action.payload, error: null };
+    case BOOKING_CREATE_FAIL:
+      return { loading: false, booking: null, error: action.payload };
+    
+    case ASSIGN_VEHICLE_REQUEST:
+      return { ...state, vehicleAssignLoading: true, vehicleAssignError: null, vehicleAssignSuccess: false };
+    case ASSIGN_VEHICLE_SUCCESS:
+      return { ...state, vehicleAssignLoading: false, vehicleAssignSuccess: true };
+    case ASSIGN_VEHICLE_FAIL:
+      return { ...state, vehicleAssignLoading: false, vehicleAssignError: action.payload };
+
+    case ASSIGN_DRIVER_REQUEST:
+      return { ...state, driverAssignLoading: true, driverAssignError: null, driverAssignSuccess: false };
+    case ASSIGN_DRIVER_SUCCESS:
+      return { ...state, driverAssignLoading: false, driverAssignSuccess: true };
+    case ASSIGN_DRIVER_FAIL:
+      return { ...state, driverAssignLoading: false, driverAssignError: action.payload };
+
+      case FETCH_BOOKINGS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FETCH_BOOKINGS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        bookings: action.payload,
+      };
+    case FETCH_BOOKINGS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const gatAdhikariReducer = (state = gatadhikariInitialState, action) => {
+  switch (action.type) {
+    case FETCH_GAT_ADHIKARI_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_GAT_ADHIKARI_SUCCESS:
+      return { ...state, loading: false, gatAdhikaris: action.payload, error: null };
+    case FETCH_GAT_ADHIKARI_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+
+    case ASSIGN_GAT_ADHIKARI_REQUEST:
+      return { ...state, assignLoading: true, assignError: null };
+    case ASSIGN_GAT_ADHIKARI_SUCCESS:
+      return {
+        ...state,
+        assignLoading: false,
+        assignError: null,
+        gatAdhikaris: state.gatAdhikaris.map(member =>
+          member.id === action.payload.memberId
+            ? { ...member, is_gat_adhikari: action.payload.isGatAdhikari }
+            : member
+        ),
+      };
+    case ASSIGN_GAT_ADHIKARI_FAILURE:
+      return { ...state, assignLoading: false, assignError: action.payload };
+
     default:
       return state;
   }

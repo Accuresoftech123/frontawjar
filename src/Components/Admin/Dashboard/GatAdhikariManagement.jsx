@@ -20,18 +20,18 @@ const GatAdhikariManagement = () => {
       icon: <FaUsers size={30} color="#e67e22" />,
       path: "/Admin/Dashboard/GatAdhikari/GatAdhikariList",
     },
-    {
-      title: "गट अधिकारीने नोंदणीकृत सदस्य",
-      description: "गट अधिकारीने नोंदणीकृत सदस्यांची यादी",
-      icon: <FaUserPlus size={30} color="#2ecc71" />,
-      path: "/Admin/Dashboard/GatAdhikari/UserListByReg",
-    },
-    {
-      title: "गट अधिकारीने मंजूर सदस्य",
-      description: "गट अधिकारीने मंजूर केलेल्या सदस्यांची यादी",
-      icon: <FaClipboardCheck size={30} color="#9b59b6" />,
-      path: "/Admin/Dashboard/GatAdhikari/UserListByApproval",
-    },
+    // {
+    //   title: "गट अधिकारीने नोंदणीकृत सदस्य",
+    //   description: "गट अधिकारीने नोंदणीकृत सदस्यांची यादी",
+    //   icon: <FaUserPlus size={30} color="#2ecc71" />,
+    //   path: "/Admin/Dashboard/GatAdhikari/UserListByReg",
+    // },
+    // {
+    //   title: "गट अधिकारीने मंजूर सदस्य",
+    //   description: "गट अधिकारीने मंजूर केलेल्या सदस्यांची यादी",
+    //   icon: <FaClipboardCheck size={30} color="#9b59b6" />,
+    //   path: "/Admin/Dashboard/GatAdhikari/UserListByApproval",
+    // },
   ];
 
   return (

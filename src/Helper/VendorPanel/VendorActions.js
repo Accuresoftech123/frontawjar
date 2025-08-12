@@ -116,13 +116,13 @@ export const listVehicles = () => async (dispatch) => {
   try {
     dispatch({ type: GET_VEHICLE_REQUEST });
 
-    const response = await axios.get(`${baseURL}/vendor/vehicles/`); // replace with your actual endpoint
+    const response = await axios.get(`${baseURL}/vendor/vehicles-list/`); // replace with your actual endpoint
 
     dispatch({
       type: GET_VEHICLE_SUCCESS,
       payload: response.data,
     });
-    console.log(response);
+    console.log(response.data);
   } catch (error) {
     console.log(error);
     dispatch({

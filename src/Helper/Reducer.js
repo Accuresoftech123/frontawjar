@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import {districtReducer, talukaReducer, userApprovalReducer, villageReducer, UserListAdminReducer} from "./AdminPanel/AdminReducer";
+import {districtReducer, talukaReducer, userApprovalReducer, villageReducer, UserListAdminReducer, filterDriversReducer, filterMembersReducer, filterVehiclesReducer} from "./AdminPanel/AdminReducer";
 import {
   // Auth-related
   SULOGIN_REQUEST, SULOGIN_SUCCESS, SULOGIN_FAILED, SULOGOUT,
@@ -21,6 +21,7 @@ import {
   DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL,
 } from "./ActionType";
 import { vehicleRegisterReducer, vehicleTypeReducer } from "./VendorPanel/VendorReducer";
+import { bookingCreateReducer, gatAdhikariReducer } from "./AdminPanel/AdminReducer";
 
 const suloginInitialState = {
   isAuthenticated: false,
@@ -250,6 +251,11 @@ const rootReducer = combineReducers({
 
   vehicletype: vehicleTypeReducer,
   vehicle: vehicleRegisterReducer,
+  filterdriver: filterDriversReducer,
+  filtermember: filterMembersReducer,
+  filtervehicle: filterVehiclesReducer,
+  bookingadmincreate: bookingCreateReducer,
+  gatAdhikari: gatAdhikariReducer,
 });
 
 export default rootReducer;

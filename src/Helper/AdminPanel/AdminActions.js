@@ -25,6 +25,42 @@ import {
 
   //user list
    ROLE_LIST_REQUEST, ROLE_LIST_SUCCESS, ROLE_LIST_FAIL,
+
+   //driver filter list
+   FILTER_DRIVERS_REQUEST,
+  FILTER_DRIVERS_SUCCESS,
+  FILTER_DRIVERS_FAIL,
+
+   //member filter list
+  FILTER_MEMBER_REQUEST,
+  FILTER_MEMBER_SUCCESS,
+  FILTER_MEMBER_FAIL,
+
+   FILTER_VEHICLES_REQUEST,
+  FILTER_VEHICLES_SUCCESS,
+  FILTER_VEHICLES_FAIL,
+
+  //booking
+   BOOKING_CREATE_REQUEST,
+  BOOKING_CREATE_SUCCESS,
+  BOOKING_CREATE_FAIL,
+   ASSIGN_VEHICLE_REQUEST,
+  ASSIGN_VEHICLE_SUCCESS,
+  ASSIGN_VEHICLE_FAIL,
+  ASSIGN_DRIVER_REQUEST,
+  ASSIGN_DRIVER_SUCCESS,
+  ASSIGN_DRIVER_FAIL,
+   FETCH_BOOKINGS_REQUEST,
+  FETCH_BOOKINGS_SUCCESS,
+  FETCH_BOOKINGS_FAIL,
+
+   FETCH_GAT_ADHIKARI_REQUEST,
+  FETCH_GAT_ADHIKARI_SUCCESS,
+  FETCH_GAT_ADHIKARI_FAILURE,
+  ASSIGN_GAT_ADHIKARI_REQUEST,
+  ASSIGN_GAT_ADHIKARI_SUCCESS,
+  ASSIGN_GAT_ADHIKARI_FAILURE,
+
 } from './AdminActionType';
 
 //district actions
@@ -431,6 +467,217 @@ export const getRoleList = (role) => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
+    });
+  }
+};
+
+
+export const filterDriversByLocation = (district, taluka, village) => async (dispatch, getState) => {
+ dispatch({ type: FILTER_DRIVERS_REQUEST });
+  const data = {
+    district:district,
+    taluka:taluka,
+    village:village
+  }
+  try {
+    const res = await API.get(`admin-panel/drivers/filter/`, { params: data });
+   console.log("driver",res);
+    dispatch({
+      type: FILTER_DRIVERS_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FILTER_DRIVERS_FAIL,
+      payload: error.response?.data?.detail || error.message || "Failed to load villages",
+    });
+  }
+};
+
+
+export const filterMembersByLocation = (district, taluka, village) => async (dispatch, getState) => {
+ dispatch({ type: FILTER_MEMBER_REQUEST });
+  const data = {
+    district:district,
+    taluka:taluka,
+    village:village
+  }
+  try {
+    const res = await API.get(`admin-panel/members/filter/`,data);
+   console.log(res);
+    dispatch({
+      type: FILTER_MEMBER_SUCCESS,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FILTER_MEMBER_FAIL,
+      payload: error.response?.data?.detail || error.message || "Failed to load villages",
+    });
+  }
+};
+
+
+export const filterVehiclesByLocation = (district, taluka, village) => async (dispatch) => {
+  dispatch({ type: FILTER_VEHICLES_REQUEST });
+  try {
+    const res = await API.get('admin-panel/vehicles/filter/', {
+      params: { district, taluka, village }
+    });
+    dispatch({
+      type: FILTER_VEHICLES_SUCCESS,
+      payload: res.data,
+    });
+    console.log(res,"vehicle");
+  } catch (error) {
+    dispatch({
+      type: FILTER_VEHICLES_FAIL,
+      payload: error.response?.data?.detail || error.message || "Failed to load vehicles",
+    });
+  }
+};
+
+export const createBooking = (bookingData) => async (dispatch) => {
+  dispatch({ type: BOOKING_CREATE_REQUEST });
+
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    const response = await API.post('admin-panel/bookings/create/', bookingData, config);
+
+    dispatch({
+      type: BOOKING_CREATE_SUCCESS,
+      payload: response.data,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error)
+    dispatch({
+      type: BOOKING_CREATE_FAIL,
+      payload: error.response && error.response.data ? error.response.data : error.message,
+    });
+  }
+};
+// Assign Vehicle to Booking
+export const assignVehicle = ({ bookingId, vehicleId }) => async (dispatch) => {
+  try {
+    dispatch({ type: ASSIGN_VEHICLE_REQUEST });
+
+    const response = await API.post(
+      `admin-panel/bookings/${bookingId}/assign-vehicle/`,
+      { vehicle_id: vehicleId }
+    );
+
+    dispatch({
+      type: ASSIGN_VEHICLE_SUCCESS,
+      payload: response.data,
+    });
+console.log(response);
+// window.alert(response.data.message);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: ASSIGN_VEHICLE_FAIL,
+      payload:
+        error.response && error.response.data
+          ? error.response.data
+          : error.message,
+    });
+    throw error;
+  }
+};
+
+// Assign Driver to Booking
+export const assignDriver = ({ bookingId, driverId }) => async (dispatch) => {
+  try {
+    dispatch({ type: ASSIGN_DRIVER_REQUEST });
+
+    const response = await API.post(
+      `admin-panel/bookings/${bookingId}/assign-driver/`,
+      { driver_id: driverId }
+    );
+console.log()
+    dispatch({
+      type: ASSIGN_DRIVER_SUCCESS,
+      payload: response.data,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: ASSIGN_DRIVER_FAIL,
+      payload:
+        error.response && error.response.data
+          ? error.response.data
+          : error.message,
+    });
+    throw error;
+  }
+};
+
+export const fetchBookings = () => async (dispatch) => {
+  dispatch({ type: FETCH_BOOKINGS_REQUEST });
+  try {
+    const response = await API.get(`admin-panel/member-booking-list/`,{params: { role: 'member' }}); // Adjust endpoint as needed
+    dispatch({
+      type: FETCH_BOOKINGS_SUCCESS,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_BOOKINGS_FAIL,
+      payload:
+        error.response && error.response.data
+          ? error.response.data.detail || error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// Fetch Gat Adhikari list
+export const fetchGatAdhikari = () => async (dispatch) => {
+  dispatch({ type: FETCH_GAT_ADHIKARI_REQUEST });
+  try {
+    const response = await API.get('admin-panel/list/gat-adhikaris/'); // Adjust baseURL if needed
+    dispatch({
+      type: FETCH_GAT_ADHIKARI_SUCCESS,
+      payload: response.data,
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_GAT_ADHIKARI_FAILURE,
+      payload: error.response?.data || error.message,
+    });
+  }
+};
+
+// Assign or unassign Gat Adhikari status for a member
+export const assignGatAdhikari = (memberId, isGatAdhikari) => async (dispatch) => {
+  dispatch({ type: ASSIGN_GAT_ADHIKARI_REQUEST });
+  try {
+    const response = await API.patch(`admin-panel/members/${memberId}/gat-adhikari/`, {
+      is_gat_adhikari: isGatAdhikari,
+    });
+    dispatch({
+      type: ASSIGN_GAT_ADHIKARI_SUCCESS,
+      payload: { memberId, isGatAdhikari },
+    });
+    window.alert("GatAdhikari Selection Successfully done!");
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: ASSIGN_GAT_ADHIKARI_FAILURE,
+      payload: error.response?.data || error.message,
     });
   }
 };

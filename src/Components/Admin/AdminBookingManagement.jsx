@@ -11,12 +11,12 @@ const AdminBookingManagement = () => {
       icon: <FaClipboardList size={30} color="#2ecc71" />,
       path: "/Admin/Booking/Register",
     },
-    {
-      title: "ड्रायव्हर असाइन करा",
-      description: "बुकिंगसाठी ड्रायव्हर नियुक्त करा",
-      icon: <FaUserCheck size={30} color="#3498db" />,
-      path: "/Admin/Booking/Assign-driver",
-    },
+    // {
+    //   title: "ड्रायव्हर असाइन करा",
+    //   description: "बुकिंगसाठी ड्रायव्हर नियुक्त करा",
+    //   icon: <FaUserCheck size={30} color="#3498db" />,
+    //   path: "/Admin/Booking/Assign-driver",
+    // },
     {
       title: "बुकिंग यादी",
       description: "स्वीकृत, नाकारलेले, प्रलंबित बुकिंग पहा",
