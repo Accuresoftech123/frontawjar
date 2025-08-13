@@ -1,21 +1,21 @@
 import React from "react";
-import DashboardCard from "./DashboardCard";
+import DashboardCard from "../Admin/DashboardCard";
 import "../../Styles/Admin/AdminMainModules.css";
 import { FaClipboardList, FaUserCheck, FaListAlt } from "react-icons/fa";
 
-const AdminBookingManagement = () => {
+const MemberBookingManagement = () => {
   const modules = [
     {
       title: "बुकिंग नोंदणी",
       description: "वाहनासाठी विनंतीसह बुकिंग नोंदणी करा",
       icon: <FaClipboardList size={30} color="#2ecc71" />,
-      path: "/Admin/Booking/Register",
+      path: "/Member/Booking/Registration",
     },
     {
       title: "बुकिंग यादी",
       description: "स्वीकृत, नाकारलेले, प्रलंबित बुकिंग पहा",
       icon: <FaListAlt size={30} color="#e67e22" />,
-      path: "/admin/booking/list",
+      path: "/Member/Booking/List",
     },
   ];
 
@@ -43,4 +43,4 @@ const AdminBookingManagement = () => {
   );
 };
 
-export default AdminBookingManagement;
+export default MemberBookingManagement;

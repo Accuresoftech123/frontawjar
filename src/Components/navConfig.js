@@ -1,5 +1,5 @@
 // navConfig.js
-import { FaHome,FaChartBar,FaExclamationTriangle,FaWallet,FaClipboardList, } from "react-icons/fa";
+import { FaHome,FaChartBar,FaExclamationTriangle,FaWallet,FaClipboardList, FaMapMarkedAlt} from "react-icons/fa";
 
 export const navItemsByRole = {
   Admin: [
@@ -11,10 +11,12 @@ export const navItemsByRole = {
   ],
   Member: [
     { path: "/Member/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "डॅशबोर्ड" },
+     { path: "/Member/Booking", icon: <FaClipboardList color="#3498db"/>, label: "बुकिंग व्यवस्थापन" },
     // Add more
   ],
   Vendor: [
     { path: "/Vendor/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "डॅशबोर्ड" },
+    { path: "/Vendor/Vehicle", icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />, label: "वाहन व्यवस्थापन" },
     // Add more
   ],
   Driver: [

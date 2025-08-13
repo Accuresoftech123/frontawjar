@@ -28,7 +28,6 @@ import GatAdhikariUserList from "./Components/Admin/Dashboard/GatAdhikariUserLis
 import GatAdhikariApprovalList from "./Components/Admin/Dashboard/GatAdhikariApprovalList";
 
 import BookingRegistrationForm from "./Components/Admin/Booking/BookingRegistrationForm";
-import AssignDriverForm from "./Components/Admin/Booking/AssignDriverForm";
 import SuperUserLogin from "./Components/SuperUser/SuperUserLogin";
 import SuperUserDashboardHome from "./Components/SuperUser/SuperUserHome";
 import SuperUserDashboard from "./Components/SuperUser/SuperUserDashboard";
@@ -44,6 +43,12 @@ import DriverDashboard from "./Components/Driver/DriverDashboard";
 import VendorDashboard from "./Components/Vendor/VendorDashboard";
 import GatAdhikariDashboard from "./Components/GatAdhikari/GatAdhikariDashboard";
 import ComplaintForm from "./Components/ComplainForm";
+import MemberBookingManagement from "./Components/Member/MemberBookingManagement";
+import MBookingList from "./Components/Member/Booking/MBookingList";
+import MBookingRegistrationForm from "./Components/Member/Booking/MBookingRegistrationForm";
+import VendorVehicleManagement from "./Components/Vendor/Vehicle/VendorVehicleManagement";
+import VendorVehicleRegistration from "./Components/Vendor/Vehicle/VendorVehicleRegistration";
+import VendorVehicleList from "./Components/Vendor/Vehicle/VendorVehicleList";
 function App() {
   return (
     <BrowserRouter>
@@ -115,25 +120,39 @@ function App() {
         </Route>
 
         <Route
-          path="/Member/*"
+          path="/Member"
           element={
             <DashboardHome role="Member" navItems={navItemsByRole["Member"]} />
           }
         >
            <Route path="Dashboard" element={<MemberDashboard />} />
            <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+           <Route path="Booking" element={<MemberBookingManagement />} />
+          <Route
+            path="Booking/Registration"
+            element={<MBookingRegistrationForm />}
+          />
+          <Route path="Booking/List" element={<MBookingList />} />
         </Route>
+
         <Route
-          path="/Vendor/*"
+          path="/Vendor"
           element={
             <DashboardHome role="Vendor" navItems={navItemsByRole["Vendor"]} />
           }
         >
           <Route path="Dashboard" element={<VendorDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+           <Route path="Vehicle" element={<VendorVehicleManagement />} />
+          <Route
+            path="Vehicle/Registration"
+            element={<VendorVehicleRegistration />}
+          />
+          <Route path="Vehicle/List" element={<VendorVehicleList />} />
         </Route>
+
         <Route
-          path="/Operator/*"
+          path="/Operator"
           element={
             <DashboardHome
               role="Operator"
@@ -144,8 +163,9 @@ function App() {
           <Route path="Dashboard" element={<DriverDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
         </Route>
+
         <Route
-          path="/GatAdhikari/*"
+          path="/GatAdhikari"
           element={
             <DashboardHome
               role="GatAdhikari"
@@ -156,6 +176,7 @@ function App() {
           <Route path="Dashboard" element={<GatAdhikariDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

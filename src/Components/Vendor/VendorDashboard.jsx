@@ -13,20 +13,21 @@ import {
   FaChartBar,
   FaMoneyCheckAlt,
   FaClipboardList,
+  FaExclamationTriangle,
 } from "react-icons/fa";
 
 const VendorDashboard = () => {
   const modules = [
      {
-      title: "बुकिंग व्यवस्थापन",
-      description: "जिल्हा, तालुका आणि गाव जोडा, संपादित करा, हटवा आणि पाहा",
-      icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />,
-      path: "/Vendor/Dashboard/booking",
+      title: "वाहन व्यवस्थापन",
+      description: "नवीन वाहन नोंदवा, नोंदणीकृत वाहनांची यादी पाहा",
+      icon: <FaTractor size={30} color="#2ecc71" aria-hidden="true" />,
+      path: "/Vendor/Vehicle",
     },
     {
       title: "तक्रार व्यवस्थापन",
-      description: "वाहन प्रकार जोडा, वाहन जोडा, संपादित करा किंवा हटवा",
-      icon: <FaTractor size={30} color="#f39c12" aria-hidden="true" />,
+      description: "तक्रार जोडा, संपादित करा किंवा हटवा",
+      icon: <FaExclamationTriangle size={30} color="#f39c12" aria-hidden="true" />,
       path: "/Vendor/Dashboard/complaint",
     },
   ];
