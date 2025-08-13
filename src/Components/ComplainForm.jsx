@@ -6,8 +6,8 @@ import "../Styles/ComplaintForm.css"
  
 const ComplaintForm = () => {
   const dispatch = useDispatch();
-//   const { loading, error } = useSelector((state) => state.complaint);
- 
+//   const data = useSelector((state) => state.complaint);
+//  console.log(data);
   // Dummy values for now
   const driverId = 1; // Fetched from login API
   const bookingId = 123; // Fetched from login API
