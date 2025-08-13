@@ -5,19 +5,22 @@ import {
   
 } from "./DriverActionType";
 
+import {API} from "../Interceptor"
+
 // Create driver complaint
-export const createDriverComplaint = (bookingId, complaintData) => async (dispatch) => {
+export const createDriverComplaint = (booking, complaintData) => async (dispatch) => {
   dispatch({ type: CREATE_COMPLAINT_REQUEST });
 
   try {
     const { data } = await API.post(
-      `/booking/${bookingId}/complaint/`,
+      `driver/booking/${booking}/complaint/`,
       complaintData
     );
 
     dispatch({ type: CREATE_COMPLAINT_SUCCESS, payload: data });
     return { success: true, message: data?.detail || "Complaint submitted successfully" };
   } catch (error) {
+    console.log(error);
     const errorMsg = error.response?.data?.detail || error.message;
     dispatch({ type: CREATE_COMPLAINT_FAIL, payload: errorMsg });
     return { success: false, message: errorMsg };
