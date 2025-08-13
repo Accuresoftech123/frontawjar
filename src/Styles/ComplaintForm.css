@@ -1,4 +1,4 @@
-.complaint-container {
+.member-complaint-container {
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
@@ -7,30 +7,35 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.complaint-heading {
+.member-complaint-heading {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.complaint-form {
+.member-complaint-form {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
-.form-group {
+.member-form-group {
   margin-bottom: 15px;
 }
 
-.form-group label {
+.member-form-label {
+  display: block;
   margin-bottom: 5px;
   font-weight: bold;
   color: #555;
-  display: block;
+  font-size: 14px;
 }
 
-.form-group input,
-.form-group textarea {
+.member-form-input,
+.member-form-select,
+.member-form-textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -39,16 +44,16 @@
   background-color: #fff;
 }
 
-.form-group input[readonly] {
-  cursor: not-allowed;
+.member-form-select {
+  appearance: none;
 }
 
-.form-group textarea {
+.member-form-textarea {
   resize: vertical;
   min-height: 100px;
 }
 
-button {
+.member-complaint-button {
   padding: 10px;
   background-color: #007bff;
   color: #fff;
@@ -59,17 +64,17 @@ button {
   transition: background-color 0.3s;
 }
 
-button:disabled {
+.member-complaint-button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
+.member-complaint-button:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
-.error-text {
+.member-error-text {
   color: red;
-  margin-bottom: 15px;
-  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
 }

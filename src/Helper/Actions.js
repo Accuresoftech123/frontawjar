@@ -176,7 +176,7 @@ export const ALLLogin = (credentials) => async (dispatch) => {
         headers: { "Content-Type": "multipart/form-data" },
       }
     );
-
+     console.log("logingData",response.data)
     localStorage.setItem("accessToken", response.data.access);
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
 
