@@ -178,10 +178,9 @@ export const ALLLogin = (credentials) => async (dispatch) => {
     );
      console.log("logingData",response.data)
     localStorage.setItem("accessToken", response.data.access);
-     // ✅ Save user details to localStorage
-    localStorage.setItem("userDetails", JSON.stringify(response.data));
+  
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
-    console.log(response);
+   
     return { success: true, data:response.data }; // ✅ RETURN success
   } catch (error) {
     console.log(error);

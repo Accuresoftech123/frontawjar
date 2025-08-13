@@ -40,277 +40,85 @@ const generatePeriods = () => {
   return periods;
 };
 const bookingPeriods = generatePeriods();
-
 const Step1UserInfo = ({
   formData,
   errors,
   districts,
-  filteredTalukasMember,
-  filteredVillagesMember,
   filteredTalukasService,
   filteredVillagesService,
-  members,
   vehicleTypes,
-  isOtherMemberDistrict,
-  isOtherMemberTaluka,
-  isOtherMemberVillage,
-  isOtherServiceDistrict,
-  isOtherServiceTaluka,
-  isOtherServiceVillage,
   handleChange,
-  handleMemberDistrictChange,
-  handleMemberTalukaChange,
-  handleMemberVillageChange,
-  handleServiceDistrictChange,
-  handleServiceTalukaChange,
-  handleServiceVillageChange,
   setFormData,
 }) => {
   return (
-    <div className="booking_step">
-      <h3>Step 1: वापरकर्ता माहिती</h3>
-
-      {/* User Type */}
-      <div className="booking_section">
-        <label>वापरकर्ता प्रकार:</label>
-        <div className="booking_radio-group">
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="registered"
-              checked={formData.userType === "registered"}
-              onChange={handleChange}
-            />
-            नोंदणीकृत
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="non_registered"
-              checked={formData.userType === "non_registered"}
-              onChange={handleChange}
-            />
-            नोंदणीकृत नसलेला
-          </label>
-        </div>
+    <div className="step1-container">
+      {/* District */}
+      <div className="form-group">
+        <label htmlFor="serviceDistrict">जिल्हा</label>
+        <select
+          id="serviceDistrict"
+          name="serviceDistrict"
+          value={formData.serviceDistrict}
+          onChange={handleChange}
+          style={{padding:"10px 12px"}}
+        >
+          <option value="">-- जिल्हा निवडा --</option>
+          {districts.map((dist) => (
+            <option key={dist.id} value={dist.name}>
+              {dist.name}
+            </option>
+          ))}
+        </select>
+        {errors.serviceDistrict && (
+          <p className="error">{errors.serviceDistrict}</p>
+        )}
       </div>
 
-      {/* Member Location */}
-      <div className="booking_section">
-        <label>जिल्हा / तालुका / गाव:</label>
-        <div className="booking_row">
-          {/* District */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              जिल्हा <span className="booking_required">*</span>
-            </label>
-            <select
-              name="memberDistrict"
-              value={isOtherMemberDistrict ? "इतर" : formData.memberDistrict}
-              onChange={handleMemberDistrictChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा जिल्हा --</option>
-              <option value="इतर">इतर</option>
-              {districts.map((d, index) => (
-                <option key={`${d.id ?? d._id ?? d.name}-${index}`} value={d.name}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
-            {isOtherMemberDistrict && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="जिल्हा लिहा"
-                value={formData.memberDistrict}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    memberDistrict: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.memberDistrict && (
-              <div className="booking_error">{errors.memberDistrict}</div>
-            )}
-          </div>
-
-          {/* Taluka */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              तालुका <span className="booking_required">*</span>
-            </label>
-            <select
-              name="memberTaluka"
-              value={isOtherMemberTaluka ? "इतर" : formData.memberTaluka}
-              onChange={handleMemberTalukaChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा तालुका --</option>
-              <option value="इतर">इतर</option>
-              {filteredTalukasMember.map((t, index) => (
-                <option
-                  key={`${t.id ?? t._id ?? t.name}-${index}`}
-                  value={t.name || t.taluka_name}
-                >
-                  {t.name || t.taluka_name}
-                </option>
-              ))}
-            </select>
-            {isOtherMemberTaluka && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="तालुका लिहा"
-                value={formData.memberTaluka}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    memberTaluka: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.memberTaluka && (
-              <div className="booking_error">{errors.memberTaluka}</div>
-            )}
-          </div>
-
-          {/* Village */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              गाव <span className="booking_required">*</span>
-            </label>
-            <select
-              name="memberVillage"
-              value={isOtherMemberVillage ? "इतर" : formData.memberVillage}
-              onChange={handleMemberVillageChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा गाव --</option>
-              <option value="इतर">इतर</option>
-              {filteredVillagesMember.map((v, index) => (
-                <option key={`${v.id ?? v._id ?? v.name}-${index}`} value={v.name}>
-                  {v.name}
-                </option>
-              ))}
-            </select>
-            {isOtherMemberVillage && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="गाव लिहा"
-                value={formData.memberVillage}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    memberVillage: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.memberVillage && (
-              <div className="booking_error">{errors.memberVillage}</div>
-            )}
-          </div>
-        </div>
+      {/* Taluka */}
+      <div className="form-group">
+        <label htmlFor="serviceTaluka">तालुका</label>
+        <select
+          id="serviceTaluka"
+          name="serviceTaluka"
+          value={formData.serviceTaluka}
+          onChange={handleChange}
+          disabled={!formData.serviceDistrict}
+          style={{padding:"10px 12px"}}
+        >
+          <option value="">-- तालुका निवडा --</option>
+          {filteredTalukasService.map((tal) => (
+            <option key={tal.id} value={tal.name}>
+              {tal.name}
+            </option>
+          ))}
+        </select>
+        {errors.serviceTaluka && (
+          <p className="error">{errors.serviceTaluka}</p>
+        )}
       </div>
 
-      {/* Member Selection */}
-      {formData.userType === "registered" ? (
-        <>
-          <div className="booking_section">
-            <label>सदस्य निवडा:</label>
-            <select
-              name="memberId"
-              value={formData.memberId}
-              onChange={(e) => {
-                handleChange(e);
-                const selectedMember = members.find(
-                  (m) => String(m.id) === String(e.target.value)
-                );
-                if (selectedMember) {
-                  setFormData((prev) => ({
-                    ...prev,
-                    firstName: selectedMember.first_name,
-                    lastName: selectedMember.last_name,
-                    mobile: selectedMember.mobile,
-                  }));
-                }
-              }}
-              disabled={!formData.memberVillage}
-            >
-              <option value="">-- सदस्य निवडा --</option>
-              {members.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {`${m.first_name} ${m.last_name}`}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Show separate inputs for selected member */}
-          {formData.memberId && (
-            <div className="booking_row" style={{ marginTop: "10px" }}>
-              <input
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="पहिले नाव"
-                style={{ padding: "10px 12px", borderRadius: "4px" }}
-                disabled={formData.userType === "registered"}
-              />
-              <input
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="आडनाव"
-                style={{ padding: "10px 12px", borderRadius: "4px" }}
-                disabled={formData.userType === "registered"}
-              />
-              <input
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleChange}
-                placeholder="मोबाइल क्रमांक"
-                style={{ padding: "10px 12px", borderRadius: "4px" }}
-                disabled={formData.userType === "registered"}
-              />
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="booking_section">
-          <label>सदस्य माहिती:</label>
-          <div className="booking_row">
-            <input
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="पहिले नाव"
-              style={{ padding: "10px 12px", borderRadius: "4px" }}
-            />
-            <input
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="आडनाव"
-              style={{ padding: "10px 12px", borderRadius: "4px" }}
-            />
-            <input
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-              placeholder="मोबाइल क्रमांक"
-              style={{ padding: "10px 12px", borderRadius: "4px" }}
-            />
-          </div>
-        </div>
-      )}
+      {/* Village */}
+      <div className="form-group">
+        <label htmlFor="serviceVillage">गाव</label>
+        <select
+          id="serviceVillage"
+          name="serviceVillage"
+          value={formData.serviceVillage}
+          onChange={handleChange}
+          disabled={!formData.serviceTaluka}
+          style={{padding:"10px 12px"}}
+        >
+          <option value="">-- गाव निवडा --</option>
+          {filteredVillagesService.map((vil) => (
+            <option key={vil.id} value={vil.name}>
+              {vil.name}
+            </option>
+          ))}
+        </select>
+        {errors.serviceVillage && (
+          <p className="error">{errors.serviceVillage}</p>
+        )}
+      </div>
 
       {/* Vehicle Type */}
       <div className="booking_section">
@@ -354,31 +162,55 @@ const Step1UserInfo = ({
       </div>
 
       {/* Farm Area */}
-      <div className="booking_section">
-        <label>शेती क्षेत्र (गुंठा):</label>
+      <div className="form-group">
+        <label htmlFor="farmArea">शेती क्षेत्रफळ (एकर मध्ये)</label>
         <input
-          name="farmArea"
           type="number"
+          id="farmArea"
+          name="farmArea"
+          placeholder="उदा. 5"
           value={formData.farmArea}
           onChange={handleChange}
-          placeholder="क्षेत्रफळ (गुंठा)"
         />
+        {errors.farmArea && <p className="error">{errors.farmArea}</p>}
       </div>
 
-      {/* Booking Date & Period */}
-      <div className="booking_section">
-        <label>बुकिंग दिनांक / कालावधी:</label>
-        <div className="booking_row">
-          <input
-            type="date"
-            name="bookingDate"
-            value={formData.bookingDate}
-            onChange={handleChange}
-          />
-          <select
+      {/* Booking Reason */}
+      <div className="form-group">
+        <label htmlFor="bookingReason">बुकिंग कारण</label>
+        <input
+          type="text"
+          id="bookingReason"
+          name="bookingReason"
+          placeholder="उदा. नांगरणी / पाणीपुरवठा"
+          value={formData.bookingReason}
+          onChange={handleChange}
+        />
+        {errors.bookingReason && (
+          <p className="error">{errors.bookingReason}</p>
+        )}
+      </div>
+
+      {/* Booking Date */}
+      <div className="form-group">
+        <label htmlFor="bookingDate">बुकिंग तारीख</label>
+        <input
+          type="date"
+          id="bookingDate"
+          name="bookingDate"
+          value={formData.bookingDate}
+          onChange={handleChange}
+        />
+        {errors.bookingDate && <p className="error">{errors.bookingDate}</p>}
+      </div>
+
+      {/* Booking Period */}
+      <div>
+       <select
             name="bookingPeriod"
             value={formData.bookingPeriod}
             onChange={handleChange}
+            style={{padding:"10px 12px", width:"100%", marginTop:"10px"}}
           >
             <option value="">-- कालावधी --</option>
             {bookingPeriods.map((p) => (
@@ -387,155 +219,26 @@ const Step1UserInfo = ({
               </option>
             ))}
           </select>
-        </div>
-      </div>
-
-      {/* Booking Reason */}
-      <div className="booking_section">
-        <label>बुकिंग कारण:</label>
-        <textarea
-          name="bookingReason"
-          value={formData.bookingReason}
-          onChange={handleChange}
-          placeholder="कारण"
-          rows={3}
-        />
+        {errors.bookingPeriod && (
+          <p className="error">{errors.bookingPeriod}</p>
+        )}
       </div>
 
       {/* Service Address */}
-      <div className="booking_section">
-        <label>सेवा पत्ता:</label>
-        <div className="booking_row">
-          {/* Service District */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              जिल्हा <span className="booking_required">*</span>
-            </label>
-            <select
-              name="serviceDistrict"
-              value={isOtherServiceDistrict ? "इतर" : formData.serviceDistrict}
-              onChange={handleServiceDistrictChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा जिल्हा --</option>
-              <option value="इतर">इतर</option>
-              {districts.map((d, index) => (
-                <option key={`${d.id ?? d._id ?? d.name}-${index}`} value={d.name}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
-            {isOtherServiceDistrict && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="जिल्हा लिहा"
-                value={formData.serviceDistrict}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    serviceDistrict: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.serviceDistrict && (
-              <div className="booking_error">{errors.serviceDistrict}</div>
-            )}
-          </div>
-
-          {/* Service Taluka */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              तालुका <span className="booking_required">*</span>
-            </label>
-            <select
-              name="serviceTaluka"
-              value={isOtherServiceTaluka ? "इतर" : formData.serviceTaluka}
-              onChange={handleServiceTalukaChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा तालुका --</option>
-              <option value="इतर">इतर</option>
-              {filteredTalukasService.map((t, index) => (
-                <option
-                  key={`${t.id ?? t._id ?? t.name}-${index}`}
-                  value={t.name || t.taluka_name}
-                >
-                  {t.name || t.taluka_name}
-                </option>
-              ))}
-            </select>
-            {isOtherServiceTaluka && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="तालुका लिहा"
-                value={formData.serviceTaluka}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    serviceTaluka: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.serviceTaluka && (
-              <div className="booking_error">{errors.serviceTaluka}</div>
-            )}
-          </div>
-
-          {/* Service Village */}
-          <div className="booking_formGroup">
-            <label className="booking_label">
-              गाव <span className="booking_required">*</span>
-            </label>
-            <select
-              name="serviceVillage"
-              value={isOtherServiceVillage ? "इतर" : formData.serviceVillage}
-              onChange={handleServiceVillageChange}
-              className="booking_select"
-            >
-              <option value="">-- निवडा गाव --</option>
-              <option value="इतर">इतर</option>
-              {filteredVillagesService.map((v, index) => (
-                <option key={`${v.id ?? v._id ?? v.name}-${index}`} value={v.name}>
-                  {v.name}
-                </option>
-              ))}
-            </select>
-            {isOtherServiceVillage && (
-              <input
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                type="text"
-                placeholder="गाव लिहा"
-                value={formData.serviceVillage}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    serviceVillage: e.target.value,
-                  }))
-                }
-              />
-            )}
-            {errors.serviceVillage && (
-              <div className="booking_error">{errors.serviceVillage}</div>
-            )}
-          </div>
-        </div>
-        <div className="booking_section">
-          <label>पत्ता:</label>
-          <textarea
-            name="serviceAddress"
-            value={formData.serviceAddress}
-            onChange={handleChange}
-            placeholder="संपूर्ण पत्ता लिहा"
-            rows={3}
-          />
-        </div>
+      <div className="form-group">
+        <label htmlFor="serviceAddress">सेवेचा पत्ता</label>
+        <textarea
+          id="serviceAddress"
+          name="serviceAddress"
+          placeholder="उदा. गट क्रमांक 12, मुख्य रस्ता, पुणे"
+          value={formData.serviceAddress}
+          onChange={handleChange}
+        />
+        {errors.serviceAddress && (
+          <p className="error">{errors.serviceAddress}</p>
+        )}
       </div>
-
-      {/* Total Cost */}
+        {/* Total Cost */}
       {formData.vehicleType && formData.farmArea && formData.bookingPeriod && (
         <div className="booking_section booking_total">
           <strong>एकूण खर्च:</strong>{" "}
