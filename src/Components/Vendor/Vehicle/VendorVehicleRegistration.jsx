@@ -22,6 +22,8 @@ const VendorVehicleRegistration = () => {
     error: vendorError,
     users,
   } = useSelector((state) => state.useradminlist);
+   const data = useSelector((state) => state.login);
+    const vendorId = data.user.user_id;
   const { vehicleTypes, loading, error } = useSelector(
     (state) => state.vehicletype
   );
@@ -141,7 +143,6 @@ const VendorVehicleRegistration = () => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.user) newErrors.user = "कृपया विक्रेता निवडा";
     if (!formData.vehicle_type)
       newErrors.vehicle_type = "वाहन प्रकार आवश्यक आहे";
     if (!formData.vehicle_name.trim())
@@ -164,7 +165,7 @@ const handleSubmit = async (e) => {
   setErrors({});
   setSubmitError("");
 const data = {
-   vendor_id: formData.user,
+   vendor_id: vendorId,
     vehicle_type: formData.vehicle_type,
     vehicle_name: formData.vehicle_name,
     vehicle_no: formData.vehicle_no,
@@ -341,7 +342,7 @@ const data = {
           )}
         </div>
         {/* Vendor */}
-        <div className="vehicleReg_formGroup">
+        {/* <div className="vehicleReg_formGroup">
           <label className="vehicleReg_label">
             विक्रेता (user) <span className="vehicleReg_required">*</span>
           </label>
@@ -370,7 +371,7 @@ const data = {
           {errors.user && (
             <div className="vehicleReg_error">{errors.user}</div>
           )}
-        </div>
+        </div> */}
         {/* Vehicle Type */}
         <div className="vehicleReg_formGroup">
           <label className="vehicleReg_label">

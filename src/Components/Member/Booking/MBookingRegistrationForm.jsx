@@ -6,8 +6,8 @@ import {
   getDistricts,
   getTalukas,
   getVillages,
-  createBooking
 } from "../../../Helper/AdminPanel/AdminActions";
+import {  createBooking } from "../../../Helper/MemberPanel/MemberActions";
 
 import { listVehicleTypes } from "../../../Helper/VendorPanel/VendorActions";
 import Step1UserInfo from "./Step1UserInfo";

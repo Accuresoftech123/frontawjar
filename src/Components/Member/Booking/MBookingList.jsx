@@ -1,45 +1,56 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookings } from "../../../Helper/AdminPanel/AdminActions"; // adjust path
-import "../../../Styles/Admin/Booking/BookingList.css"; // optional styling file
+import { listBookings } from "../../../Helper/MemberPanel/MemberActions";
+import "../../../Styles/Admin/Booking/BookingList.css";
+import { useNavigate } from "react-router-dom";
 
 const BookingList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // Extract loading, bookings and error from redux state
-  const { loading, bookings, error } = useSelector((state) => state.bookingadmincreate);
+  const { loading, bookings, error } = useSelector(
+    (state) => state.memberbooking
+  );
 
   useEffect(() => {
-    dispatch(fetchBookings());
+    dispatch(listBookings());
   }, [dispatch]);
 
   return (
     <div className="booking-list-container">
-      <h2>Booking List</h2>
+      <div className="location_header_row">
+        <button className="location_back_button" onClick={() => navigate(-1)}>
+          ⬅ मागे
+        </button>
+      <h2>बुकिंग यादी</h2></div>
 
       {loading && <p>लोड करत आहे...</p>}
       {error && <p style={{ color: "red" }}>त्रुटी: {error}</p>}
 
-      {!loading && !error && bookings.length === 0 && <p>कोणतीही बुकिंग सापडली नाही.</p>}
+      {!loading && !error && bookings.length === 0 && (
+        <p>कोणतीही बुकिंग सापडली नाही.</p>
+      )}
 
       {!loading && !error && bookings.length > 0 && (
         <table className="booking-table">
           <thead>
             <tr>
-              <th>Booking ID</th>
-              <th>User</th>
-              <th>Vehicle</th>
-              <th>Date</th>
-              <th>Status</th>
+              <th>बुकिंग आयडी</th>
+              <th>purpose</th>
+              <th>वाहन नाव</th>
+              <th>वाहन क्रमांक</th>
+              <th>बुकिंग तारीख</th>
+              <th>स्थिती</th>
             </tr>
           </thead>
           <tbody>
             {bookings.map((booking) => (
-              <tr key={booking.id}>
-                <td>{booking.id}</td>
-                <td>{booking.userName || booking.user?.name || "N/A"}</td>
-                <td>{booking.vehicleName || booking.vehicle?.name || "N/A"}</td>
-                <td>{booking.date || booking.bookingDate || "N/A"}</td>
+              <tr key={booking.booking_id}>
+                <td>{booking.booking_id}</td>
+                <td>{booking.purpose || "N/A"}</td>
+                <td>{booking.vehicle?.vehicle_name || "N/A"}</td>
+                <td>{booking.vehicle?.vehicle_no || "N/A"}</td>
+                <td>{booking.booking_date || "N/A"}</td>
                 <td>{booking.status || "Pending"}</td>
               </tr>
             ))}

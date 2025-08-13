@@ -59,12 +59,12 @@ const AdminDashboard = () => {
     icon: <FaClipboardList size={30} color="#3498db" />,
     path: "/Admin/Booking",
   },
-  {
-    title: "पेमेंट व्यवस्थापन",
-    description: "देयके पहा, प्रक्रिया करा व हिशोब ठेवा",
-    icon: <FaMoneyCheckAlt size={30} color="#27ae60" />,
-    path: "/Admin/Account",
-  },
+  // {
+  //   title: "पेमेंट व्यवस्थापन",
+  //   description: "देयके पहा, प्रक्रिया करा व हिशोब ठेवा",
+  //   icon: <FaMoneyCheckAlt size={30} color="#27ae60" />,
+  //   path: "/Admin/Account",
+  // },
   {
     title: "अहवाल व्यवस्थापन",
     description: "सभासद, विक्रेता, ड्रायव्हर यांचे अहवाल तयार करा व डाउनलोड करा",

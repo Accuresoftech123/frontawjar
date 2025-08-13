@@ -624,11 +624,12 @@ console.log()
 export const fetchBookings = () => async (dispatch) => {
   dispatch({ type: FETCH_BOOKINGS_REQUEST });
   try {
-    const response = await API.get(`admin-panel/member-booking-list/`,{params: { role: 'member' }}); // Adjust endpoint as needed
+    const response = await API.get(`admin-panel/bookings/history/`); // Adjust endpoint as needed
     dispatch({
       type: FETCH_BOOKINGS_SUCCESS,
       payload: response.data,
     });
+    console.log(response);
   } catch (error) {
     console.log(error);
     dispatch({
