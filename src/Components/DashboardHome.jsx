@@ -45,7 +45,7 @@ const DashboardHome = ({ role, navItems }) => {
 
       <div className="DashboardHome_layout-body">
         <nav className={`DashboardHome_sidebar ${sidebarOpen ? "active" : ""}`}>
-          {navItems.map((item) => (
+          {navItems?.map((item) => (
             <Link
               key={item.path}
               to={item.path}

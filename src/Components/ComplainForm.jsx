@@ -6,8 +6,11 @@ import "../Styles/ComplaintForm.css";
 
 const ComplaintForm = () => {
   const dispatch = useDispatch();
-  const { role: userRole, id: userId } = useSelector((state) => state.login);
+
   const data = useSelector((state) => state.login);
+
+  const userRole = data.user.role
+  const userId = data.user.user_id
 
   console.log("role and id", data.user.role)
 

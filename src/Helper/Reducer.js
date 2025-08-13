@@ -22,6 +22,7 @@ import {
 } from "./ActionType";
 import { vehicleRegisterReducer, vehicleTypeReducer } from "./VendorPanel/VendorReducer";
 import { bookingCreateReducer, gatAdhikariReducer } from "./AdminPanel/AdminReducer";
+import {complaintDriverReducer} from "./DriverPanel/DriverReducer";
 
 const suloginInitialState = {
   isAuthenticated: false,
@@ -256,6 +257,8 @@ const rootReducer = combineReducers({
   filtervehicle: filterVehiclesReducer,
   bookingadmincreate: bookingCreateReducer,
   gatAdhikari: gatAdhikariReducer,
+
+  drivercomplaint: complaintDriverReducer,
 });
 
 export default rootReducer;

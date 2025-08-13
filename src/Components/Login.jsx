@@ -78,6 +78,8 @@ const Login = () => {
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+   let backendRole = role.toLowerCase();
+  if (backendRole === "operator") backendRole = "driver";
   const validationErrors = validateCredentials(credentials);
   setErrors(validationErrors);
 
@@ -87,7 +89,7 @@ const Login = () => {
   const loginPayload = {
     email: credentials.email,
     password: credentials.password,
-    role: role.toLowerCase(),
+    role: backendRole,
   };
 console.log(loginPayload);
 
