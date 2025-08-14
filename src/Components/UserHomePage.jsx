@@ -85,7 +85,7 @@ const UserHomePage = () => {
           <Link to="/Login/Operator" className="userhomepage-button">
             ऑपरेटर
           </Link>
-          <Link to="/Login/GatAdhikari" className="userhomepage-button">
+          <Link to="/Login/gat_adhikari" className="userhomepage-button">
             गट अधिकारी
           </Link>
         </div>

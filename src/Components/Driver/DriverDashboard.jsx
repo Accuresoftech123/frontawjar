@@ -21,7 +21,7 @@ const DriverDashboard = () => {
       title: "बुकिंग व्यवस्थापन",
       description: "जिल्हा, तालुका आणि गाव जोडा, संपादित करा, हटवा आणि पाहा",
       icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />,
-      path: "/Operator/Dashboard/booking",
+      path: "/Operator/booking",
     },
     {
       title: "तक्रार व्यवस्थापन",

@@ -13,6 +13,10 @@ import {
    GET_VEHICLE_REQUEST,
   GET_VEHICLE_SUCCESS,
   GET_VEHICLE_FAIL,
+
+   FETCH_BOOKING_HISTORY,
+  FETCH_BOOKING_HISTORY_SUCCESS,
+  FETCH_BOOKING_HISTORY_FAILURE,
 } from "./VendorActionType";
 import { toast } from "react-toastify";
 
@@ -131,6 +135,28 @@ export const listVehicles = () => async (dispatch) => {
         error.response && error.response.data.detail
           ? error.response.data.detail
           : error.message,
+    });
+  }
+};
+
+
+export const fetchBookingHistory = (statuses = ["completed", "cancelled","booked"]) => async (dispatch) => {
+  dispatch({ type: FETCH_BOOKING_HISTORY });
+
+  try {
+    const params = { status: statuses }; // Axios will serialize ?status=value&status=value
+    const res = await API.get("member/member-booking-list/", { params });
+
+    dispatch({
+      type: FETCH_BOOKING_HISTORY_SUCCESS,
+      payload: res.data,
+    });
+    console.log(res);
+  } catch (err) {
+    console.log(err);
+    dispatch({
+      type: FETCH_BOOKING_HISTORY_FAILURE,
+      payload: err.response?.data?.detail || err.message,
     });
   }
 };

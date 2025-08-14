@@ -10,6 +10,10 @@ import {
   GET_VEHICLE_SUCCESS,
   GET_VEHICLE_FAIL,
   GET_VEHICLE_RESET,
+
+  FETCH_BOOKING_HISTORY,
+  FETCH_BOOKING_HISTORY_SUCCESS,
+  FETCH_BOOKING_HISTORY_FAILURE,
 } from "./VendorActionType";
 
 const vtInitialState = {
@@ -26,7 +30,11 @@ export const vehicleRegisterInitialState = {
   success: false,
   vehicles: [],
 };
-
+const vendorbhInitialState = {
+  loading: false,
+  bhbookings: [],
+  error: null,
+};
 export const vehicleTypeReducer = (state = vtInitialState, action) => {
   switch (action.type) {
     case CREATE_VEHICLE_TYPE_REQUEST:
@@ -131,6 +139,20 @@ export const vehicleRegisterReducer = (
         ...state,
         vehicles: [],
       };
+    default:
+      return state;
+  }
+};
+
+
+export const bookingHistoryReducer = (state = vendorbhInitialState, action) => {
+  switch (action.type) {
+    case FETCH_BOOKING_HISTORY:
+      return { ...state, loading: true, error: null };
+    case FETCH_BOOKING_HISTORY_SUCCESS:
+      return { ...state, loading: false, bhbookings: action.payload };
+    case FETCH_BOOKING_HISTORY_FAILURE:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

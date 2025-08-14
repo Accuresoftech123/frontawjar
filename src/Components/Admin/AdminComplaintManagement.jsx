@@ -36,7 +36,7 @@ const AdminComplaintManagement = () => {
       title: "गट अधिकारी तक्रारी",
       description: "गट अधिकाऱ्यांच्या तक्रारींची यादी",
       icon: <FaUserTie size={30} color="#16a085" />,
-      path: "/admin/complaints/gatadhikari",
+      path: "/admin/complaints/gat_adhikari",
     },
     {
       title: "वाहन तक्रारी",

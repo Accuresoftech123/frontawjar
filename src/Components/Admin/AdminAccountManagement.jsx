@@ -36,7 +36,7 @@ const AdminAccountManagement = () => {
       title: "गट अधिकारी पेमेंट",
       description: "गट अधिकाऱ्यांचे पेमेंट तपासा",
       icon: <FaUserTie size={30} color="#1abc9c" />,
-      path: "/admin/accounts/gatadhikari",
+      path: "/admin/accounts/gat_adhikari",
     },
     {
       title: "वाहन पेमेंट",

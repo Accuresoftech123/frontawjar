@@ -504,13 +504,14 @@ export const filterMembersByLocation = (district, taluka, village) => async (dis
     village:village
   }
   try {
-    const res = await API.get(`admin-panel/members/filter/`,data);
+    const res = await API.get(`admin-panel/member/filter/`,data);
    console.log(res);
     dispatch({
       type: FILTER_MEMBER_SUCCESS,
       payload: res.data,
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: FILTER_MEMBER_FAIL,
       payload: error.response?.data?.detail || error.message || "Failed to load villages",
@@ -624,7 +625,7 @@ console.log()
 export const fetchBookings = () => async (dispatch) => {
   dispatch({ type: FETCH_BOOKINGS_REQUEST });
   try {
-    const response = await API.get(`admin-panel/bookings/history/`); // Adjust endpoint as needed
+    const response = await API.get(`admin-panel/vehicle-bookings/`); // Adjust endpoint as needed
     dispatch({
       type: FETCH_BOOKINGS_SUCCESS,
       payload: response.data,

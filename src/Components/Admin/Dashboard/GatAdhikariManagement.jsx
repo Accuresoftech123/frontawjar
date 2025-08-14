@@ -12,13 +12,13 @@ const GatAdhikariManagement = () => {
       title: "गट अधिकारी नेमणूक",
       description: "नोंदणीकृत सभासद तपासणी व गट अधिकारी नेमणूक",
       icon: <FaUserCheck size={30} color="#3498db" />,
-      path: "/Admin/Dashboard/GatAdhikari/Selection",
+      path: "/Admin/Dashboard/gat_adhikari/Selection",
     },
     {
       title: "गट अधिकारी यादी",
       description: "सर्व गट अधिकारी यादी पहा",
       icon: <FaUsers size={30} color="#e67e22" />,
-      path: "/Admin/Dashboard/GatAdhikari/GatAdhikariList",
+      path: "/Admin/Dashboard/gat_adhikari/gat_adhikariList",
     },
     // {
     //   title: "गट अधिकारीने नोंदणीकृत सदस्य",

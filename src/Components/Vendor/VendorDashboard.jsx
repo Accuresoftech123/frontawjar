@@ -24,6 +24,12 @@ const VendorDashboard = () => {
       icon: <FaTractor size={30} color="#2ecc71" aria-hidden="true" />,
       path: "/Vendor/Vehicle",
     },
+     {
+          title: "बुकिंग यादी",
+          description: "सर्व बुकिंग यादी पहा",
+          icon: <FaClipboardList size={30} color="#2ecc71" aria-hidden="true" />,
+          path: "/vendor/Dashboard/bookinglist",
+        },
     {
       title: "तक्रार व्यवस्थापन",
       description: "तक्रार जोडा, संपादित करा किंवा हटवा",

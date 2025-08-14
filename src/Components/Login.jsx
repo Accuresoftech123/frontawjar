@@ -103,13 +103,12 @@ console.log(loginPayload);
   }
 };
 
-
   const roleTitle = {
     Admin: "ऍडमिन",
     Member: "सभासद",
     Vendor: "विक्रेता",
     Operator: "ऑपरेटर",
-    GatAdhikari: "गट अधिकारी",
+    gat_adhikari: "गट अधिकारी",
   };
 
   return (

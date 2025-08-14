@@ -20,7 +20,7 @@ import {
   UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,  
   DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL,
 } from "./ActionType";
-import { vehicleRegisterReducer, vehicleTypeReducer } from "./VendorPanel/VendorReducer";
+import { vehicleRegisterReducer, vehicleTypeReducer, bookingHistoryReducer } from "./VendorPanel/VendorReducer";
 import { bookingCreateReducer, gatAdhikariReducer } from "./AdminPanel/AdminReducer";
 import {complaintDriverReducer} from "./DriverPanel/DriverReducer";
 import {bookingmemberReducer} from "./MemberPanel/MemberReducer";
@@ -261,6 +261,7 @@ const rootReducer = combineReducers({
 
   drivercomplaint: complaintDriverReducer,
   memberbooking: bookingmemberReducer,
+  vendorbh: bookingHistoryReducer,
 });
 
 export default rootReducer;

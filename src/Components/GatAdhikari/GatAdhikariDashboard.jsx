@@ -18,16 +18,16 @@ import {
 const GatAdhikariDashboard = () => {
   const modules = [
      {
-      title: "बुकिंग व्यवस्थापन",
-      description: "जिल्हा, तालुका आणि गाव जोडा, संपादित करा, हटवा आणि पाहा",
+      title: "बुकिंग यादी",
+      description: "सर्व बुकिंग यादी पहा",
       icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />,
-      path: "/GatAdhikari/Dashboard/booking",
+      path: "/gat_adhikari/Dashboard/bookinglist",
     },
     {
-      title: "तक्रार व्यवस्थापन",
-      description: "वाहन प्रकार जोडा, वाहन जोडा, संपादित करा किंवा हटवा",
+      title: "सभासद यादी",
+      description: "सर्व सभासद यादी पहा ",
       icon: <FaTractor size={30} color="#f39c12" aria-hidden="true" />,
-      path: "/GatAdhikari/Dashboard/complaint",
+      path: "/gat_adhikari/Dashboard/members",
     },
   ];
 

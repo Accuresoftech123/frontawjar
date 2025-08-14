@@ -49,6 +49,8 @@ import MBookingRegistrationForm from "./Components/Member/Booking/MBookingRegist
 import VendorVehicleManagement from "./Components/Vendor/Vehicle/VendorVehicleManagement";
 import VendorVehicleRegistration from "./Components/Vendor/Vehicle/VendorVehicleRegistration";
 import VendorVehicleList from "./Components/Vendor/Vehicle/VendorVehicleList";
+import VendorBookingList from "./Components/Vendor/VendorBookingList";
+import OperatorBookingManagement from "./Components/Driver/booking/OperatorBookingManagement";
 function App() {
   return (
     <BrowserRouter>
@@ -86,24 +88,24 @@ function App() {
           <Route path="Dashboard/Member" element={<MemberManagement />} />
           <Route path="Dashboard/Vendor" element={<VendorManagement />} />
           <Route path="Dashboard/Operator" element={<OperatorManagement />} />
-          <Route path="Dashboard/GatAdhikari" element={<GatAdhikariManagement />} />
+          <Route path="Dashboard/gat_adhikari" element={<GatAdhikariManagement />} />
           <Route path="Dashboard/:role/Register" element={<ADRegistration />} />
           <Route path="Dashboard/:role/Approval" element={<ADApproval />} />
           <Route path="Dashboard/:role/List" element={<ADUserList />} />
           <Route
-            path="Dashboard/GatAdhikari/Selection"
+            path="Dashboard/gat_adhikari/Selection"
             element={<GatAdhikariSelection />}
           />
           <Route
-            path="Dashboard/GatAdhikari/GatAdhikariList"
+            path="Dashboard/gat_adhikari/gat_adhikariList"
             element={<GatAdhikariList />}
           />
           <Route
-            path="Dashboard/GatAdhikari/UserListByReg"
+            path="Dashboard/gat_adhikari/UserListByReg"
             element={<GatAdhikariUserList />}
           />
           <Route
-            path="Dashboard/GatAdhikari/UserListByApproval"
+            path="Dashboard/gat_adhikari/UserListByApproval"
             element={<GatAdhikariApprovalList />}
           />
 
@@ -143,6 +145,7 @@ function App() {
         >
           <Route path="Dashboard" element={<VendorDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+          <Route path="Dashboard/bookinglist" element={<VendorBookingList />} />
            <Route path="Vehicle" element={<VendorVehicleManagement />} />
           <Route
             path="Vehicle/Registration"
@@ -162,14 +165,15 @@ function App() {
         >
           <Route path="Dashboard" element={<DriverDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+          <Route path="booking" element={<OperatorBookingManagement />} />
         </Route>
 
         <Route
-          path="/GatAdhikari"
+          path="/gat_adhikari"
           element={
             <DashboardHome
-              role="GatAdhikari"
-              navItems={navItemsByRole["GatAdhikari"]}
+              role="gat_adhikari"
+              navItems={navItemsByRole["gat_adhikari"]}
             />
           }
         >

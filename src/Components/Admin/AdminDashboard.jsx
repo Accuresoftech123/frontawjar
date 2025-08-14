@@ -51,7 +51,7 @@ const AdminDashboard = () => {
       title: "गट अधिकारी व्यवस्थापन",
       description: "गट अधिकारी नेमणूक, सदस्य व्यवस्थापन आणि बुकिंग मंजूरी",
       icon: <FaUserTie size={30} color="#1abc9c" />,
-      path: "/Admin/Dashboard/GatAdhikari",
+      path: "/Admin/Dashboard/gat_adhikari",
     },
     {
     title: "बुकिंग व्यवस्थापन",

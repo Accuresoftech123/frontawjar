@@ -69,7 +69,7 @@ const VehicleList = () => {
                 <td>{v.vehicle_type?.name || "-"}</td>
                 <td>{v.vehicle_no}</td>
                 <td>{v.status}</td>
-                <td>{v.vendor?.name || "-"}</td>
+                <td>{v.id || "-"}</td>
                 <td>{v.power || "-"}</td>
                 <td>{v.insurance_no || "-"}</td>
                 <td>{v.insurance_validity_start || "-"}</td>
@@ -78,9 +78,9 @@ const VehicleList = () => {
                 <td>{v.avg_of_veh || "-"}</td>
                 <td>{v.price_per_day || "-"}</td>
                 <td>{v.price_per_hour || "-"}</td>
-                <td>{v.district?.name || "-"}</td>
-                <td>{v.taluka?.name || "-"}</td>
-                <td>{v.village?.name || "-"}</td>
+                <td>{v.district || "-"}</td>
+                <td>{v.taluka || "-"}</td>
+                <td>{v.village || "-"}</td>
                 <td style={{ maxWidth: "180px", whiteSpace: "normal" }}>
                   {v.description || "-"}
                 </td>
