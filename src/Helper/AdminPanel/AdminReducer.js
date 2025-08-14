@@ -62,6 +62,42 @@ import {
   ASSIGN_GAT_ADHIKARI_REQUEST,
   ASSIGN_GAT_ADHIKARI_SUCCESS,
   ASSIGN_GAT_ADHIKARI_FAILURE,
+
+
+   // Fetch vendors list 
+FETCH_VENDOR_LIST_REQUEST,
+FETCH_VENDOR_LIST_SUCCESS,
+FETCH_VENDOR_LIST_FAILURE,
+ // Fetch member list 
+FETCH_MEMBER_LIST_REQUEST,
+FETCH_MEMBER_LIST_SUCCESS,
+FETCH_MEMBER_LIST_FAILURE,
+// Fetch driver list 
+FETCH_DRIVER_LIST_REQUEST,
+FETCH_DRIVER_LIST_SUCCESS,
+FETCH_DRIVER_LIST_FAILURE,
+// Fetch All users list 
+FETCH_ALL_LIST_REQUEST,
+FETCH_ALL_LIST_SUCCESS,
+FETCH_ALL_LIST_FAILURE,
+//Admin status change
+ADMIN_STATUS_REQUEST,
+ADMIN_STATUS_SUCCESS,
+ADMIN_STATUS_FAILURE,
+
+//
+DRIVER_STATUS_REQUEST,
+DRIVER_STATUS_SUCCESS,
+DRIVER_STATUS_FAILURE,
+
+MEMBER_STATUS_REQUEST,
+MEMBER_STATUS_SUCCESS,
+MEMBER_STATUS_FAILURE,
+
+VENDOR_STATUS_REQUEST,
+VENDOR_STATUS_SUCCESS,
+VENDOR_STATUS_FAILURE,
+
 } from './AdminActionType';
 
 const districtInitialState = {
@@ -122,6 +158,59 @@ const gatadhikariInitialState = {
   assignLoading: false,
   assignError: null,
 };
+
+// Initial States
+const vendorListInitialState = {
+  loading: false,
+  vendors: [],
+  error: null,
+};
+
+const memberListInitialState = {
+  loading: false,
+  members: [],
+  error: null,
+};
+
+const driverListInitialState = {
+  loading: false,
+  drivers: [],
+  error: null,
+};
+
+const allUsersListInitialState = {
+  loading: false,
+  users: [],
+  error: null,
+};
+
+// Initial State for Admin Status
+const adminStatusInitialState = {
+  loading: false,
+  error: null,
+  success: false,
+};
+
+// Initial States
+const driverStatusInitialState = {
+  loading: false,
+  error: null,
+  success: false,
+};
+
+const memberStatusInitialState = {
+  loading: false,
+  error: null,
+  success: false,
+};
+
+const vendorStatusInitialState = {
+  loading: false,
+  error: null,
+  success: false,
+};
+
+
 // District Reducer
 export const districtReducer = (state = districtInitialState, action) => {
   switch (action.type) {
@@ -457,6 +546,113 @@ export const gatAdhikariReducer = (state = gatadhikariInitialState, action) => {
     case ASSIGN_GAT_ADHIKARI_FAILURE:
       return { ...state, assignLoading: false, assignError: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+
+
+
+// Vendor List Reducer
+export const vendorListReducer = (state = vendorListInitialState, action) => {
+  switch (action.type) {
+    case FETCH_VENDOR_LIST_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_VENDOR_LIST_SUCCESS:
+      return { ...state, loading: false, vendors: action.payload, error: null };
+    case FETCH_VENDOR_LIST_FAILURE:
+      return { ...state, loading: false, error: action.payload, vendors: [] };
+    default:
+      return state;
+  }
+};
+
+// Member List Reducer
+export const memberListReducer = (state = memberListInitialState, action) => {
+  switch (action.type) {
+    case FETCH_MEMBER_LIST_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_MEMBER_LIST_SUCCESS:
+      return { ...state, loading: false, members: action.payload, error: null };
+    case FETCH_MEMBER_LIST_FAILURE:
+      return { ...state, loading: false, error: action.payload, members: [] };
+    default:
+      return state;
+  }
+};
+
+// Driver List Reducer
+export const driverListReducer = (state = driverListInitialState, action) => {
+  switch (action.type) {
+    case FETCH_DRIVER_LIST_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_DRIVER_LIST_SUCCESS:
+      return { ...state, loading: false, drivers: action.payload, error: null };
+    case FETCH_DRIVER_LIST_FAILURE:
+      return { ...state, loading: false, error: action.payload, drivers: [] };
+    default:
+      return state;
+  }
+};
+
+// All Users List Reducer
+export const allUsersListReducer = (state = allUsersListInitialState, action) => {
+  switch (action.type) {
+    case FETCH_ALL_LIST_REQUEST:
+      return { ...state, loading: true, error: null };
+    case FETCH_ALL_LIST_SUCCESS:
+      return { ...state, loading: false, users: action.payload, error: null };
+    case FETCH_ALL_LIST_FAILURE:
+      return { ...state, loading: false, error: action.payload, users: [] };
+    default:
+      return state;
+  }
+};
+
+
+
+// Admin Status Reducer
+
+
+
+// Driver Status Reducer
+export const driverStatusReducer = (state = driverStatusInitialState, action) => {
+  switch (action.type) {
+    case DRIVER_STATUS_REQUEST:
+      return { ...state, loading: true, error: null, success: false };
+    case DRIVER_STATUS_SUCCESS:
+      return { ...state, loading: false, success: true, error: null };
+    case DRIVER_STATUS_FAILURE:
+      return { ...state, loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+
+// Member Status Reducer
+export const memberStatusReducer = (state = memberStatusInitialState, action) => {
+  switch (action.type) {
+    case MEMBER_STATUS_REQUEST:
+      return { ...state, loading: true, error: null, success: false };
+    case MEMBER_STATUS_SUCCESS:
+      return { ...state, loading: false, success: true, error: null };
+    case MEMBER_STATUS_FAILURE:
+      return { ...state, loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+
+// Vendor Status Reducer
+export const vendorStatusReducer = (state = vendorStatusInitialState, action) => {
+  switch (action.type) {
+    case VENDOR_STATUS_REQUEST:
+      return { ...state, loading: true, error: null, success: false };
+    case VENDOR_STATUS_SUCCESS:
+      return { ...state, loading: false, success: true, error: null };
+    case VENDOR_STATUS_FAILURE:
+      return { ...state, loading: false, error: action.payload, success: false };
     default:
       return state;
   }

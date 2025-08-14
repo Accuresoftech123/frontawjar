@@ -1,29 +1,76 @@
 import { combineReducers } from "redux";
-import {districtReducer, talukaReducer, userApprovalReducer, villageReducer, UserListAdminReducer, filterDriversReducer, filterMembersReducer, filterVehiclesReducer} from "./AdminPanel/AdminReducer";
+import {
+  districtReducer,
+  talukaReducer,
+  userApprovalReducer,
+  villageReducer,
+  UserListAdminReducer,
+  filterDriversReducer,
+  filterMembersReducer,
+  filterVehiclesReducer,
+  vendorListReducer,
+  memberListReducer,
+  driverListReducer,
+  allUsersListReducer,
+  driverStatusReducer,
+  memberStatusReducer,
+  vendorStatusReducer
+} from "./AdminPanel/AdminReducer";
 import {
   // Auth-related
-  SULOGIN_REQUEST, SULOGIN_SUCCESS, SULOGIN_FAILED, SULOGOUT,
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT,
+  SULOGIN_REQUEST,
+  SULOGIN_SUCCESS,
+  SULOGIN_FAILED,
+  SULOGOUT,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  LOGOUT,
 
   //register
-  ADMINREGISTER_REQUEST, ADMINREGISTER_SUCCESS, ADMINREGISTER_FAILURE,
-  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE,
+  ADMINREGISTER_REQUEST,
+  ADMINREGISTER_SUCCESS,
+  ADMINREGISTER_FAILURE,
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
 
   //verify email
-  CHECK_EMAIL_REQUEST, CHECK_EMAIL_SUCCESS, CHECK_EMAIL_FAILURE,
-  USER_CHECK_EMAIL_REQUEST, USER_CHECK_EMAIL_SUCCESS, USER_CHECK_EMAIL_FAILURE,
-  VERIFY_OTP_REQUEST, VERIFY_OTP_SUCCESS, VERIFY_OTP_FAILURE,
+  CHECK_EMAIL_REQUEST,
+  CHECK_EMAIL_SUCCESS,
+  CHECK_EMAIL_FAILURE,
+  USER_CHECK_EMAIL_REQUEST,
+  USER_CHECK_EMAIL_SUCCESS,
+  USER_CHECK_EMAIL_FAILURE,
+  VERIFY_OTP_REQUEST,
+  VERIFY_OTP_SUCCESS,
+  VERIFY_OTP_FAILURE,
 
   //user
-  GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAIL,
-  GET_USER_COUNT_REQUEST, GET_USER_COUNT_SUCCESS, GET_USER_COUNT_FAIL, 
-  UPDATE_USER_REQUEST, UPDATE_USER_SUCCESS, UPDATE_USER_FAIL,  
-  DELETE_USER_REQUEST, DELETE_USER_SUCCESS, DELETE_USER_FAIL,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  GET_USER_COUNT_REQUEST,
+  GET_USER_COUNT_SUCCESS,
+  GET_USER_COUNT_FAIL,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
 } from "./ActionType";
-import { vehicleRegisterReducer, vehicleTypeReducer, bookingHistoryReducer } from "./VendorPanel/VendorReducer";
-import { bookingCreateReducer, gatAdhikariReducer } from "./AdminPanel/AdminReducer";
-import {complaintDriverReducer} from "./DriverPanel/DriverReducer";
-import {bookingmemberReducer} from "./MemberPanel/MemberReducer";
+import {
+  vehicleRegisterReducer,
+  vehicleTypeReducer,
+  bookingHistoryReducer,
+} from "./VendorPanel/VendorReducer";
+import {
+  bookingCreateReducer,
+  gatAdhikariReducer,
+} from "./AdminPanel/AdminReducer";
+import { complaintDriverReducer } from "./DriverPanel/DriverReducer";
+import { bookingmemberReducer } from "./MemberPanel/MemberReducer";
 
 const suloginInitialState = {
   isAuthenticated: false,
@@ -235,7 +282,6 @@ export const checkEmailReducer = (state = initialCheckEmailState, action) => {
   }
 };
 
-
 // Combine all reducers
 const rootReducer = combineReducers({
   superuserlogin: superuserloginReducer,
@@ -249,7 +295,7 @@ const rootReducer = combineReducers({
   taluka: talukaReducer,
   village: villageReducer,
   userApproval: userApprovalReducer,
-  useradminlist: UserListAdminReducer, 
+  useradminlist: UserListAdminReducer,
 
   vehicletype: vehicleTypeReducer,
   vehicle: vehicleRegisterReducer,
@@ -262,6 +308,13 @@ const rootReducer = combineReducers({
   drivercomplaint: complaintDriverReducer,
   memberbooking: bookingmemberReducer,
   vendorbh: bookingHistoryReducer,
+  vendorList: vendorListReducer,
+  memberList: memberListReducer,
+  driverList: driverListReducer,
+  allUsersList: allUsersListReducer,
+  driverStatus:driverStatusReducer,
+  vendorStatus:vendorStatusReducer,
+  memberStatus:memberStatusReducer
 });
 
 export default rootReducer;

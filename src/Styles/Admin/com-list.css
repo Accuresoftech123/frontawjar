@@ -1,0 +1,54 @@
+.complaints-lists_container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: auto;
+}
+
+.complaints-lists_title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.complaints-lists_table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.complaints-lists_table th,
+.complaints-lists_table td {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  color: #34495e;
+}
+
+.complaints-lists_table th {
+  background-color: #3498db;
+  color: white;
+  user-select: none;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.complaints-lists_table tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+.complaints-lists_select {
+  padding: 0.3rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}

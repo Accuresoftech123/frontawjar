@@ -1,106 +1,173 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "../../../Styles/Admin/Dashboard/VehicleList.css";
-import { listVehicles } from "../../../Helper/VendorPanel/VendorActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import {
+  fetchVendorList,
+  fetchMemberList,
+  fetchDriverList,
+  updateDriverStatus,
+  updateMemberStatus,
+  updateVendorStatus,
+} from "../../../Helper/AdminPanel/AdminActions";
+
+import "../../../Styles/Admin/com-list.css"
+
+import { toast } from "react-toastify";
 
 const ComplaintList = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState("");
-   const { vehicles, loading, error } = useSelector(
-    (state) => state.vehicle
-  );
-// Dispatch list action on mount
-  useEffect(() => {
-    dispatch(listVehicles());
-    console.log("list",vehicles);
-  }, [dispatch]);
+  const { role } = useParams();
+  const userRole = role.toLowerCase();
+  const [isUpdate,setIsUpdate] =useState(false)
 
-  // if (loading) return <p style={{ textAlign: "center" }}>लोड करत आहे...</p>;
-  // if (error) return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
+  // Fetch data for current role
+ 
+  useEffect(() => {
+    if (userRole === "vendor") dispatch(fetchVendorList());
+    if (userRole === "member") dispatch(fetchMemberList());
+    if (userRole === "operator") dispatch(fetchDriverList());
+  }, [dispatch, userRole,isUpdate]);
+
+  // Get all lists and status states from Redux
+  const vendorList = useSelector((state) => state.vendorList);
+  const memberList = useSelector((state) => state.memberList);
+  const driverList = useSelector((state) => state.driverList);
+
+  console.log("driver-list",driverList)
+
+  const {
+    loading: driverStatusLoading,
+    error: driverStatusError,
+    success: driverStatusSuccess,
+  } = useSelector((state) => state.driverStatus);
+  const {
+    loading: memberStatusLoading,
+    error: memberStatusError,
+    success: memberStatusSuccess,
+  } = useSelector((state) => state.memberStatus);
+  const {
+    loading: vendorStatusLoading,
+    error: vendorStatusError,
+    success: vendorStatusSuccess,
+  } = useSelector((state) => state.vendorStatus);
+
+  // Decide which list to show
+  let loading = false;
+  let error = null;
+  let complaints = [];
+
+  if (userRole === "vendor") {
+    loading = vendorList.loading;
+    error = vendorList.error;
+    complaints = vendorList.vendors || [];
+  } else if (userRole === "member") {
+    loading = memberList.loading;
+    error = memberList.error;
+    complaints = memberList.members || [];
+  } else if (userRole === "operator") {
+    loading = driverList.loading;
+    error = driverList.error;
+    complaints = driverList.drivers || [];
+  }
+
+  // Handle status change based on role
+  const handleStatusChange = async (id, newStatus) => {
+    try {
+      if (userRole === "operator") {
+        await dispatch(updateDriverStatus(id, newStatus));
+        setIsUpdate(!isUpdate)
+      } else if (userRole === "member") {
+        await dispatch(updateMemberStatus(id, newStatus));
+        setIsUpdate(!isUpdate)
+      } else if (userRole === "vendor") {
+        await dispatch(updateVendorStatus(id, newStatus));
+        setIsUpdate(!isUpdate)
+      } else {
+        throw new Error("Invalid user role");
+      }
+
+      // Show success toast only if the status update was successful
+      if (driverStatusSuccess || memberStatusSuccess || vendorStatusSuccess) {
+        toast.success(`Complaint ${id} updated to ${newStatus}`);
+      }
+    } catch (err) {
+      toast.error("Failed to update complaint status");
+      console.error("Update error", err);
+    }
+  };
+
+  // Show toast for status update errors
+  useEffect(() => {
+    if (driverStatusError || memberStatusError || vendorStatusError) {
+      toast.error("Failed to update complaint status");
+    }
+  }, [driverStatusError, memberStatusError, vendorStatusError]);
+
+  if (
+    loading ||
+    driverStatusLoading ||
+    memberStatusLoading ||
+    vendorStatusLoading
+  ) {
+    return <p style={{ textAlign: "center" }}>Loading complaints...</p>;
+  }
+  if (error) {
+    return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
+  }
 
   return (
-    <div className="vehicleList_container">
-      <div className="location_header_row" style={{ gap: "20%" }}>
-        <button className="location_back_button" onClick={() => navigate(-1)}>
-          ⬅ Back
-        </button>
-      <h2 className="vehicleList_title">नोंदणीकृत वाहने</h2>
-</div>
-      <table className="vehicleList_table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>वाहन नाव / मॉडेल</th>
-            <th>वाहन प्रकार</th>
-            <th>वाहन क्रमांक</th>
-            <th>स्थिती</th>
-            <th>विक्रेता</th>
-            <th>शक्ती (Power)</th>
-            <th>विमा क्रमांक</th>
-            <th>विमा प्रारंभ</th>
-            <th>विमा समाप्ती</th>
-            <th>खरेदी तारीख</th>
-            <th>सरासरी</th>
-            <th>दर (दिवसाने)</th>
-            <th>दर (तासाने)</th>
-            <th>जिल्हा</th>
-            <th>तालुका</th>
-            <th>गाव</th>
-            <th>वर्णन</th>
-            <th>फोटो</th>
+   <div className="complaints-lists_container">
+  <h2 className="complaints-lists_title">
+    {role} Complaints
+  </h2>
+  <table className="complaints-lists_table">
+    <thead>
+      <tr>
+        <th>Complaint ID</th>
+        <th>{role} ID</th>
+        <th>Booking ID</th>
+        <th>Status</th>
+        <th>Reason</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {complaints.length === 0 ? (
+        <tr>
+          <td colSpan="5" style={{ textAlign: "center" }}>
+            No complaints found
+          </td>
+        </tr>
+      ) : (
+        complaints.map((c) => (
+          <tr key={c.id}>
+            <td>{c.id}</td>
+            <td>{userRole === "operator" ? c.driver :c[userRole]}</td>
+            <td>{c.booking}</td>
+            <td>
+              <select
+                className="complaints-lists_select"
+                value={c.status}
+                onChange={(e) => handleStatusChange(c.id, e.target.value)}
+                disabled={
+                  driverStatusLoading ||
+                  memberStatusLoading ||
+                  vendorStatusLoading
+                }
+              >
+                <option value="pending">Pending</option>
+                <option value="in_progress">In Progress</option>
+                <option value="resolved">Resolved</option>
+              </select>
+            </td>
+            <td>{c.reason || "-"}</td>
+            <td>{c.description || "-"}</td>
           </tr>
-        </thead>
-        <tbody>
-          {vehicles.length === 0 ? (
-            <tr>
-              <td colSpan="19" style={{ textAlign: "center" }}>
-                कोणतीही नोंदणीकृत वाहन नाहीत
-              </td>
-            </tr>
-          ) : (
-            vehicles.map((v) => (
-              <tr key={v.id}>
-                <td>{v.id}</td>
-                <td>{v.vehicle_name}</td>
-                <td>{v.vehicle_type?.name || "-"}</td>
-                <td>{v.vehicle_no}</td>
-                <td>{v.status}</td>
-                <td>{v.id || "-"}</td>
-                <td>{v.power || "-"}</td>
-                <td>{v.insurance_no || "-"}</td>
-                <td>{v.insurance_validity_start || "-"}</td>
-                <td>{v.insurance_validity_end || "-"}</td>
-                <td>{v.purchase_date || "-"}</td>
-                <td>{v.avg_of_veh || "-"}</td>
-                <td>{v.price_per_day || "-"}</td>
-                <td>{v.price_per_hour || "-"}</td>
-                <td>{v.district || "-"}</td>
-                <td>{v.taluka || "-"}</td>
-                <td>{v.village || "-"}</td>
-                <td style={{ maxWidth: "180px", whiteSpace: "normal" }}>
-                  {v.description || "-"}
-                </td>
-                <td>
-                  {v.upload_image ? (
-                    <img
-                      src={v.upload_image}
-                      alt={v.vehicle_name}
-                      className="vehicleList_image"
-                    />
-                  ) : (
-                    "-"
-                  )}
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
   );
 };
 

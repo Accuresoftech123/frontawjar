@@ -60,6 +60,36 @@ import {
   ASSIGN_GAT_ADHIKARI_REQUEST,
   ASSIGN_GAT_ADHIKARI_SUCCESS,
   ASSIGN_GAT_ADHIKARI_FAILURE,
+  
+ // Fetch vendors list 
+FETCH_VENDOR_LIST_REQUEST,
+FETCH_VENDOR_LIST_SUCCESS,
+FETCH_VENDOR_LIST_FAILURE,
+ // Fetch member list 
+FETCH_MEMBER_LIST_REQUEST,
+FETCH_MEMBER_LIST_SUCCESS,
+FETCH_MEMBER_LIST_FAILURE,
+// Fetch driver list 
+FETCH_DRIVER_LIST_REQUEST,
+FETCH_DRIVER_LIST_SUCCESS,
+FETCH_DRIVER_LIST_FAILURE,
+
+// Fetch All users list 
+FETCH_ALL_LIST_REQUEST,
+FETCH_ALL_LIST_SUCCESS,
+FETCH_ALL_LIST_FAILURE,
+//status change through admin
+DRIVER_STATUS_REQUEST,
+DRIVER_STATUS_SUCCESS,
+DRIVER_STATUS_FAILURE,
+
+MEMBER_STATUS_REQUEST,
+MEMBER_STATUS_SUCCESS,
+MEMBER_STATUS_FAILURE,
+
+VENDOR_STATUS_REQUEST,
+VENDOR_STATUS_SUCCESS,
+VENDOR_STATUS_FAILURE,
 
 } from './AdminActionType';
 
@@ -169,7 +199,7 @@ export const deleteDistrict = (id) => async (dispatch) => {
       type: DELETE_DISTRICT_SUCCESS,
       payload: id,
     });
-    console.log(response);
+    //console.log(response);
     window.alert("district deleted successfully")
   } catch (error) {
     console.log(error);
@@ -435,7 +465,7 @@ export const updateUserStatus = (role, userId, status) => async (dispatch) => {
   dispatch({ type: UPDATE_USER_STATUS_REQUEST });
 try {
     const response = await API.patch(`admin-panel/${role}/${userId}/status/`, {status});
-  console.log(response);
+  //console.log(response);
   console.log(role, userId, status);
     dispatch({ type: UPDATE_USER_STATUS_SUCCESS, payload: { userId, status } });
     dispatch(fetchPendingUsers(role));
@@ -553,7 +583,7 @@ export const createBooking = (bookingData) => async (dispatch) => {
       type: BOOKING_CREATE_SUCCESS,
       payload: response.data,
     });
-    console.log(response);
+    //console.log(response);
     return response;
   } catch (error) {
     console.log(error)
@@ -577,7 +607,7 @@ export const assignVehicle = ({ bookingId, vehicleId }) => async (dispatch) => {
       type: ASSIGN_VEHICLE_SUCCESS,
       payload: response.data,
     });
-console.log(response);
+//console.log(response);
 // window.alert(response.data.message);
     return response.data;
   } catch (error) {
@@ -630,7 +660,7 @@ export const fetchBookings = () => async (dispatch) => {
       type: FETCH_BOOKINGS_SUCCESS,
       payload: response.data,
     });
-    console.log(response);
+    //console.log(response);
   } catch (error) {
     console.log(error);
     dispatch({
@@ -652,7 +682,7 @@ export const fetchGatAdhikari = () => async (dispatch) => {
       type: FETCH_GAT_ADHIKARI_SUCCESS,
       payload: response.data,
     });
-    console.log(response);
+    //console.log(response);
   } catch (error) {
     console.log(error);
     dispatch({
@@ -674,12 +704,154 @@ export const assignGatAdhikari = (memberId, isGatAdhikari) => async (dispatch) =
       payload: { memberId, isGatAdhikari },
     });
     window.alert("GatAdhikari Selection Successfully done!");
-    console.log(response);
+    //console.log(response);
   } catch (error) {
     console.log(error);
     dispatch({
       type: ASSIGN_GAT_ADHIKARI_FAILURE,
       payload: error.response?.data || error.message,
     });
+  }
+};
+
+
+// Fetch Vendors List
+export const fetchVendorList = () => async (dispatch) => {
+  dispatch({ type: FETCH_VENDOR_LIST_REQUEST });
+
+  try {
+    const response = await API.get('vendor/vendor-complaints/complaints/');
+    dispatch({
+      type: FETCH_VENDOR_LIST_SUCCESS,
+      payload: response.data,
+    });
+    //console.log(response);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_VENDOR_LIST_FAILURE,
+      payload: error.response?.data?.detail || error.message || "Failed to load vendors",
+    });
+  }
+};
+
+// Fetch Members List
+export const fetchMemberList = () => async (dispatch) => {
+  dispatch({ type: FETCH_MEMBER_LIST_REQUEST });
+
+  try {
+    const response = await API.get('member/member-complaints/');
+    dispatch({
+      type: FETCH_MEMBER_LIST_SUCCESS,
+      payload: response.data,
+    });
+    // //console.log(response);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_MEMBER_LIST_FAILURE,
+      payload: error.response?.data?.detail || error.message || "Failed to load members",
+    });
+  }
+};
+
+// Fetch Drivers List
+export const fetchDriverList = () => async (dispatch) => {
+  dispatch({ type: FETCH_DRIVER_LIST_REQUEST });
+
+  try {
+    const response = await API.get('driver/driver-complaints/');
+    dispatch({
+      type: FETCH_DRIVER_LIST_SUCCESS,
+      payload: response.data,
+    });
+    console.log("Drivers",response.data);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_DRIVER_LIST_FAILURE,
+      payload: error.response?.data?.detail || error.message || "Failed to load drivers",
+    });
+  }
+};
+
+// Fetch All Users List
+export const fetchAllUsersList = () => async (dispatch) => {
+  dispatch({ type: FETCH_ALL_LIST_REQUEST });
+
+  try {
+    const response = await API.get('admin-panel/admin/complaints/all/');
+    dispatch({
+      type: FETCH_ALL_LIST_SUCCESS,
+      payload: response.data,
+    });
+    //console.log(response);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: FETCH_ALL_LIST_FAILURE,
+      payload: error.response?.data?.detail || error.message || "Failed to load all users",
+    });
+  }
+};
+
+
+// Update Driver Status
+export const updateDriverStatus = (userId, status) => async (dispatch) => {
+  dispatch({ type: DRIVER_STATUS_REQUEST });
+
+  try {
+    const response = await API.patch(`driver/driver-complaints/${userId}/update-status/`, { status });
+    dispatch({
+      type: DRIVER_STATUS_SUCCESS,
+      payload: { userId, status },
+    });
+    window.alert("Driver status updated successfully!");
+  } catch (error) {
+    dispatch({
+      type: DRIVER_STATUS_FAILURE,
+      payload: error.response?.data?.message || error.message || "Failed to update driver status",
+    });
+    window.alert("Driver status update failed");
+  }
+};
+
+// Update Member Status
+export const updateMemberStatus = (userId, status) => async (dispatch) => {
+  dispatch({ type: MEMBER_STATUS_REQUEST });
+
+  try {
+    const response = await API.patch(`member/member-complaints/${userId}/update-status/`, { status });
+    dispatch({
+      type: MEMBER_STATUS_SUCCESS,
+      payload: { userId, status },
+    });
+    window.alert("Member status updated successfully!");
+  } catch (error) {
+    dispatch({
+      type: MEMBER_STATUS_FAILURE,
+      payload: error.response?.data?.message || error.message || "Failed to update member status",
+    });
+    window.alert("Member status update failed");
+  }
+};
+
+// Update Vendor Status
+export const updateVendorStatus = (userId, status) => async (dispatch) => {
+  dispatch({ type: VENDOR_STATUS_REQUEST });
+
+  try {
+    const response = await API.patch(`vendor/vendor-complaints/complaints/${userId}/update-status/`, { status });
+    dispatch({
+      type: VENDOR_STATUS_SUCCESS,
+      payload: { userId, status },
+    });
+    window.alert("Vendor status updated successfully!");
+  } catch (error) {
+    dispatch({
+      type: VENDOR_STATUS_FAILURE,
+      payload: error.response?.data?.message || error.message || "Failed to update vendor status",
+    });
+    window.alert("Vendor status update failed");
   }
 };
