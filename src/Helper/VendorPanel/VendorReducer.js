@@ -11,6 +11,11 @@ import {
   GET_VEHICLE_FAIL,
   GET_VEHICLE_RESET,
 
+  // vendor complaint
+  CREATE_COMPLAINT_REQUEST,
+  CREATE_COMPLAINT_SUCCESS,
+  CREATE_COMPLAINT_FAIL,
+
   FETCH_BOOKING_HISTORY,
   FETCH_BOOKING_HISTORY_SUCCESS,
   FETCH_BOOKING_HISTORY_FAILURE,
@@ -153,6 +158,36 @@ export const bookingHistoryReducer = (state = vendorbhInitialState, action) => {
       return { ...state, loading: false, bhbookings: action.payload };
     case FETCH_BOOKING_HISTORY_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+
+// complaint vendor reducer
+const complaintInitialState = {
+  complaints: [],
+  loading: false,
+  error: null,
+  success: false,
+};
+
+export const complaintVendorReducer = (state = complaintInitialState, action) => {
+  switch (action.type) {
+    case CREATE_COMPLAINT_REQUEST:
+      return { ...state, loading: true, error: null };
+
+    case CREATE_COMPLAINT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        complaints: [...state.complaints, action.payload],
+      };
+
+    case CREATE_COMPLAINT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
