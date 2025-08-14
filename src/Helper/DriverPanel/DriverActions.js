@@ -8,12 +8,14 @@ import {
 import {API} from "../Interceptor"
 
 // Create driver complaint
-export const createDriverComplaint = (booking, complaintData) => async (dispatch) => {
+export const createDriverComplaint = (booking_id, complaintData) => async (dispatch) => {
   dispatch({ type: CREATE_COMPLAINT_REQUEST });
+    
 
+  console.log("booking_id, com",booking_id,complaintData)
   try {
     const { data } = await API.post(
-      `driver/booking/${booking}/complaint/`,
+      `/driver/driver-booking/${booking_id}/complaint/`,
       complaintData
     );
 

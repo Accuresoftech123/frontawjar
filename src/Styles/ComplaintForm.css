@@ -1,80 +1,123 @@
-.member-complaint-container {
-  max-width: 500px;
+.complaint-container {
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.member-complaint-heading {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+.complaint-heading {
   font-size: 24px;
-  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
 }
 
-.member-complaint-form {
+.complaint-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 15px;
 }
 
-.member-form-group {
-  margin-bottom: 15px;
+.complaint-form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-.member-form-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-  font-size: 14px;
-}
-
-.member-form-input,
-.member-form-select,
-.member-form-textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.complaint-form-label {
   font-size: 16px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.complaint-form-input,
+.complaint-form-select,
+.complaint-form-textarea {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   background-color: #fff;
+  transition: border-color 0.3s;
 }
 
-.member-form-select {
-  appearance: none;
+.complaint-form-input:focus,
+.complaint-form-select:focus,
+.complaint-form-textarea:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
-.member-form-textarea {
+.complaint-form-textarea {
   resize: vertical;
   min-height: 100px;
 }
 
-.member-complaint-button {
-  padding: 10px;
+.complaint-error-text {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.complaint-button {
+  padding: 12px;
+  font-size: 16px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.member-complaint-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
-
-.member-complaint-button:hover:not(:disabled) {
+.complaint-button:hover {
   background-color: #0056b3;
 }
 
-.member-error-text {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
+.complaint-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.complaint-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: complaint-fadeIn 0.3s ease-in-out;
+}
+
+.complaint-popup-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: complaint-slideIn 0.3s ease-in-out;
+}
+
+.complaint-popup-content h3 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.complaint-popup-content p {
+  color: #333;
+}
+
+@keyframes complaint-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes complaint-slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

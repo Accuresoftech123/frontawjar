@@ -10,6 +10,11 @@ import {
   GET_VEHICLE_SUCCESS,
   GET_VEHICLE_FAIL,
   GET_VEHICLE_RESET,
+
+  // vendor complaint
+  CREATE_COMPLAINT_REQUEST,
+  CREATE_COMPLAINT_SUCCESS,
+  CREATE_COMPLAINT_FAIL,
 } from "./VendorActionType";
 
 const vtInitialState = {
@@ -131,6 +136,36 @@ export const vehicleRegisterReducer = (
         ...state,
         vehicles: [],
       };
+    default:
+      return state;
+  }
+};
+
+
+// complaint vendor reducer
+const complaintInitialState = {
+  complaints: [],
+  loading: false,
+  error: null,
+  success: false,
+};
+
+export const complaintVendorReducer = (state = complaintInitialState, action) => {
+  switch (action.type) {
+    case CREATE_COMPLAINT_REQUEST:
+      return { ...state, loading: true, error: null };
+
+    case CREATE_COMPLAINT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        complaints: [...state.complaints, action.payload],
+      };
+
+    case CREATE_COMPLAINT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
   }
