@@ -18,38 +18,38 @@ const AdminComplaintManagement = () => {
       title: "सभासद तक्रारी",
       description: "सभासदांच्या सर्व तक्रारी हाताळा आणि तपासा",
       icon: <FaUserAlt size={30} color="#e74c3c" />,
-      path: "/admin/complaints/members",
+      path: "/Admin/Complaint/Member/list",
     },
     {
       title: "विक्रेता तक्रारी",
       description: "विक्रेत्यांच्या तक्रारींचे व्यवस्थापन करा",
       icon: <FaTruck size={30} color="#e67e22" />,
-      path: "/admin/complaints/vendors",
+      path: "/Admin/Complaint/Vendor/list",
     },
     {
       title: "ड्रायव्हर तक्रारी",
       description: "ड्रायव्हर तक्रारी तपासा आणि निराकरण करा",
       icon: <FaCarCrash size={30} color="#f1c40f" />,
-      path: "/admin/complaints/drivers",
+      path: "/Admin/Complaint/Operator/list",
     },
-    {
-      title: "गट अधिकारी तक्रारी",
-      description: "गट अधिकाऱ्यांच्या तक्रारींची यादी",
-      icon: <FaUserTie size={30} color="#16a085" />,
-      path: "/admin/complaints/gat_adhikari",
-    },
-    {
-      title: "वाहन तक्रारी",
-      description: "वाहनांशी संबंधित तक्रारी हाताळा",
-      icon: <FaExclamationTriangle size={30} color="#2980b9" />,
-      path: "/admin/complaints/vehicles",
-    },
-    {
-      title: "बुकिंग तक्रारी",
-      description: "बुकिंगशी संबंधित तक्रारींचे व्यवस्थापन करा",
-      icon: <FaListAlt size={30} color="#8e44ad" />,
-      path: "/admin/complaints/bookings",
-    },
+    // {
+    //   title: "गट अधिकारी तक्रारी",
+    //   description: "गट अधिकाऱ्यांच्या तक्रारींची यादी",
+    //   icon: <FaUserTie size={30} color="#16a085" />,
+    //   path: "/admin/complaints/gat_adhikari",
+    // },
+    // {
+    //   title: "वाहन तक्रारी",
+    //   description: "वाहनांशी संबंधित तक्रारी हाताळा",
+    //   icon: <FaExclamationTriangle size={30} color="#2980b9" />,
+    //   path: "/admin/complaints/vehicles",
+    // },
+    // {
+    //   title: "बुकिंग तक्रारी",
+    //   description: "बुकिंगशी संबंधित तक्रारींचे व्यवस्थापन करा",
+    //   icon: <FaListAlt size={30} color="#8e44ad" />,
+    //   path: "/admin/complaints/bookings",
+    // },
   ];
 
   return (

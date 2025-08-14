@@ -51,6 +51,7 @@ import VendorVehicleRegistration from "./Components/Vendor/Vehicle/VendorVehicle
 import VendorVehicleList from "./Components/Vendor/Vehicle/VendorVehicleList";
 import VendorBookingList from "./Components/Vendor/VendorBookingList";
 import OperatorBookingManagement from "./Components/Driver/booking/OperatorBookingManagement";
+import ComplaintList from "./Components/Admin/Complaint/ComplaintList";
 function App() {
   return (
     <BrowserRouter>
@@ -118,6 +119,7 @@ function App() {
 
           <Route path="Account" element={<AdminAccountManagement />} />
           <Route path="Complaint" element={<AdminComplaintManagement />} />
+          <Route path="Complaint/:role/list" element={<ComplaintList />} />
           <Route path="Report" element={<AdminReportManagement />} />
         </Route>
 
