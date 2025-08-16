@@ -62,7 +62,20 @@ import {
   ASSIGN_GAT_ADHIKARI_REQUEST,
   ASSIGN_GAT_ADHIKARI_SUCCESS,
   ASSIGN_GAT_ADHIKARI_FAILURE,
+MEMBER_REPORT_REQUEST,MEMBER_REPORT_SUCCESS,MEMBER_REPORT_FAIL,
+ VENDOR_REPORT_REQUEST,VENDOR_REPORT_SUCCESS,VENDOR_REPORT_FAIL,
+ DRIVER_REPORT_REQUEST,DRIVER_REPORT_SUCCESS,DRIVER_REPORT_FAIL,
+ VEHICLE_REPORT_REQUEST,VEHICLE_REPORT_SUCCESS,VEHICLE_REPORT_FAIL,
+ BOOKING_REPORT_REQUEST,BOOKING_REPORT_SUCCESS,BOOKING_REPORT_FAIL,
+
 } from './AdminActionType';
+
+// --- Initial State Template ---
+const reportInitialState = {
+  loading: false,
+  success: false,
+  error: null,
+};
 
 const districtInitialState = {
   loading: false,
@@ -457,6 +470,76 @@ export const gatAdhikariReducer = (state = gatadhikariInitialState, action) => {
     case ASSIGN_GAT_ADHIKARI_FAILURE:
       return { ...state, assignLoading: false, assignError: action.payload };
 
+    default:
+      return state;
+  }
+};
+
+// --- Member Report Reducer ---
+export const memberReportReducer = (state = reportInitialState, action) => {
+  switch (action.type) {
+    case MEMBER_REPORT_REQUEST:
+      return { ...state, loading: true, success: false, error: null };
+    case MEMBER_REPORT_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case MEMBER_REPORT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// --- Vendor Report Reducer ---
+export const vendorReportReducer = (state = reportInitialState, action) => {
+  switch (action.type) {
+    case VENDOR_REPORT_REQUEST:
+      return { ...state, loading: true, success: false, error: null };
+    case VENDOR_REPORT_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case VENDOR_REPORT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// --- Driver Report Reducer ---
+export const driverReportReducer = (state = reportInitialState, action) => {
+  switch (action.type) {
+    case DRIVER_REPORT_REQUEST:
+      return { ...state, loading: true, success: false, error: null };
+    case DRIVER_REPORT_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case DRIVER_REPORT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// --- Vehicle Report Reducer ---
+export const vehicleReportReducer = (state = reportInitialState, action) => {
+  switch (action.type) {
+    case VEHICLE_REPORT_REQUEST:
+      return { ...state, loading: true, success: false, error: null };
+    case VEHICLE_REPORT_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case VEHICLE_REPORT_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+// --- Booking Report Reducer ---
+export const bookingReportReducer = (state = reportInitialState, action) => {
+  switch (action.type) {
+    case BOOKING_REPORT_REQUEST:
+      return { ...state, loading: true, success: false, error: null };
+    case BOOKING_REPORT_SUCCESS:
+      return { ...state, loading: false, success: true };
+    case BOOKING_REPORT_FAIL:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import {districtReducer, talukaReducer, userApprovalReducer, villageReducer, UserListAdminReducer, filterDriversReducer, filterMembersReducer, filterVehiclesReducer} from "./AdminPanel/AdminReducer";
+import {districtReducer, talukaReducer,memberReportReducer,vehicleReportReducer,vendorReportReducer,driverReportReducer,bookingReportReducer, userApprovalReducer, villageReducer, UserListAdminReducer, filterDriversReducer, filterMembersReducer, filterVehiclesReducer} from "./AdminPanel/AdminReducer";
 import {
   // Auth-related
   SULOGIN_REQUEST, SULOGIN_SUCCESS, SULOGIN_FAILED, SULOGOUT,
@@ -250,6 +250,11 @@ const rootReducer = combineReducers({
   village: villageReducer,
   userApproval: userApprovalReducer,
   useradminlist: UserListAdminReducer, 
+ memberReport: memberReportReducer,
+  vendorReport: vendorReportReducer,
+  driverReport: driverReportReducer,
+  vehicleReport: vehicleReportReducer,
+  bookingReport: bookingReportReducer,
 
   vehicletype: vehicleTypeReducer,
   vehicle: vehicleRegisterReducer,

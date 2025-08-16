@@ -61,6 +61,12 @@ import {
   ASSIGN_GAT_ADHIKARI_SUCCESS,
   ASSIGN_GAT_ADHIKARI_FAILURE,
 
+    MEMBER_REPORT_REQUEST, MEMBER_REPORT_SUCCESS, MEMBER_REPORT_FAIL,
+  VENDOR_REPORT_REQUEST, VENDOR_REPORT_SUCCESS, VENDOR_REPORT_FAIL,
+  DRIVER_REPORT_REQUEST, DRIVER_REPORT_SUCCESS, DRIVER_REPORT_FAIL,
+  VEHICLE_REPORT_REQUEST, VEHICLE_REPORT_SUCCESS, VEHICLE_REPORT_FAIL,
+  BOOKING_REPORT_REQUEST, BOOKING_REPORT_SUCCESS, BOOKING_REPORT_FAIL,
+
 } from './AdminActionType';
 
 //district actions
@@ -680,6 +686,138 @@ export const assignGatAdhikari = (memberId, isGatAdhikari) => async (dispatch) =
     dispatch({
       type: ASSIGN_GAT_ADHIKARI_FAILURE,
       payload: error.response?.data || error.message,
+    });
+  }
+};
+
+//reports
+// Member Report
+export const getMemberReport = (format) => async (dispatch) => {
+  try {
+    dispatch({ type: MEMBER_REPORT_REQUEST });
+
+    const response = await axios.get(`${baseURL}/reports/members/?format=${format}`, {
+      responseType: "blob",
+    });
+      // Create URL and download immediately
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `member_report.${format === "excel" ? "xlsx" : format}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    dispatch({ type: MEMBER_REPORT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: MEMBER_REPORT_FAIL,
+      payload:
+        error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Vendor Report
+export const getVendorReport = (format) => async (dispatch) => {
+  try {
+    dispatch({ type: VENDOR_REPORT_REQUEST });
+
+    const response = await axios.get(`${baseURL}/reports/Vendor/?format=${format}`, {
+      responseType: "blob",
+    });
+  // Create URL and download immediately
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `vendor_report.${format === "excel" ? "xlsx" : format}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    dispatch({ type: VENDOR_REPORT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: VENDOR_REPORT_FAIL,
+      payload:
+        error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Driver Report
+export const getDriverReport = (format) => async (dispatch) => {
+  try {
+    dispatch({ type: DRIVER_REPORT_REQUEST });
+
+    const response = await axios.get(`${baseURL}/reports/driver/?format=${format}`, {
+      responseType: "blob",
+    });
+// Create URL and download immediately
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `driver_report.${format === "excel" ? "xlsx" : format}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    dispatch({ type: DRIVER_REPORT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: DRIVER_REPORT_FAIL,
+      payload:
+        error.response?.data?.message || error.message,
+    });
+  }
+};
+
+
+// Vehicle Report
+export const getVehicleReport = (format) => async (dispatch) => {
+ try {
+    dispatch({ type: VEHICLE_REPORT_REQUEST });
+    const report_type = "all";
+    const response = await axios.get(`${baseURL}/reports/vehicles/download/?report_type=${report_type}&format=${format}`, {
+      responseType: "blob",
+    });
+  // Create URL and download immediately
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `vehicle_report.${format === "excel" ? "xlsx" : format}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    dispatch({ type: VEHICLE_REPORT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: VEHICLE_REPORT_FAIL,
+      payload:
+        error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Booking Report
+export const getBookingReport = (format) => async (dispatch) => {
+   try {
+    dispatch({ type: BOOKING_REPORT_REQUEST });
+
+    const response = await axios.get(`${baseURL}/reports/bookings/${format}`, {
+      responseType: "blob",
+    });
+  // Create URL and download immediately
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `booking_report.${format === "excel" ? "xlsx" : format}`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    dispatch({ type: BOOKING_REPORT_SUCCESS});
+  } catch (error) {
+    dispatch({
+      type: BOOKING_REPORT_FAIL,
+      payload:
+        error.response?.data?.message || error.message,
     });
   }
 };
