@@ -6,9 +6,9 @@ import { useDispatch,useSelector } from "react-redux";
 
 // Define which fields to show per role
 const approvalColumns = {
-  Member: ["id","first_name", "last_name", "email", "mobile", "adhar_no", "zipcode", "district", "taluka", "Village"],
-  Vendor: ["id","first_name", "last_name", "email", "mobile", "pan_no", "zipcode", "district", "taluka", "Village"],
-  Operator: ["id","first_name", "last_name", "email", "mobile", "adhar_no", "license_number", "license_attachment"],
+  Member: ["first_name", "last_name", "email", "mobile", "adhar_no", "zipcode", "district", "taluka", "village"],
+  Vendor: ["first_name", "last_name", "email", "mobile", "pan_no", "zipcode", "district", "taluka", "village"],
+  Operator: ["first_name", "last_name", "email", "mobile", "adhar_no", "license_number", "license_attachment"],
 };
 
 const ADApproval = () => {
@@ -38,6 +38,22 @@ const roleInMarathi = {
   Vendor: "विक्रेता",
   Operator: "ऑपरेटर",
 };
+// Column labels in Marathi
+const columnLabels = {
+  id: "आयडी",
+  first_name: "पहिले नाव",
+  last_name: "आडनाव",
+  email: "ईमेल",
+  mobile: "मोबाईल",
+  adhar_no: "आधार क्रमांक",
+  pan_no: "पॅन क्रमांक",
+  zipcode: "पिनकोड",
+  district: "जिल्हा",
+  taluka: "तालुका",
+  village: "गाव",
+  license_number: "परवाना क्रमांक",
+  license_attachment: "परवाना दस्तऐवज",
+};
 
   return (
     <div className="adapproval_container">
@@ -53,7 +69,7 @@ const roleInMarathi = {
           <thead>
             <tr>
               {visibleFields.map((col) => (
-                <th key={col}>{col.replace(/_/g, " ").toUpperCase()}</th>
+                     <th key={col}>{columnLabels[col] || col}</th>
               ))}
               <th>ACTION</th>
             </tr>

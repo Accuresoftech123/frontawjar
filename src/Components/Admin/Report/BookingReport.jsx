@@ -53,11 +53,11 @@ const navigate = useNavigate();
         <table className="booking-table">
           <thead>
             <tr>
-              <th>Booking ID</th>
-              <th>User</th>
-              <th>Vehicle</th>
-              <th>Date</th>
-              <th>Status</th>
+              <th>बुकिंग आयडी</th>
+              <th>सभासद</th>
+              <th>वाहन</th>
+              <th>तारीख</th>
+              <th>स्थिती</th>
             </tr>
           </thead>
           <tbody>

@@ -41,20 +41,20 @@ console.log("gatAdhikaris",gatAdhikaris);
         <table className="gatadhikari-table">
           <thead>
             <tr>
-              <th>अधिकारी ID</th>
+              {/* <th>अधिकारी ID</th> */}
               <th>नाव</th>
-              <th>district</th>
-              <th>taluka</th>
-              <th>village</th>
-              <th>mobile</th>
-              <th>email</th>
+              <th>जिल्हा</th>
+              <th>तालुका</th>
+              <th>गाव</th>
+              <th>मोबाईल</th>
+              <th>ईमेल</th>
               <th>नेमणूक दिनांक</th>
             </tr>
           </thead>
           <tbody>
             {gatAdhikaris.map((item) => (
               <tr key={item.id}>
-                <td>{item.id}</td>
+                {/* <td>{item.id}</td> */}
                 <td>{item.first_name || item.first_name || "N/A"} {item.last_name || item.last_name || "N/A"}</td>
                 <td>{item.district || item.district || "N/A"}</td>
                 <td>{item.taluka || item.taluka || "N/A"}</td>

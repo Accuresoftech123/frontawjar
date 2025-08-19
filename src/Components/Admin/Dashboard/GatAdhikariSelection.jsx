@@ -345,9 +345,9 @@ const handleSubmit = () => {
           <tr>
             <th>निवड</th>
             <th>सभासदाचे नाव</th>
-            <th>mobile</th>
-            <th>email</th>
-            <th>status</th>
+            <th>मोबाईल</th>
+            <th>ईमेल</th>
+            <th>स्थिती</th>
           </tr>
         </thead>
         <tbody>

@@ -36,7 +36,7 @@ const BookingList = () => {
           <thead>
             <tr>
               <th>बुकिंग आयडी</th>
-              <th>purpose</th>
+              <th>उद्देश</th>
               <th>वाहन नाव</th>
               <th>वाहन क्रमांक</th>
               <th>बुकिंग तारीख</th>

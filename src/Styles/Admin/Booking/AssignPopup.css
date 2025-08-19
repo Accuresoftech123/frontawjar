@@ -1,0 +1,104 @@
+.assignpopup_overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  overflow-y: auto; /* allows scroll if popup too tall */
+  padding: 20px; /* prevent cut at top/bottom */
+}
+
+.assignpopup_container {
+  background: #fff;
+  width: 600px;
+  max-height: 90vh; /* ensure popup never exceeds screen height */
+  overflow-y: auto; /* scroll inside if needed */
+  padding: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-top: 70px;
+}
+
+.assignpopup_title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.assignpopup_section {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.assignpopup-section_title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.assignpopup-form_group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.assignpopup-form_group label {
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.assignpopup-form_group select {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.assignpopup-popup_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.assignpopup-btn_submit {
+  background: green;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.assignpopup-btn_cancel {
+  background: red;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.assignpopup_footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.assignpopup_cancel_btn,
+.assignpopup_submit_btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.assignpopup_cancel_btn {
+  background: #ddd;
+}
+
+.assignpopup_submit_btn {
+  background: #4caf50;
+  color: white;
+}

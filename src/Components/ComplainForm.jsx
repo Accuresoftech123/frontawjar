@@ -114,9 +114,13 @@ const ComplaintForm = () => {
 
   return (
     <div className="complaint-container">
+      <div className="location_header_row">
+        <button className="location_back_button" onClick={() => navigate(-1)}>
+          ⬅ Back
+        </button>
       <h2 className="complaint-heading">
         Create Complaint - {userRole}
-      </h2>
+      </h2></div>
       <form onSubmit={handleSubmit} className="complaint-form">
         {(userRole === 'member' || userRole === 'driver' || userRole === 'vendor') && (
           <div className="complaint-form-group">

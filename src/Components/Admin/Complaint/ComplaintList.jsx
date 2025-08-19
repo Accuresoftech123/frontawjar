@@ -115,6 +115,11 @@ const ComplaintList = () => {
   if (error) {
     return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
   }
+const roleInMarathi = {
+  vendor: "विक्रेता",
+  member: "सभासद",
+  operator: "ऑपरेटर",
+};
 
   return (
    <div className="complaints-lists_container">
@@ -129,12 +134,12 @@ const ComplaintList = () => {
   <table className="complaints-lists_table">
     <thead>
       <tr>
-        <th>Complaint ID</th>
-        <th>{role} ID</th>
-        <th>Booking ID</th>
-        <th>Status</th>
-        <th>Reason</th>
-        <th>Description</th>
+        {/* <th>तक्रार</th> */}
+         <th>{roleInMarathi[userRole] || role}</th>
+        <th>बुकिंग</th>
+        <th>स्थिती</th>
+        <th>कारण</th>
+        <th>वर्णन</th>
       </tr>
     </thead>
     <tbody>
@@ -147,7 +152,7 @@ const ComplaintList = () => {
       ) : (
         complaints.map((c) => (
           <tr key={c.id}>
-            <td>{c.id}</td>
+            {/* <td>{c.id}</td> */}
             <td>{userRole === "operator" ? c.driver :c[userRole]}</td>
             <td>{c.booking}</td>
             <td>

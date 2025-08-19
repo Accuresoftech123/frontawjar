@@ -33,18 +33,18 @@ const GBookingList = () => {
         <table border="1" cellPadding="8" style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Booking Date</th>
-              <th>Purpose</th>
-              <th>Village</th>
-              <th>Taluka</th>
-              <th>District</th>
-              <th>Status</th>
-              <th>Total Area</th>
-              <th>Period (Hrs)</th>
-              <th>Total Charges</th>
-              <th>Vehicle</th>
-              <th>User</th>
+              <th>आयडी</th>
+              <th>बुकिंग तारीख</th>
+              <th>उद्देश</th>
+              <th>गाव</th>
+              <th>तालुका</th>
+              <th>जिल्हा</th>
+              <th>स्थिती</th>
+              <th>एकूण क्षेत्रफळ</th>
+              <th>कालावधी (Hrs)</th>
+              <th>एकूण शुल्क</th>
+              <th>वाहन</th>
+              <th>सभासद</th>
             </tr>
           </thead>
           <tbody>

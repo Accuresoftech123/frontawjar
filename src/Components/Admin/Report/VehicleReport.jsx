@@ -50,7 +50,7 @@ const VehicleReport = () => {
       <table className="vehicleList_table">
         <thead>
           <tr>
-            <th>ID</th>
+            {/* <th>ID</th> */}
             <th>वाहन नाव / मॉडेल</th>
             <th>वाहन प्रकार</th>
             <th>वाहन क्रमांक</th>
@@ -81,7 +81,7 @@ const VehicleReport = () => {
           ) : (
             vehicles.map((v) => (
               <tr key={v.id}>
-                <td>{v.id}</td>
+                {/* <td>{v.id}</td> */}
                 <td>{v.vehicle_name}</td>
                 <td>{v.vehicle_type?.name || "-"}</td>
                 <td>{v.vehicle_no}</td>

@@ -27,7 +27,7 @@ const ADUserList = () => {
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   useEffect(() => {
      let backendRole = role.toLowerCase();
@@ -73,6 +73,31 @@ const ADUserList = () => {
       setSortOrder("asc");
     }
   };
+// Column labels in Marathi
+const columnLabels = {
+  id: "आयडी",
+  first_name: "पहिले नाव",
+  last_name: "आडनाव",
+  email: "ईमेल",
+  mobile: "मोबाईल",
+  adhar_no: "आधार क्रमांक",
+  pan_no: "पॅन क्रमांक",
+  zipcode: "पिनकोड",
+  district: "जिल्हा",
+  taluka: "तालुका",
+  village: "गाव",
+  license_number: "परवाना क्रमांक",
+  license_attachment: "परवाना दस्तऐवज",
+  status: "स्थिती",
+  state: "राज्य",
+  address:"पत्ता",
+  landmark:"महत्त्वाची खूण",
+  dob:"जन्मतारीख",
+  joining_fees:"जॉईनिंग_फी",
+  created_by:"निर्मित_द्वारा",
+  is_gat_adhikari:"गतााधिकारी आहे का?",
+  created_at:"निर्मित तारीख"
+};
 
   return (
     <div className="aduserlist_container">
@@ -102,43 +127,53 @@ const ADUserList = () => {
         <>
           <div className="aduserlist_table_wrapper">
             <table className="aduserlist_table">
-              <thead>
-                <tr>
-                  {allFields.map((field) => (
-                    <th key={field} onClick={() => handleSort(field)}>
-                      {field.replace(/_/g, " ").toUpperCase()}
-                      {sortField === field
-                        ? sortOrder === "asc"
-                          ? " 🔼"
-                          : " 🔽"
-                        : ""}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {paginated.map((user) => (
-                  <tr key={user.id}>
-                    {allFields.map((field) => (
-                      <td key={field}>
-                        {field === "license_attachment" && user[field] ? (
-                          <a href={user[field]} target="_blank" rel="noreferrer">
-                            View
-                          </a>
-                        ) : field === "status" ? (
-                          <span
-                            className={statusClass[user[field]] || "badge"}
-                          >
-                            {user[field]}
-                          </span>
-                        ) : (
-                          user[field] || "-"
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
+             <thead>
+  <tr>
+    {allFields
+      .filter((field) => field !== "id") // id काढून टाकलं
+      .map((field) => (
+        <th key={field} onClick={() => handleSort(field)}>
+          {columnLabels[field] || field}
+          {sortField === field
+            ? sortOrder === "asc"
+              ? " 🔼"
+              : " 🔽"
+            : ""}
+        </th>
+      ))}
+  </tr>
+</thead>
+
+<tbody>
+  {paginated.map((user) => (
+    <tr key={user.id}>
+      {allFields
+        .filter((field) => field !== "id") // id काढून टाकलं
+        .map((field) => (
+          <td key={field}>
+            {field === "license_attachment" && user[field] ? (
+              <a href={user[field]} target="_blank" rel="noreferrer">
+                View
+              </a>
+            ) : field === "status" ? (
+              <span className={statusClass[user[field]] || "badge"}>
+                {user[field] === "approved"
+                  ? "मंजूर"
+                  : user[field] === "pending"
+                  ? "प्रलंबित"
+                  : user[field] === "rejected"
+                  ? "नाकारले"
+                  : user[field]}
+              </span>
+            ) : (
+              user[field] || "-"
+            )}
+          </td>
+        ))}
+    </tr>
+  ))}
+</tbody>
+
             </table>
           </div>
 
