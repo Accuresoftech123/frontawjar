@@ -21,7 +21,7 @@ export const navItemsByRole = {
   ],
   Operator: [
     { path: "/Operator/Dashboard", icon: <FaHome color="#2ecc71"/>, label: "ड्डॅशबोर्ड" },
-    { path: "/Operator/booking", icon: <FaClipboardList color="#3498db"/>, label: "बुकिंग व्यवस्थापन" },
+    { path: "/Operator/logs", icon: <FaClipboardList color="#3498db"/>, label: "लॉग व्यवस्थापन" },
     // Add more
   ],
   gat_adhikari: [

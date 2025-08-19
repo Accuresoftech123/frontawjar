@@ -69,8 +69,9 @@ import {
   bookingCreateReducer,
   gatAdhikariReducer,
 } from "./AdminPanel/AdminReducer";
-import { complaintDriverReducer } from "./DriverPanel/DriverReducer";
+import { complaintDriverReducer, driverUsageLogReducer, dbookingListReducer } from "./DriverPanel/DriverReducer";
 import { bookingmemberReducer } from "./MemberPanel/MemberReducer";
+import { gaMemberBookingsReducer, gaMembersReducer } from "./GatAdhikariPanel/GatAdhikariReducer";
 
 const suloginInitialState = {
   isAuthenticated: false,
@@ -311,6 +312,8 @@ const rootReducer = combineReducers({
   gatAdhikari: gatAdhikariReducer,
 
   drivercomplaint: complaintDriverReducer,
+  usagelog: driverUsageLogReducer,
+  dbookinglist: dbookingListReducer,
   memberbooking: bookingmemberReducer,
   vendorbh: bookingHistoryReducer,
   vendorList: vendorListReducer,
@@ -319,7 +322,10 @@ const rootReducer = combineReducers({
   allUsersList: allUsersListReducer,
   driverStatus:driverStatusReducer,
   vendorStatus:vendorStatusReducer,
-  memberStatus:memberStatusReducer
+  memberStatus:memberStatusReducer,
+
+  gaMember: gaMembersReducer,
+  gaMemberBookings: gaMemberBookingsReducer,
 });
 
 export default rootReducer;

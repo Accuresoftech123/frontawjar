@@ -28,7 +28,10 @@ useEffect(()=>{
 const userList = pendingUsers || [];
   const visibleFields = approvalColumns[role] || [];
   if (!userList.length) {
-    return <div className="adapproval_container">No users found for role: {role}</div>;
+    return <div className="adapproval_container">  <div className="location_header_row">
+        <button className="location_back_button" onClick={() => navigate(-1)}>
+          ⬅ Back
+        </button></div>No users found for role: {role}</div>;
   }
 const roleInMarathi = {
   Member: "सभासद",

@@ -5,27 +5,20 @@ import "../../Styles/Admin/AdminMainModules.css";
 // React Icons imports
 import {
   FaMapMarkedAlt,
-  FaUsers,
-  FaTools,
-  FaCar,
-  FaUserTie,
   FaTractor,
-  FaChartBar,
-  FaMoneyCheckAlt,
-  FaClipboardList,
 } from "react-icons/fa";
 
 const DriverDashboard = () => {
   const modules = [
-     {
-      title: "बुकिंग व्यवस्थापन",
-      description: "जिल्हा, तालुका आणि गाव जोडा, संपादित करा, हटवा आणि पाहा",
+    {
+      title: "लॉग व्यवस्थापन",
+      description: "बुकिंग लॉग, सक्रिय लॉग आणि पूर्ण लॉग यांचे व्यवस्थापन",
       icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />,
-      path: "/Operator/booking",
+      path: "/Operator/logs", 
     },
     {
       title: "तक्रार व्यवस्थापन",
-      description: "वाहन प्रकार जोडा, वाहन जोडा, संपादित करा किंवा हटवा",
+      description: "तक्रारी पाहा आणि त्यांचे निराकरण करा",
       icon: <FaTractor size={30} color="#f39c12" aria-hidden="true" />,
       path: "/Operator/Dashboard/complaint",
     },

@@ -21,13 +21,13 @@ const GatAdhikariDashboard = () => {
       title: "बुकिंग यादी",
       description: "सर्व बुकिंग यादी पहा",
       icon: <FaMapMarkedAlt size={30} color="#2ecc71" aria-hidden="true" />,
-      path: "/gat_adhikari/Dashboard/bookinglist",
+      path: "/gat_adhikari/Dashboard/Bookings",
     },
     {
       title: "सभासद यादी",
       description: "सर्व सभासद यादी पहा ",
       icon: <FaTractor size={30} color="#f39c12" aria-hidden="true" />,
-      path: "/gat_adhikari/Dashboard/members",
+      path: "/gat_adhikari/Dashboard/Members",
     },
   ];
 

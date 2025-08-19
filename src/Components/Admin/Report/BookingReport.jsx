@@ -29,7 +29,7 @@ const navigate = useNavigate();
         <button className="location_back_button" onClick={() => navigate(-1)}>
           ⬅ Back
         </button>
-      <h2>Booking List</h2>
+      {/* <h2>Booking List</h2> */}
     </div>
      <div className="aduserlist_controls">
         <select

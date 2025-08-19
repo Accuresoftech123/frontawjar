@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   fetchVendorList,
   fetchMemberList,
@@ -15,6 +15,7 @@ import "../../../Styles/Admin/com-list.css"
 import { toast } from "react-toastify";
 
 const ComplaintList = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { role } = useParams();
   const userRole = role.toLowerCase();
@@ -117,9 +118,14 @@ const ComplaintList = () => {
 
   return (
    <div className="complaints-lists_container">
-  <h2 className="complaints-lists_title">
+    <div className="location_header_row">
+        <button className="location_back_button" onClick={() => navigate(-1)}>
+          ⬅ Back
+        </button>
+  {/* <h2 className="complaints-lists_title">
     {role} Complaints
-  </h2>
+  </h2> */}
+  </div>
   <table className="complaints-lists_table">
     <thead>
       <tr>

@@ -1,0 +1,85 @@
+/* Container */
+.loghistory_container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: 20px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.loghistory_container h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Table */
+.loghistory_table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* Table Header */
+.loghistory_table th {
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Table Body */
+.loghistory_table td {
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Zebra rows */
+.loghistory_table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover effect */
+.loghistory_table tbody tr:hover {
+  background-color: #d6eaf8;
+  transition: 0.2s;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+  .loghistory_table, .loghistory_table thead, .loghistory_table tbody, .loghistory_table th, .loghistory_table td, .loghistory_table tr {
+    display: block;
+  }
+
+  .loghistory_table thead tr {
+    display: none;
+  }
+
+  .loghistory_table tbody tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+  }
+
+  .loghistory_table td {
+    padding: 8px;
+    text-align: right;
+    position: relative;
+  }
+
+  .loghistory_table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: 600;
+    text-align: left;
+  }
+}

@@ -1,0 +1,80 @@
+.finishlogform_container {
+  width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fdfdfd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.finishlogform_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #444;
+}
+
+.finishlogform_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.finishlogform_group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.finishlogform_group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.finishlogform_group input,
+.finishlogform_group textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.finishlogform_group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.finishlogform_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.finishlogform_submit {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.finishlogform_cancel {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.finishlogform_submit:hover {
+  background: #218838;
+}
+
+.finishlogform_cancel:hover {
+  background: #c82333;
+}

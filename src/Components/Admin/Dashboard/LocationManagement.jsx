@@ -369,7 +369,7 @@ const LocationManagement = () => {
             <table className="location_table">
               <thead>
                 <tr>
-                  <th>अनु क्र </th>
+                  {/* <th>अनु क्र </th> */}
                   <th>जिल्ह्याचे नाव</th>
                   <th>Actions</th>
                 </tr>
@@ -377,7 +377,7 @@ const LocationManagement = () => {
               <tbody>
                 {districts.map((d, i) => (
                   <tr key={extractKey(d, i)}>
-                    <td>{i + 1}</td>
+                    {/* <td>{i + 1}</td> */}
                     <td>
                       {editingDistrictId === (d.id ?? d._id) ? (
                         <input
@@ -420,7 +420,7 @@ const LocationManagement = () => {
             <table className="location_table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>जिल्ह्याचे नाव</th>
                   <th>तालुक्याचे नाव</th>
                   <th>Actions</th>
@@ -429,7 +429,7 @@ const LocationManagement = () => {
               <tbody>
                 {talukas.map((t, i) => (
                   <tr key={extractKey(t, i)}>
-                    <td>{i + 1}</td>
+                    {/* <td>{i + 1}</td> */}
                     <td>
                       {editingTalukaId === (t.id ?? t._id) ? (
                         <select
@@ -489,7 +489,7 @@ const LocationManagement = () => {
             <table className="location_table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>जिल्ह्याचे नाव</th>
                   <th>तालुक्याचे नाव</th>
                   <th>गाव</th>
@@ -499,7 +499,7 @@ const LocationManagement = () => {
               <tbody>
                 {villages.map((v, i) => (
                   <tr key={extractKey(v, i)}>
-                    <td>{i + 1}</td>
+                    {/* <td>{i + 1}</td> */}
                     <td>
                       {editingVillageId === (v.id ?? v._id) ? (
                         <select

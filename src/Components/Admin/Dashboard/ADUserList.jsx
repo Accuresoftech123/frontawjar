@@ -80,9 +80,9 @@ const ADUserList = () => {
         <button className="location_back_button" onClick={() => navigate(-1)}>
           ⬅ Back
         </button>
-        <h2 className="aduserlist_title">
+        {/* <h2 className="aduserlist_title">
           {roleInMarathi[role] || role} यादी
-        </h2>
+        </h2> */}
       </div>
 
       <div className="aduserlist_controls">

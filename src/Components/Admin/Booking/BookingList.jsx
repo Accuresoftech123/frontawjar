@@ -25,7 +25,7 @@ const navigate = useNavigate();
         <button className="location_back_button" onClick={() => navigate(-1)}>
           ⬅ Back
         </button>
-      <h2>Booking List</h2>
+      <h2>बुकिंग यादी</h2>
     </div>
       {loading && <p>लोड करत आहे...</p>}
       {error && <p style={{ color: "red" }}>त्रुटी: {error}</p>}

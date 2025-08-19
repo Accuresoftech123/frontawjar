@@ -52,7 +52,7 @@ export const createDriverComplaint = (booking_id, complaintData) => async (dispa
 export const createDriverUsageLog = (logData) => async (dispatch) => {
   dispatch({ type: CREATE_DRIVER_USAGE_LOG_REQUEST });
   try {
-    const { data } = await API.post("/driver-usage-log/create/", logData);
+    const { data } = await API.post("driver/driver-usage-log/create/", logData);
     dispatch({ type: CREATE_DRIVER_USAGE_LOG_SUCCESS, payload: data });
     return { success: true, message: "Usage log created successfully" };
   } catch (error) {
@@ -67,9 +67,11 @@ export const createDriverUsageLog = (logData) => async (dispatch) => {
 export const listDriverUsageLogs = () => async (dispatch) => {
   dispatch({ type: LIST_DRIVER_USAGE_LOG_REQUEST });
   try {
-    const { data } = await API.get("/driver-usage-log/");
-    dispatch({ type: LIST_DRIVER_USAGE_LOG_SUCCESS, payload: data });
+    const response = await API.get("driver/driver-usage-log/");
+    dispatch({ type: LIST_DRIVER_USAGE_LOG_SUCCESS, payload: response.data });
+    console.log(response);
   } catch (error) {
+    console.log(error);
     const errorMsg = error.response?.data?.detail || error.message;
     dispatch({ type: LIST_DRIVER_USAGE_LOG_FAIL, payload: errorMsg });
   }

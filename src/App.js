@@ -55,6 +55,12 @@ import ComplaintList from "./Components/Admin/Complaint/ComplaintList";
 import UserReport from "./Components/Admin/Report/UserReport";
 import VehicleReport from "./Components/Admin/Report/VehicleReport";
 import BookingReport from "./Components/Admin/Report/BookingReport";
+import GMemberList from "./Components/GatAdhikari/GMemberList";
+import GBookingList from "./Components/GatAdhikari/GBookingList";
+import DriverLogManagement from "./Components/Driver/DriverLogManagement";
+import DBookingList from "./Components/Driver/DriverLog/DBookingList";
+import ActiveLog from "./Components/Driver/DriverLog/ActiveLog";
+import LogHistory from "./Components/Driver/DriverLog/LogHistory";
 function App() {
   return (
     <BrowserRouter>
@@ -173,7 +179,10 @@ function App() {
         >
           <Route path="Dashboard" element={<DriverDashboard />} />
           <Route path="Dashboard/complaint" element={<ComplaintForm />} />
-          <Route path="booking" element={<OperatorBookingManagement />} />
+          <Route path="logs" element={<DriverLogManagement />} />
+          <Route path="logs/booking-list" element={<DBookingList />} />
+          <Route path="logs/active-log" element={<ActiveLog />} />
+          <Route path="logs/history" element={<LogHistory />} />
         </Route>
 
         <Route
@@ -186,7 +195,8 @@ function App() {
           }
         >
           <Route path="Dashboard" element={<GatAdhikariDashboard />} />
-          <Route path="Dashboard/complaint" element={<ComplaintForm />} />
+          <Route path="Dashboard/Members" element={<GMemberList />} />
+          <Route path="Dashboard/Bookings" element={<GBookingList />} />
         </Route>
 
       </Routes>

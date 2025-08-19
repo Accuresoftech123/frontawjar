@@ -1,0 +1,60 @@
+.activeLog_container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.activeLog_title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #333;
+}
+
+.activeLog_card {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.activeLog_card p {
+  margin: 6px 0;
+  color: #444;
+}
+
+.activeLog_actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.activeLog_btn {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+
+.activeLog_btn.break {
+  background: #ffc107;
+  color: #000;
+}
+
+.activeLog_btn.break:hover {
+  background: #e0a800;
+}
+
+.activeLog_btn.finish {
+  background: #28a745;
+  color: #fff;
+}
+
+.activeLog_btn.finish:hover {
+  background: #218838;
+}
