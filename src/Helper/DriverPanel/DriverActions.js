@@ -52,11 +52,15 @@ export const createDriverComplaint = (booking_id, complaintData) => async (dispa
 export const createDriverUsageLog = (logData) => async (dispatch) => {
   dispatch({ type: CREATE_DRIVER_USAGE_LOG_REQUEST });
   try {
-    const { data } = await API.post("driver/driver-usage-log/create/", logData);
-    dispatch({ type: CREATE_DRIVER_USAGE_LOG_SUCCESS, payload: data });
+    const response = await API.post("driver/driver-usage-log/create/", logData);
+    console.log(response);
+    window.alert("Usage log created successfully");
+    dispatch({ type: CREATE_DRIVER_USAGE_LOG_SUCCESS, payload: response.data });
     return { success: true, message: "Usage log created successfully" };
   } catch (error) {
+    console.log(error);
     const errorMsg = error.response?.data?.detail || error.message;
+    window.alert(errorMsg);
     dispatch({ type: CREATE_DRIVER_USAGE_LOG_FAIL, payload: errorMsg });
     return { success: false, message: errorMsg };
   }
@@ -95,39 +99,45 @@ export const getDriverUsageLogDetail = (id) => async (dispatch) => {
 export const completeDriverUsageLog = (pk, completeData) => async (dispatch) => {
   dispatch({ type: COMPLETE_DRIVER_USAGE_LOG_REQUEST });
   try {
-    const { data } = await API.post(`/driver-usage-log/${pk}/complete/`, completeData);
-    dispatch({ type: COMPLETE_DRIVER_USAGE_LOG_SUCCESS, payload: data });
+    const response = await API.post(`driver/driver-usage-log/${pk}/complete/`, completeData);
+    console.log(response);
+    dispatch({ type: COMPLETE_DRIVER_USAGE_LOG_SUCCESS, payload: response.data });
+    window.alert("Usage log completed successfully");
     return { success: true, message: "Usage log completed successfully" };
   } catch (error) {
+    console.log(error);
     const errorMsg = error.response?.data?.detail || error.message;
     dispatch({ type: COMPLETE_DRIVER_USAGE_LOG_FAIL, payload: errorMsg });
+    window.alert(errorMsg);
     return { success: false, message: errorMsg };
   }
 };
 
 
-// List all bookings for driver
-export const listAllBookings = () => async (dispatch) => {
-  dispatch({ type: LIST_ALL_BOOKINGS_REQUEST });
-  try {
-    const { data } = await API.get("/bookings/all/");
-    dispatch({ type: LIST_ALL_BOOKINGS_SUCCESS, payload: data });
-  } catch (error) {
-    const errorMsg = error.response?.data?.detail || error.message;
-    dispatch({ type: LIST_ALL_BOOKINGS_FAIL, payload: errorMsg });
-  }
-};
+// // List all bookings for driver
+// export const listAllBookings = () => async (dispatch) => {
+//   dispatch({ type: LIST_ALL_BOOKINGS_REQUEST });
+//   try {
+//     const { data } = await API.get("/bookings/all/");
+//     dispatch({ type: LIST_ALL_BOOKINGS_SUCCESS, payload: data });
+//   } catch (error) {
+//     const errorMsg = error.response?.data?.detail || error.message;
+//     dispatch({ type: LIST_ALL_BOOKINGS_FAIL, payload: errorMsg });
+//   }
+// };
 
 
 // Start/end driver break
 export const toggleDriverBreak = (breakData) => async (dispatch) => {
   dispatch({ type: DRIVER_BREAK_REQUEST });
   try {
-    const { data } = await API.post("/driver/break/", breakData);
-    dispatch({ type: DRIVER_BREAK_SUCCESS, payload: data });
+    const response = await API.post("driver/driver-break/", breakData);
+    dispatch({ type: DRIVER_BREAK_SUCCESS, payload: response.data });
+    window.alert("Driver break updated successfully");
     return { success: true, message: "Driver break updated successfully" };
   } catch (error) {
     const errorMsg = error.response?.data?.detail || error.message;
+    window.alert(errorMsg);
     dispatch({ type: DRIVER_BREAK_FAIL, payload: errorMsg });
     return { success: false, message: errorMsg };
   }

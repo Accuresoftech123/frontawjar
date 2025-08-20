@@ -22,6 +22,7 @@ const DBookingList = () => {
 
   const handleStartWork = (booking) => {
     setSelectedBooking(booking);
+    console.log("dblist",booking);
     setShowLogForm(true);
   };
 
@@ -87,6 +88,8 @@ const DBookingList = () => {
         <div className="modal_overlay">
           <div className="modal_content">
             <StartLogForm
+            booking={selectedBooking}
+            onClose={handleCloseModal}
               onStart={(data) => {
                 console.log("Started Log for Booking:", selectedBooking.booking_id, data);
                 handleCloseModal();
